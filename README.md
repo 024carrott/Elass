@@ -56,3 +56,18 @@
 * Git 을 활용한 버전관리
 * 코드 리뷰를 통한 Bug-Catching 및 효율적인 코드 작성
 
+### Routing Table
+| 1DEPTH     	| 2DEPTH       	| PATH                    	|
+|------------	|--------------	|-------------------------	|
+| 메인       	|              	| /                       	|
+| 회원가입   	|              	| /signup                 	|
+| 로그인     	|              	| /signin                 	|
+| 리스트     	|              	| /list                   	|
+| 상세       	|              	| /detail                 	|
+| 마이페이지 	|              	| /mypage                 	|
+|            	| 회원정보수정 	| /mypage/modify          	|
+|            	| 수강리스트   	| /mypage/mylist          	|
+|            	| 찜리스트     	| /mypage/favoritelist    	|
+|            	| 튜터등록     	| /mypage/registertutor   	|
+|            	| 강의리스트   	| /mypage/registeredclass 	|
+|            	| 강의등록     	| /mypage/registerclass   	|
