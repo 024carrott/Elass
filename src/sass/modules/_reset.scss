@@ -1,0 +1,52 @@
+/*! viewport 회전 시 font-size가 재정의 되는것을 방지  */
+html {
+  line-height: 1.5; 
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+/*! IE10의 active link 배경제거, safari의 links underline gap 제거 */
+a {
+  background-color: transparent;
+  -webkit-text-decoration-skip: objects;
+}
+/*! safari6 의 border 중복적용 제거 후 기본값 복원 */
+b, strong { font-weight: inherit; }
+b, strong { font-weight: bolder; }
+/*! IE10하위의 img link border 제거 */
+img {  border-style: none; }
+/*! IE overflow hidden */
+svg:not(:root) { overflow: hidden; }
+/*! 여백 및 font 속성 초기화 */
+html, body, div, span, h1, h2, h3, h4, h5, h6, p, blockquote, q, a, abbr, address, cite, em, img, kbd, b, 
+dl, dt, dd, ol, ul, li, 
+fieldset, form, label, legend, 
+table, caption, tbody, thead, tr, th, td, 
+article, aside, 
+figure, figcaption, footer, header, hgroup, 
+nav,section, summary, time, input {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	// font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/*! HTML5를 지원하지 않는 브라우저를 위한 display 정의 */
+article, aside, figcaption, figure, footer, header, hgroup, nav, section { display: block; }
+/*! ul의 bullet기호 제거 */
+ul { list-style: none; }
+/*! 인용기호 제거 */
+blockquote, q { quotes: none; }
+blockquote:before, blockquote:after, q:before, q:after {
+	content: '';
+	content: none;
+}
+/*! 테이블 border 병합 */
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+// Button cursor
+button{
+	cursor: pointer;
+}
