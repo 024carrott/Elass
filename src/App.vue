@@ -190,13 +190,13 @@
                   span.a11y-hidden 회원 별점 5점 만점에 4점
                   span.star.star-4(aria-hidden="true") &#9733;&#9733;&#9733;&#9733;&#9734;
                 span.user-id @dfsd123
-
     footer
       .container.footer.mt-2
         .grid
-          .col.col-d-6.col-d-offset-3
+          .col
             p.footer1 회원이 되시면 더 많은 서비스를 이용하실 수 있습니다.
-          .col.col-d-4.col-d-offset-4
+        .grid
+          .col.col-d-4.col-d-offset-4.col-t-4.col-t-offset-2.col-m-4
             button.sign-up-button(type="button") 회원가입 하러 가기
       .container.copyright
         .grid
