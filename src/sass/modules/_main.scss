@@ -3,21 +3,33 @@
 .logo-image{
   height: 42px;
 }
-.search{
-  width: 80%;
-  border: 1px solid #999;
-  border-radius: 15px;
-  height: 42px;
+.search-wrap{
+  border-bottom: 1px solid #e5e5e5;
+  margin-bottom: 5px;
+  position: relative;
 }
-.search-button{
-  width: 42px;
+.search{
+  width: 90%;
   height: 42px;
-  border: 1px solid skyblue;
-  background-color: skyblue;
-  color: #fff;
+  padding-left: 10px;
+}
+.search-btn{
+  font-size: 3rem;
+  color: #bbc0d4;
+  position: absolute;
+  bottom: -5px;
+  right: 5px;
+}
+.site-menu{
+  &::after{
+    @extend %clearfix;
+  }
+  li {
+    display: inline-block;
+    text-indent: 10px;
+  }
 }
 .log-in, .sign-up{
-  display: inline-block;
   line-height: 42px;
   height: 42px;
   padding-right: 0;
