@@ -27,7 +27,7 @@
         .grid.favorite-lecture
           ul.favorite-lecture-items
             //- 첫번째 아이템
-            li.col.col-d-4.col-4
+            li.col.col-d-4.col-4.col-t-4.col-m-4
               .favorite-lecture-item.mt-1
                 span.favorite-lecture-tag 이색취미
                 .favorite-lecture-image
@@ -41,19 +41,15 @@
                   img(src="./assets/favorite-list/favorite-like-btn-off.png")
                   //- 좋아요 클릭 on
                   //- img(src="./assets/favorite-list/favorite-like-btn-on.png")
-                ul.favorite-star
-                  li
-                    i.ion-ios-star
-                  li
-                    i.ion-ios-star
-                  li
-                    i.ion-ios-star
-                  li
-                    i.ion-ios-star
-                  li
-                    i.ion-ios-star-outline
+                .favorite-star
+                  span.a11y-hidden 강의평가 5점 만점에 4점
+                  i.ion-ios-star
+                  i.ion-ios-star
+                  i.ion-ios-star
+                  i.ion-ios-star
+                  i.ion-ios-star-outline
             //- 두번째 아이템
-            li.col.col-d-4.col-4
+            li.col.col-d-4.col-4.col-t-4.col-m-4
               .favorite-lecture-item.mt-1
                 span.favorite-lecture-tag 헬스&amp;뷰티
                 .favorite-lecture-image
@@ -67,19 +63,15 @@
                   img(src="./assets/favorite-list/favorite-like-btn-off.png")
                   //- 좋아요 클릭 on
                   //- img(src="./assets/favorite-list/favorite-like-btn-on.png")
-                ul.favorite-star
-                  li
-                    i.ion-ios-star
-                  li
-                    i.ion-ios-star
-                  li
-                    i.ion-ios-star
-                  li
-                    i.ion-ios-star
-                  li
-                    i.ion-ios-star-outline
+                .favorite-star
+                  span.a11y-hidden 강의평가 5점 만점에 4점
+                  i.ion-ios-star
+                  i.ion-ios-star
+                  i.ion-ios-star
+                  i.ion-ios-star
+                  i.ion-ios-star-outline
             //- 세번째 아이템
-            li.col.col-d-4.col-4
+            li.col.col-d-4.col-4.col-t-4.col-m-4
               .favorite-lecture-item.mt-1
                 span.favorite-lecture-tag 컴퓨터
                 .favorite-lecture-image
@@ -93,24 +85,22 @@
                   //- img(src="./assets/favorite-list/favorite-like-btn-off.png")
                   //- 좋아요 클릭 on
                   img(src="./assets/favorite-list/favorite-like-btn-on.png")
-                ul.favorite-star
-                  li
-                    i.ion-ios-star
-                  li
-                    i.ion-ios-star
-                  li
-                    i.ion-ios-star
-                  li
-                    i.ion-ios-star
-                  li
-                    i.ion-ios-star-outline
+                .favorite-star
+                  span.a11y-hidden 강의평가 5점 만점에 4점
+                  i.ion-ios-star
+                  i.ion-ios-star
+                  i.ion-ios-star
+                  i.ion-ios-star
+                  i.ion-ios-star-outline
         .prev-next-btns
           a(href role="button" aria-label="이전 리스트 보기").prev-list-btn.ion-chevron-left
           a(href role="button" aria-label="다음 리스트 보기").next-list-btn.ion-chevron-right
-        a(href role="button" aria-label="인기 강의 리스트 페이지로 이동하기").favorite-list-more-btn 인기 강의 더 보기
+        .grid  
+          .col.col-d-2.col-d-offset-5.col-t-4.col-t-offset-2.col-m-4
+            a(href role="button" aria-label="인기 강의 리스트 페이지로 이동하기").favorite-list-more-btn 인기 강의 더 보기
       .container.category-container
         .grid
-          h2.col.col-d-4.col-d-push-4 강의 카테고리
+          h2.a11y-hidden 강의 카테고리
         .grid.category-btns
           a(href role="button" aria-label="전체 카테고리 보기").ion-android-done-all.category-btn-all
             br
@@ -154,8 +144,12 @@
               .main-review-member
                 img(src="./assets/main/user-profile.jpg" class="user-profile-img")
                 .star-rate
-                  span.a11y-hidden 회원 별점 5점 만점에 4점
-                  span.star.star-4(aria-hidden="true") &#9733;&#9733;&#9733;&#9733;&#9734;
+                  span.a11y-hidden 강의평가 5점 만점에 4점
+                  i.ion-ios-star
+                  i.ion-ios-star
+                  i.ion-ios-star
+                  i.ion-ios-star
+                  i.ion-ios-star-outline
                 span.user-id @dfsd123
 
           li.col.col-d-3.col-t-4.col-m-4.mt-1
@@ -165,8 +159,12 @@
               .main-review-member
                 img(src="./assets/main/user-profile.jpg" class="user-profile-img")
                 .star-rate
-                  span.a11y-hidden 회원 별점 5점 만점에 4점
-                  span.star.star-4(aria-hidden="true") &#9733;&#9733;&#9733;&#9733;&#9734;
+                  span.a11y-hidden 강의평가 5점 만점에 4점
+                  i.ion-ios-star
+                  i.ion-ios-star
+                  i.ion-ios-star
+                  i.ion-ios-star
+                  i.ion-ios-star-outline
                 span.user-id @dfsd123
 
           li.col.col-d-3.col-t-4.col-m-4.mt-1
@@ -176,8 +174,12 @@
               .main-review-member
                 img(src="./assets/main/user-profile.jpg" class="user-profile-img")
                 .star-rate
-                  span.a11y-hidden 회원 별점 5점 만점에 4점
-                  span.star.star-4(aria-hidden="true") &#9733;&#9733;&#9733;&#9733;&#9734;
+                  span.a11y-hidden 강의평가 5점 만점에 2점
+                  i.ion-ios-star
+                  i.ion-ios-star
+                  i.ion-ios-star-outline
+                  i.ion-ios-star-outline
+                  i.ion-ios-star-outline
                 span.user-id @dfsd123
 
           li.col.col-d-3.col-t-4.col-m-4.mt-1
@@ -187,8 +189,12 @@
               .main-review-member
                 img(src="./assets/main/user-profile.jpg" class="user-profile-img")
                 .star-rate
-                  span.a11y-hidden 회원 별점 5점 만점에 4점
-                  span.star.star-4(aria-hidden="true") &#9733;&#9733;&#9733;&#9733;&#9734;
+                    span.a11y-hidden 강의평가 5점 만점에 3점
+                    i.ion-ios-star
+                    i.ion-ios-star
+                    i.ion-ios-star
+                    i.ion-ios-star-outline
+                    i.ion-ios-star-outline
                 span.user-id @dfsd123
     footer
       .container.footer.mt-2
@@ -217,5 +223,10 @@ export default {
 <style lang="sass">
   @import "~default";
  
-    
+  .main-banner-bottom
+    position: relative
+    width: 100%
+    height: 231px
+    background: url('assets/main/banner.jpg') 0 0/cover
+
 </style>
