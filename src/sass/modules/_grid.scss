@@ -4,10 +4,11 @@ $grid-max-width: 1200px;
   width: $container-width;
 }
 .grid{
-
-  max-width: $grid-max-width;
-  margin: 0 auto;
-  @extend %clearfix;
+    max-width: $grid-max-width;
+    margin: 0 auto;
+}
+.grid::after{
+    @extend %clearfix;
 }
 .col {
   float: left;

@@ -1,7 +1,7 @@
 <template lang="pug">
   #app
     header
-      .container
+      .container.mt-1
         .grid
           .col.col-d-2
             a
@@ -21,23 +21,15 @@
         video.main-video(autoplay loop)
           source(src="./assets/main-video.webm" type="video/webm")
           source(src="./assets/main-video2.mp4" type="video/mp4")
-      
-
-
-      
-        
-
-
-
     main
       .container.favorite-lecture-container
         .grid
-          h2.col.col-d-4.col-d-push-4.favorite-lecture-header 오늘의 인기 강의
+          h2.col.col-d-4.col-d-push-4 오늘의 인기 강의
         .grid.favorite-lecture
           ul.favorite-lecture-items
             //- 첫번째 아이템
             li.col.col-d-4.col-4
-              .favorite-lecture-item
+              .favorite-lecture-item.mt-1
                 span.favorite-lecture-tag 이색취미
                 .favorite-lecture-image
                   a(href aria-label="나의 정원을 위한 가드닝 첫 걸음 상세 페이지로 가기")
@@ -63,7 +55,7 @@
                     i.ion-ios-star-outline
             //- 두번째 아이템
             li.col.col-d-4.col-4
-              .favorite-lecture-item
+              .favorite-lecture-item.mt-1
                 span.favorite-lecture-tag 헬스&amp;뷰티
                 .favorite-lecture-image
                   a(href aria-label="건강한 장수를 꿈꾸는 식단 상세 페이지로 가기")
@@ -89,7 +81,7 @@
                     i.ion-ios-star-outline
             //- 세번째 아이템
             li.col.col-d-4.col-4
-              .favorite-lecture-item
+              .favorite-lecture-item.mt-1
                 span.favorite-lecture-tag 컴퓨터
                 .favorite-lecture-image
                   a(href aria-label="산으로 가지 않는 Vue.js 상세 페이지로 가기")
@@ -118,7 +110,7 @@
         a(href role="button" aria-label="인기 강의 리스트 페이지로 이동하기").favorite-list-more-btn 인기 강의 더 보기
       .container.category-container
         .grid
-          h2.col.col-d-4.col-d-push-4.category-header 강의 카테고리
+          h2.col.col-d-4.col-d-push-4 강의 카테고리
         .grid.category-btns
           a(href role="button" aria-label="전체 카테고리 보기").ion-android-done-all.category-btn-all
             br
@@ -142,16 +134,70 @@
             br
             small 이색취미
 
-          
+      .container.main-banner-bottom.mt-2
+        .grid.main-banner-paragh
+              p
+                span 나에게 딱 맞는 강의를 찾아드립니다.
+                br
+                | 그 정도로 집에서 놀꺼면 뭐라도 배워라.
+                br
+                | 주변에 재능기부로 호구짓하지말고 뭐라도 가르쳐라.
+      .container
+        .grid
+          .col.mt-2
+            h2 회원님들의 생생한 후기
+        ul.grid.main-review-list
+          li.col.col-d-3.col-t-4.col-m-4.mt-1
+            article.main-review
+              h4 퍼스널 트레이닝 좋아요.
+              p 레슨 시작 전부터 박주형 강사님은 제가 궁금해 하는 사항에 대해 자세히 알려주셨어요. 운동하는 것 이외에 일상생활의식습관같은이외에 일상생활의식습관이외에 일상생활의식습관이외에 일상생활의식습관이외에 일상생활의식습관 사소한 부분까지 챙겨주셔서 정말 좋았습니다!
+              .main-review-member
+                img(src="./assets/main/user-profile.jpg" class="user-profile-img")
+                .star-rate
+                  span.a11y-hidden 회원 별점 5점 만점에 4점
+                  span.star.star-4(aria-hidden="true") &#9733;&#9733;&#9733;&#9733;&#9734;
+                span.user-id @dfsd123
+
+          li.col.col-d-3.col-t-4.col-m-4.mt-1
+            article.main-review
+              h4 퍼스널 트레이닝 좋아요.
+              p 레슨 시작 전부터 박주형 강사님은 제가 궁금해 
+              .main-review-member
+                img(src="./assets/main/user-profile.jpg" class="user-profile-img")
+                .star-rate
+                  span.a11y-hidden 회원 별점 5점 만점에 4점
+                  span.star.star-4(aria-hidden="true") &#9733;&#9733;&#9733;&#9733;&#9734;
+                span.user-id @dfsd123
+
+          li.col.col-d-3.col-t-4.col-m-4.mt-1
+            article.main-review
+              h4 퍼스널 트레이닝 좋아요.
+              p 레슨 시작 전부터 박주형 강사님은 제가 궁금해 하는 사항에 대해 자세히 알려주셨어요. 운동하는 것 이외에 일상생활의식습관같은 사소한 부분까지 챙겨주셔서 정말 좋았습니다!
+              .main-review-member
+                img(src="./assets/main/user-profile.jpg" class="user-profile-img")
+                .star-rate
+                  span.a11y-hidden 회원 별점 5점 만점에 4점
+                  span.star.star-4(aria-hidden="true") &#9733;&#9733;&#9733;&#9733;&#9734;
+                span.user-id @dfsd123
+
+          li.col.col-d-3.col-t-4.col-m-4.mt-1
+            article.main-review
+              h4 퍼스널 트레이닝 좋아요.
+              p 레슨 시작 전부터 박주형 강사님은 제가 궁금해 하는 사항에 대해 자세히 알려주셨어요. 운동하는 것 이외에 일상생활의식습관같은 사소한 부분까지 챙겨주셔서 정말 좋았습니다!
+              .main-review-member
+                img(src="./assets/main/user-profile.jpg" class="user-profile-img")
+                .star-rate
+                  span.a11y-hidden 회원 별점 5점 만점에 4점
+                  span.star.star-4(aria-hidden="true") &#9733;&#9733;&#9733;&#9733;&#9734;
+                span.user-id @dfsd123
+
     footer
-      .container.footer
+      .container.footer.mt-2
         .grid
           .col.col-d-6.col-d-offset-3
             p.footer1 회원이 되시면 더 많은 서비스를 이용하실 수 있습니다.
           .col.col-d-4.col-d-offset-4
             button.sign-up-button(type="button") 회원가입 하러 가기
-
-          
       .container.copyright
         .grid
           .col.col-d-6.col-d-offset-3
@@ -171,73 +217,5 @@ export default {
 <style lang="sass">
   @import "~default";
  
-  .container
-    margin-top: 21px
-
-  .logo-image
-    height: 42px
-
-  .search
-    width: 80%
-    border: 1px solid #999
-    border-radius: 15px
-    height: 42px
-
-  .search-button
-    width: 42px
-    height: 42px
-    border: 1px solid skyblue
-    border-radius: 15px
-    background-color: skyblue
-    color: #fff
-
-  .log-in, .sign-up
-    display: inline-block
-    line-height: 42px
-    height: 42px
-    padding-right: 0
-    color: #333
-  
-  .log-in
-    padding-left: 20px
-
-  .video
-    height: 609px
-    background-color: skyblue
-  
     
-
-  .main-video
-    height: 100%
-    width: 100%
-
-  .footer
-    height: 231px
-    background-color: #4facfe
-    font-size: 2.6rem
-
-  .footer1
-    margin-top: 63px
-
-  .sign-up-button
-    width: 90%
-    height: 63px
-    margin-top: 21px
-    background-color: #4facfe
-    border: 2px solid #fff
-    border-radius: 10px
-    color: #fff
-    font-size: 1.6rem
-    
-
-  .copyright
-    height: 231px
-    background-color: black
-    color: #fff
-    font-size: 1.5rem
-
-  .copyright1
-    backgroud-color: red
-    margin-top: 210px
-    margin-left: 20px
 </style>
