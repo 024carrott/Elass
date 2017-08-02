@@ -69,10 +69,10 @@ h2{
 // 인기 강의 컨테이너
 .favorite-lecture-container{
   margin-top: 40px;
+  position: relative;
 }
 // 인기 강의 아이템
 .favorite-lecture-items{
-  margin-top: 20px;
   @extend %clearfix;
   .favorite-lecture-item{
     overflow: hidden;
@@ -135,9 +135,10 @@ h2{
 .favorite-star{
   position: relative;
   display: flex;
-  width: 95px;
+  width: 70px;
   margin: 0 auto;
   justify-content: space-around;
+  font-size: 2.2rem;
   .ion-ios-star{
     color: #007aff;
   }
@@ -146,19 +147,19 @@ h2{
   }
 }
 // 인기 강의 이전, 다음 버튼
-.prev-list-btn, .next-list-btn{
-  font-size: 1.8rem;
-  color: #bbc0d4;
-}
-.prev-list-btn{
+.prev-next-btns{
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  width: 1230px;
   position: absolute;
-  top: 270px;
-  left: 330px;
-}
-.next-list-btn{
-  position: absolute;
-  top: 270px;
-  right: 330px;
+  transform: translateX(-50%);
+  margin-left: 50%;
+  top: 250px;
+  .prev-list-btn, .next-list-btn{
+    font-size: 1.8rem;
+    color: #bbc0d4;
+  }
 }
 // 인기 강의 더 보기 버튼
 .favorite-list-more-btn{
@@ -206,7 +207,7 @@ h2{
 
 // 카테고리
 .container.category-container{
-  margin-top: 70px;
+  margin-top: 40px;
 
   .category-btns{
     margin-top: 20px;

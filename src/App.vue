@@ -19,8 +19,8 @@
                 a.sign-up(href="#") 회원가입
       .container.video
         video.main-video(autoplay loop)
-          source(src="./assets/main-video.webm" type="video/webm")
-          source(src="./assets/main-video2.mp4" type="video/mp4")
+          //- source(src="./assets/main-video.webm" type="video/webm")
+          //- source(src="./assets/main-video2.mp4" type="video/mp4")
     main
       .container.favorite-lecture-container
         .grid
@@ -105,8 +105,9 @@
                     i.ion-ios-star
                   li
                     i.ion-ios-star-outline
-        a(href role="button" aria-label="이전 리스트 보기").prev-list-btn.ion-chevron-left
-        a(href role="button" aria-label="다음 리스트 보기").next-list-btn.ion-chevron-right
+        .prev-next-btns
+          a(href role="button" aria-label="이전 리스트 보기").prev-list-btn.ion-chevron-left
+          a(href role="button" aria-label="다음 리스트 보기").next-list-btn.ion-chevron-right
         a(href role="button" aria-label="인기 강의 리스트 페이지로 이동하기").favorite-list-more-btn 인기 강의 더 보기
       .container.category-container
         .grid
