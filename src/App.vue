@@ -3,21 +3,20 @@
     header
       .container.mt-1
         .grid
-          .col.col-d-2
+          .col.col-d-2.col-t-2.col-m-2
             a
               img.logo-image(src="./assets/elass_logo.jpg", alt="로고 이미지")
-          .col.col-d-5.col-d-offset-3
-            input.search(type="search" placeholder="  검색어를 입력하세요")
-            button.search-button(type="button") 검색
-          .col.col-d-1
-            ul
+          .col.col-d-2.col-t-2.col-m-1.col-d-push-8.col-t-push-4.col-m-push-1
+            ul.site-menu
               li.login
                 a.log-in(href="#") 로그인
-          .col.col-d-1
-            ul
               li
                 a.sign-up(href="#") 회원가입
-      .container.video
+          .col.col-d-5.col-d-offset-3.col-t-4.col-m-4.col-d-pull-2.col-t-pull-2
+            .search-wrap
+              input.search(type="search" placeholder="검색어를 입력하세요")
+              a.search-btn.ion-search(href="#" role="button" aria-label="검색") 
+      .container.video.mt-1
         video.main-video(autoplay loop)
           //- source(src="./assets/main-video.webm" type="video/webm")
           //- source(src="./assets/main-video2.mp4" type="video/mp4")
