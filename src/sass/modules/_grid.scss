@@ -50,3 +50,9 @@ $device: (mobile,4,10), (tablet,8,10), (desktop,12,10); // 디바이스 종류 :
   padding-right: 0;
 }
 
+.mt-1{
+  margin-top: $leading;
+}
+.mt-2{
+  margin-top : $leading * 2;
+}
