@@ -2,7 +2,7 @@
 // 설계
 // --------------------------------------------
 // 기본 글꼴 설정
-$base-font-size: 14px !default;
+$base-font-size: 10px !default;
 $leading-scale: 1.5;
 $leading: $base-font-size * $leading-scale;
 
@@ -20,6 +20,8 @@ html{
 }
 body{
     line-height: $leading-scale;
+    margin: 0;
+    font-size: 1.4rem;
 }
 a {
     text-decoration: none;
