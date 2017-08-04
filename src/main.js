@@ -6,5 +6,5 @@ import Mypage from './html/mypage';
 
 new Vue({
   el: '#app',
-  render: h => h(Mypage)
+  render: h => h(View)
 });
