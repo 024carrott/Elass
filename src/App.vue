@@ -6,7 +6,7 @@
           .col.col-d-2.col-t-2.col-m-2
             a
               img.logo-image(src="./assets/elass_logo.jpg", alt="로고 이미지")
-          .col.col-d-2.col-t-2.col-m-1.col-d-push-8.col-t-push-4.col-m-push-1
+          .col.col-d-2.col-t-2.col-m-2.col-d-push-8.col-t-push-4
             ul.site-menu
               li.login
                 a.log-in(href="#") 로그인
