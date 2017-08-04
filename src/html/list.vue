@@ -19,7 +19,7 @@
             .container.health-image.mt-1
 
         main
-            .container.category-container
+            .container.category-container.mt-2
                 .grid
                     h2.a11y-hidden 강의 카테고리
                 .grid.category-btns
