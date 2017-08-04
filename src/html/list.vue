@@ -22,26 +22,26 @@
             .container.category-container.mt-2
                 .grid
                     h2.a11y-hidden 강의 카테고리
-                .grid.category-btns
-                    a(href role="button" aria-label="전체 카테고리 보기").ion-android-done-all.category-list-btn-all
+                .grid.category-btns.is-small
+                    a(href role="button" aria-label="전체 카테고리 보기").ion-android-done-all
                         br
                         small 전체 보기
-                    a(href role="button" aria-label="헬스 뷰티 카테고리 보기").ion-ios-pulse-strong.category-list-btn-all
+                    a(href role="button" aria-label="헬스 뷰티 카테고리 보기").ion-ios-pulse-strong
                         br
                         small 헬스&amp;뷰티
-                    a(href role="button" aria-label="컴퓨터 카테고리 보기").ion-mouse.category-list-btn-all
+                    a(href role="button" aria-label="컴퓨터 카테고리 보기").ion-mouse
                         br
                         small 컴퓨터
-                    a(href role="button" aria-label="외국어 카테고리 보기").ion-earth.category-list-btn-all
+                    a(href role="button" aria-label="외국어 카테고리 보기").ion-earth
                         br
                         small 외국어
-                    a(href role="button" aria-label="음악 미술 카테고리 보기").ion-ios-musical-notes.category-list-btn-all
+                    a(href role="button" aria-label="음악 미술 카테고리 보기").ion-ios-musical-notes
                         br
                         small 음악&sol;미술
-                    a(href role="button" aria-label="스포츠 카테고리 보기").ion-ios-football.category-list-btn-all
+                    a(href role="button" aria-label="스포츠 카테고리 보기").ion-ios-football
                         br
                         small 스포츠
-                    a(href role="button" aria-label="이색취미 카테고리 보기").ion-planet.category-list-btn-all
+                    a(href role="button" aria-label="이색취미 카테고리 보기").ion-planet
                         br
                         small 이색취미
 
@@ -88,11 +88,12 @@
                                 dl.favorite-lecture-content
                                     dt.favorite-lecture-title 나의 정원을 위한 가드닝 첫 걸음 나의 정원을 위한 가드닝 첫 걸음
                                     dd.favorite-lecture-user @김꽃잎
-                                a(href role="button" aria-label="나의 정원을 위한 가드닝 첫 걸음 강의 찜하기").favorite-like
-                                //- 좋아요 클릭 off
-                                    img(src="../assets/favorite-list/favorite-like-btn-off.png")
-                                //- 좋아요 클릭 on
-                                //- img(src="../assets/favorite-list/favorite-like-btn-on.png")
+                                a(href role="button" aria-label="나의 정원을 위한 가드닝 첫 걸음 강의 찜하기")
+                                .favorite-like
+                                    //- 좋아요 클릭 off
+                                        img(src="../assets/favorite-list/favorite-like-btn-off.png")
+                                    //- 좋아요 클릭 on
+                                    img(src="../assets/favorite-list/favorite-like-btn-on.png")
                                 .favorite-star
                                     span.a11y-hidden 강의평가 5점 만점에 4점
                                     i.ion-ios-star
@@ -109,11 +110,12 @@
                                 dl.favorite-lecture-content
                                     dt.favorite-lecture-title 건강한 장수를 꿈꾸는 식단 건강한 장수를 꿈꾸는 식단
                                     dd.favorite-lecture-user @나오래
-                                a(href role="button" aria-label="건강한 장수를 꿈꾸는 식단 강의 찜하기").favorite-like
-                            //- 좋아요 클릭 off
-                                    img(src="../assets/favorite-list/favorite-like-btn-off.png")
-                            //- 좋아요 클릭 on
-                            //-     img(src="../assets/favorite-list/favorite-like-btn-on.png")
+                                a(href role="button" aria-label="건강한 장수를 꿈꾸는 식단 강의 찜하기")
+                                .favorite-like
+                                    //- 좋아요 클릭 off
+                                            img(src="../assets/favorite-list/favorite-like-btn-off.png")
+                                    //- 좋아요 클릭 on
+                                    img(src="../assets/favorite-list/favorite-like-btn-on.png")
                                 .favorite-star
                                     span.a11y-hidden 강의평가 5점 만점에 4점
                                     i.ion-ios-star
@@ -130,11 +132,12 @@
                                 dl.favorite-lecture-content
                                     dt.favorite-lecture-title 산으로 가지 않는 Vue.js
                                     dd.favorite-lecture-user @yamoo9
-                                a(href role="button" aria-label="산으로 가지 않는 Vue.js 강의 찜하기").favorite-like
-                                //- 좋아요 클릭 off
-                                //- img(src="../assets/favorite-list/favorite-like-btn-off.png")
-                                //- 좋아요 클릭 on
-                                    img(src="../assets/favorite-list/favorite-like-btn-on.png")
+                                a(href role="button" aria-label="산으로 가지 않는 Vue.js 강의 찜하기")
+                                .favorite-like
+                                    //- 좋아요 클릭 off
+                                    img(src="../assets/favorite-list/favorite-like-btn-off.png")
+                                    //- 좋아요 클릭 on
+                                    //- img(src="../assets/favorite-list/favorite-like-btn-on.png")
                                 .favorite-star
                                     span.a11y-hidden 강의평가 5점 만점에 4점
                                     i.ion-ios-star
@@ -151,11 +154,12 @@
                                 dl.favorite-lecture-content
                                     dt.favorite-lecture-title 나의 정원을 위한 가드닝 첫 걸음 나의 정원을 위한 가드닝 첫 걸음
                                     dd.favorite-lecture-user @김꽃잎
-                                a(href role="button" aria-label="나의 정원을 위한 가드닝 첫 걸음 강의 찜하기").favorite-like
-                                //- 좋아요 클릭 off
-                                    img(src="../assets/favorite-list/favorite-like-btn-off.png")
-                                //- 좋아요 클릭 on
-                                //- img(src="../assets/favorite-list/favorite-like-btn-on.png")
+                                a(href role="button" aria-label="나의 정원을 위한 가드닝 첫 걸음 강의 찜하기")
+                                .favorite-like
+                                    //- 좋아요 클릭 off
+                                        img(src="../assets/favorite-list/favorite-like-btn-off.png")
+                                    //- 좋아요 클릭 on
+                                    img(src="../assets/favorite-list/favorite-like-btn-on.png")
                                 .favorite-star
                                     span.a11y-hidden 강의평가 5점 만점에 4점
                                     i.ion-ios-star
@@ -172,11 +176,12 @@
                                 dl.favorite-lecture-content
                                     dt.favorite-lecture-title 건강한 장수를 꿈꾸는 식단 건강한 장수를 꿈꾸는 식단
                                     dd.favorite-lecture-user @나오래
-                                a(href role="button" aria-label="건강한 장수를 꿈꾸는 식단 강의 찜하기").favorite-like
-                            //- 좋아요 클릭 off
-                                    img(src="../assets/favorite-list/favorite-like-btn-off.png")
-                            //- 좋아요 클릭 on
-                            //-     img(src="../assets/favorite-list/favorite-like-btn-on.png")
+                                a(href role="button" aria-label="건강한 장수를 꿈꾸는 식단 강의 찜하기")
+                                .favorite-like
+                                    //- 좋아요 클릭 off
+                                            img(src="../assets/favorite-list/favorite-like-btn-off.png")
+                                    //- 좋아요 클릭 on
+                                    img(src="../assets/favorite-list/favorite-like-btn-on.png")
                                 .favorite-star
                                     span.a11y-hidden 강의평가 5점 만점에 4점
                                     i.ion-ios-star
@@ -193,11 +198,12 @@
                                 dl.favorite-lecture-content
                                     dt.favorite-lecture-title 산으로 가지 않는 Vue.js
                                     dd.favorite-lecture-user @yamoo9
-                                a(href role="button" aria-label="산으로 가지 않는 Vue.js 강의 찜하기").favorite-like
-                                //- 좋아요 클릭 off
-                                //- img(src="../assets/favorite-list/favorite-like-btn-off.png")
-                                //- 좋아요 클릭 on
-                                    img(src="../assets/favorite-list/favorite-like-btn-on.png")
+                                a(href role="button" aria-label="산으로 가지 않는 Vue.js 강의 찜하기")
+                                .favorite-like
+                                    //- 좋아요 클릭 off
+                                    img(src="../assets/favorite-list/favorite-like-btn-off.png")
+                                    //- 좋아요 클릭 on
+                                    //- img(src="../assets/favorite-list/favorite-like-btn-on.png")
                                 .favorite-star
                                     span.a11y-hidden 강의평가 5점 만점에 4점
                                     i.ion-ios-star

@@ -284,13 +284,15 @@ h4{
 
 .container.category-container{
   .category-btns{
-    .category-list-btn-all{
+    display: flex;
+    justify-content: space-between;
+    & > a {
       border: 1px solid #bbc0d4;
       display: inline-block;
       text-align: center;
     }
     @include breakpoint(desktop){ 
-      .category-list-btn-all{
+      & > a {
         width: 160px;
         font-size: 3rem;
         padding: 10px 0;
@@ -298,35 +300,40 @@ h4{
       }
     }
     @include breakpoint(tablet){ 
-      .category-list-btn-all{
+      & > a {
         width: 33.33%;
         font-size: 3rem;
         padding: 50px 0;
         line-height: 35px;
       }
-      .category-list-btn-all:first-child{
+      &.is-small > a {
+        padding: 25px 0;
+      }
+      & > a:first-child{
         width: 100%;
       }
       flex-wrap: wrap;
     }
     @include breakpoint(mobile){ 
-      .category-list-btn-all{
+      & > a {
         width: 50%;
         font-size: 3rem;
         padding: 20px 0;
         line-height: 50px;
       }
-      .category-list-btn-all:first-child{
+      &.is-small > a {
+        padding: 10px 0;
+      }
+      & > a:first-child{
         width: 100%;
       }
       flex-wrap: wrap;
     }
-    .category-list-btn-all:hover, .category-list-btn-all:focus{
-      // background-color: #007aff;
+    & > a:hover, & > a:focus {
       background-color: #007aff;
       color: #fff;
     }
-    .category-list-btn-all > small {
+    & > a > small {
       font-size: 1.8rem;
     }
   }

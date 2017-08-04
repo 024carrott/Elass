@@ -98,29 +98,29 @@
         .grid  
           .col.col-d-2.col-d-offset-5.col-t-4.col-t-offset-2.col-m-4
             a(href role="button" aria-label="인기 강의 리스트 페이지로 이동하기").favorite-list-more-btn 인기 강의 더 보기
-      .container.category-container
+      .container.category-container.mt-2
         .grid
           h2.a11y-hidden 강의 카테고리
         .grid.category-btns
-          a(href role="button" aria-label="전체 카테고리 보기").ion-android-done-all.category-btn-all
+          a(href role="button" aria-label="전체 카테고리 보기").ion-android-done-all
             br
             small 전체 보기
-          a(href role="button" aria-label="헬스 뷰티 카테고리 보기").ion-ios-pulse-strong.category-btn-all
+          a(href role="button" aria-label="헬스 뷰티 카테고리 보기").ion-ios-pulse-strong
             br
             small 헬스&amp;뷰티
-          a(href role="button" aria-label="컴퓨터 카테고리 보기").ion-mouse.category-btn-all
+          a(href role="button" aria-label="컴퓨터 카테고리 보기").ion-mouse
             br
             small 컴퓨터
-          a(href role="button" aria-label="외국어 카테고리 보기").ion-earth.category-btn-all
+          a(href role="button" aria-label="외국어 카테고리 보기").ion-earth
             br
             small 외국어
-          a(href role="button" aria-label="음악 미술 카테고리 보기").ion-ios-musical-notes.category-btn-all
+          a(href role="button" aria-label="음악 미술 카테고리 보기").ion-ios-musical-notes
             br
             small 음악&sol;미술
-          a(href role="button" aria-label="스포츠 카테고리 보기").ion-ios-football.category-btn-all
+          a(href role="button" aria-label="스포츠 카테고리 보기").ion-ios-football
             br
             small 스포츠
-          a(href role="button" aria-label="이색취미 카테고리 보기").ion-planet.category-btn-all
+          a(href role="button" aria-label="이색취미 카테고리 보기").ion-planet
             br
             small 이색취미
 
