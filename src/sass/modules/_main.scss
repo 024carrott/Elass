@@ -1,5 +1,17 @@
 // elass main
-
+h2{
+  text-align: center;
+  font-size: $subtitle-font-size;
+}
+h3{
+  font-size: 2.0rem;
+  span {
+    font-size: 1.6rem;
+  }
+}
+h4{
+  font-size: 1.8rem;
+}
 .logo-image{
   height: 42px;
 }
@@ -21,6 +33,7 @@
   right: 5px;
 }
 .site-menu{
+  float: right;
   &::after{
     @extend %clearfix;
   }
@@ -74,10 +87,7 @@
   margin-top: 210px;
   margin-left: 20px;
 }
-h2{
-  text-align: center;
-  font-size: $subtitle-font-size;
-}
+
 // 인기 강의 컨테이너
 .favorite-lecture-container{
   margin-top: 40px;
@@ -146,7 +156,8 @@ h2{
 .star-rate{
   font-size: 2.2rem;
   .ion-ios-star{
-    color: #cece09;
+    color: #f8d64e;
+
   }
   .ion-ios-star-outline{
     color: #bbc0d4;
@@ -299,10 +310,6 @@ h2{
   padding: $leading;
   padding-bottom: $leading * 6;
 
-  h4{
-    color: #181818;
-    font-size: 1.8rem;
-  }
   p{
     color: #363636;
     margin-top: $leading;
@@ -327,4 +334,77 @@ h2{
     border-radius: 40px;
     border: 2px solid #dcdcdc;
   }
+}
+
+
+//  버튼 스타일
+.btn-group{
+  text-align: center;
+
+  & > a{
+    margin-left: 5px;
+  }
+}
+.btn-submit{
+  display: inline-block;
+  padding: $leading;
+  background: #007aff;
+  border: 1px solid #007aff;
+  color: #fff;
+  font-size: 1.8rem;
+}
+.btn-white{
+  display: inline-block;
+  padding: $leading;
+  border: 1px solid #dcdcdc;
+  font-size: 1.8rem;
+}
+.is-small{
+  padding: $leading / 2;
+  font-size: 1.4rem;
+}
+.is-full{
+  width: 100%;
+  text-align: center;
+}
+
+// border bottom
+.bb{
+  border-bottom: 1px solid #e6e6e6;
+}
+
+
+.modal{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.modal.is-active{
+  display: flex;
+}
+.modal-background{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(10, 10, 10, 0.86);
+}
+
+.modal-content{
+    position: relative;
+    overflow: auto;
+}
+
+.modal-close{
+  position: absolute;
+  right: 10px;
+  top: 10px;
 }
