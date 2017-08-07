@@ -86,17 +86,20 @@
                 h2 튜터 소개
                 label(for="career").col.alpha 경력 사항
                 input(id="career" class="career" name="career" type="text" placeholder="경력 사항을 입력 해 주세요.").col.col-d-10.col-t-7.col-m-3
-                button(class="add-career-btn" aria-label="경력 사항 입력 칸 추가하기").col.col-d-2.col-t-1.col-m-1 추가
+                .col.col-d-2.col-t-1.col-m-1.omega
+                  button(class="add-career-btn" aria-label="경력 사항 입력 칸 추가하기") 추가
                 input(id="career" class="career" name="career" type="text" placeholder="경력 사항을 입력 해 주세요.").col.col-d-10.col-t-7.col-m-3
-                button(class="delete-career-btn" aria-label="경력 사항 입력 칸 삭제하기").col.col-d-2.col-t-1.col-m-1 삭제
+                .col.col-d-2.col-t-1.col-m-1.omega
+                  button(class="delete-career-btn" aria-label="경력 사항 입력 칸 삭제하기").col.col-d-2.col-t-1.col-m-1 삭제
                 input(id="career" class="career" name="career" type="text" placeholder="경력 사항을 입력 해 주세요.").col.col-d-10.col-t-7.col-m-3
-                button(class="delete-career-btn" aria-label="경력 사항 입력 칸 삭제하기").col.col-d-2.col-t-1.col-m-1 삭제
+                .col.col-d-2.col-t-1.col-m-1.omega
+                  button(class="delete-career-btn" aria-label="경력 사항 입력 칸 삭제하기").col.col-d-2.col-t-1.col-m-1 삭제
                 label(for="introduce").col.alpha 자기 소개
                 input(id="introduce" class="introduce" name="introduce" type="textarea" placeholder="자기 소개를 입력 해 주세요.").col.col-d-12
 
             input(type="submit" value="강의 등록").col.col-d-2.col-d-offset-5
             button(type="button").col.col-d-1.col-d-push-4 취소
-          //- form.register-lecture-form.col.col-d-8.col-d-push-2 
+          
 </template>
 
 
@@ -201,6 +204,7 @@
     background: #fff;
     padding: 0;
     font-size: 1.4rem;
+    width: 100%;
   }
   .add-career-btn{
     border: 1px solid #007aff;
