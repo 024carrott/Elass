@@ -1,23 +1,4 @@
 <template lang="pug">
-  #app
-    //- 헤더영역
-    header
-      .container.mt-1
-        .grid
-          .col.col-d-2.col-t-2.col-m-2
-            a(href role="button" aria-label="엘라스 메인페이지로 이동하기 버튼")
-              img.logo-image(src="../assets/elass_logo.jpg", alt="로고 이미지")
-          .col.col-d-2.col-t-2.col-m-1.col-d-push-8.col-t-push-4.col-m-push-1
-            ul.site-menu
-              li.login
-                a.log-in(href="#") 로그인
-              li
-                a.sign-up(href="#") 회원가입
-          .col.col-d-5.col-d-offset-3.col-t-4.col-m-4.col-d-pull-2.col-t-pull-2
-            .search-wrap
-              input.search(type="search" placeholder="검색어를 입력하세요")
-              a.search-btn.ion-search(href="#" role="button" aria-label="검색") 
-
     main
       .container.sign-up-container.mt-1
         .grid.mt-3
@@ -45,13 +26,6 @@
           p 안심하세요!
             br
             | 유저의 허락 없이 게시물을 올리지 않습니다.    
-            
-    //- 푸터영역
-    footer
-      .container.copyright
-        .grid
-          .col.col-d-6.col-d-offset-3
-            p.copyright1 Copyright since &copy; 2017 All rights reserved by Jisu Kim , Hyejin.Cha , Jina Lee
 </template>
 
 <style lang="scss">  

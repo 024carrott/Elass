@@ -1,55 +1,111 @@
 <template lang="pug">
-  #app
-    header
-      .container.mt-1
-        .grid
-          .col.col-d-2.col-t-2.col-m-2
-            h1
-              a
-                img.logo-image(src="../assets/elass_logo.jpg", alt="로고 이미지")
-          .col.col-d-2.col-t-2.col-m-2.col-d-push-8.col-t-push-4
-            ul.site-menu
-              li.login
-                a.log-in(href="#") 로그인
-              li
-                a.sign-up(href="#") 회원가입
-          .col.col-d-5.col-d-offset-3.col-t-4.col-m-4.col-d-pull-2.col-t-pull-2
-            .search-wrap
-              input.search(type="search" placeholder="검색어를 입력하세요")
-              a.search-btn.ion-search(href="#" role="button" aria-label="검색") 
     main
+      .container.health-image.mt-1
       .container.mt-2
         .grid
           .col
             h2 마이페이지
-        .grid
+        .grid.mt-2
           .col.col-d-4.col-t-3.col-m-4
-            .user-info
-              img(src="../assets/main/user-profile.jpg")
+            .my-info
+              img(src="../assets/mypage/user-profile.jpg")
+              br
               span dfasdf1234
+              br
               a.btn-white.is-small(role="button" href) 내 정보 수정하기
           .col.col-d-8.col-t-5.col-m-4
             .mypage-menu-group
               .mypage-menu-listener
                 h3.a11y-hidden 리스너 메뉴
-                .btn-group
+                .btn-group.left
                   a.btn-white(role="button" href) 수강신청 강의 보기
                   a.btn-white(role="button" href) 찜한 강의 보기
-                  a.btn-white(role="button" href) 튜터 등록하기
               .mypage-menu-tutor
                 h3.a11y-hidden 튜터 메뉴
-                .btn-group
+                .btn-group.left
+                  a.btn-gray(role="button" href) 튜터 등록하기
                   a.btn-white(role="button" href) 등록한 강의 보기
                   a.btn-white(role="button" href) 강의 등록하기
-    footer.mt-1
-      .container.copyright
-        .grid
-          .col.col-d-6.col-d-offset-3
-            p.copyright1 Copyright since &copy; 2017 All rights reserved by Jisu Kim , Hyejin.Cha , Jina Lee              
+      .modal(role="dialog")
+          .modal-background
+          .modal-content
+              a.modal-close.ion-close(role="button" href aria-label="창 닫기")
+              h4 내 정보 수정하기
+              form.my-info-edit
+                img.my-photo(src="../assets/mypage/user-profile.jpg")
+                br
+                label.a11y-hidden(for="user-profile") 사진 등록/수정하기
+                input.input-file(type="file" name="user-profile" id="user-profile")
+                .input-fileds.mt-1
+                  label(for="user-name") 닉네임
+                  input(type="text" name="user-name" id="user-name")
+                  br
+                  label(for="user-email") 이메일
+                  input(type="text" name="user-email" id="user-email")
+                  br
+                  label(for="user-password") 비밀번호
+                  input(type="text" name="user-password" id="user-password")
+                  //- label(for="user-re-password") 비밀번호 재입력
+                  //- input(type="text" name="user-re-password" id="user-re-password")
+                .btn-group.mt-1
+                  a.btn-submit(role="button" href) 저장하기
+                  a.btn-white(role="button" href) 취소
+      .modal(role="dialog")
+          .modal-background
+          .modal-content
+              a.modal-close.ion-close(role="button" href aria-label="창 닫기")
+              h4 튜터 등록하기
+              form.tutor-info-edit
+                label(for="user-name") 경력사항
+                textarea(placeholder="경력사항을 입력하세요." aria-label="튜터 경력사항")
+                br
+                label(for="user-email") 자기소개
+                textarea(placeholder="자기소개를 입력하세요" aria-label="튜터 자기소개")
+              .btn-group.mt-1
+                a.btn-submit.is-small(role="button" href) 저장하기
+                a.btn-white.is-small(role="button" href) 취소        
 </template>
 
 
 <style lang="sass">
   @import "~default";
-
+  .my-info
+    text-align: center
+    img
+      width: 60%
+      border-radius: 50%
+      margin-bottom: 5px
+  .mypage-menu-group
+    & > div
+      margin: 30px 0
+  .my-info-edit
+    text-align: center
+  .my-photo
+    width: 250px
+    border-radius: 50%
+  .input-file
+    width: 200px
+  .input-fileds
+    min-width: 500px
+    max-width: 600px
+    margin: $leading auto
+    label
+      display: inline-block
+      width: 30%
+      font-size: 1.8rem
+      line-height: 2
+      margin-bottom: $leading / 2
+    input
+      height: $leading * 2
+      width: 66%
+      border: 1px solid #dcdcdc
+      margin-bottom: $leading / 2
+  .tutor-info-edit
+    label
+      display: inline-block
+      font-size: 1.6rem
+      margin-top: $leading
+    textarea
+      width: 100%
+      height: $leading * 8
 </style>

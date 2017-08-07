@@ -1,23 +1,6 @@
 <template lang="pug">
-  #app
-    header
-      .container.mt-1
-        .grid
-          .col.col-d-2.col-t-2.col-m-2
-            h1
-              a
-                img.logo-image(src="../assets/elass_logo.jpg", alt="로고 이미지")
-          .col.col-d-2.col-t-2.col-m-2.col-d-push-8.col-t-push-4
-            ul.site-menu
-              li.login
-                a.log-in(href="#") 로그인
-              li
-                a.sign-up(href="#") 회원가입
-          .col.col-d-5.col-d-offset-3.col-t-4.col-m-4.col-d-pull-2.col-t-pull-2
-            .search-wrap
-              input.search(type="search" placeholder="검색어를 입력하세요")
-              a.search-btn.ion-search(href="#" role="button" aria-label="검색") 
     main
+      .container.health-image.mt-1
       .container.mt-2
         .grid
           .col.class-title
@@ -179,13 +162,7 @@
               textarea(placeholder="평가 내용을 입력하세요. (최대 300자)" aria-label="강의 평가 내용")
               .btn-group
                 a.btn-submit.is-small(role="button" href) 강의 평가 등록 하기
-                //- a.btn-white.is-small(role="button") 취소
-
-    footer.mt-1
-      .container.copyright
-        .grid
-          .col.col-d-6.col-d-offset-3
-            p.copyright1 Copyright since &copy; 2017 All rights reserved by Jisu Kim , Hyejin.Cha , Jina Lee              
+                //- a.btn-white.is-small(role="button") 취소        
 </template>
 
 <style lang="sass">
@@ -259,10 +236,6 @@
       time
         color: #696969
   .write-review
-    background: #fff
-    width: 80vw
-    border-radius: 5px
-    padding: $leading
     textarea
       width: 100%
       height: $leading * 5
