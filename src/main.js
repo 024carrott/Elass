@@ -6,8 +6,11 @@ import SignIn from './html/SignIn';
 import List from './html/list';
 import View from './html/view';
 import Mypage from './html/mypage';
+import Enrolled from './html/enrolled';
+import Liked from './html/liked';
+import History from './html/history';
 
 new Vue({
   el: '#app',
-  render: h => h(List)
+  render: h => h(Liked)
 });
