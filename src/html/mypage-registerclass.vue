@@ -1,23 +1,4 @@
 <template lang="pug">
-  #app
-    header
-      .container.mt-1
-        .grid
-          .col.col-d-2.col-t-2.col-m-2
-            h1
-              a
-                img.logo-image(src="../assets/elass_logo.jpg", alt="로고 이미지")
-          .col.col-d-2.col-t-2.col-m-2.col-d-push-8.col-t-push-4
-            ul.site-menu
-              li.login
-                a.log-in(href="#") 로그인
-              li
-                a.sign-up(href="#") 회원가입
-          .col.col-d-5.col-d-offset-3.col-t-4.col-m-4.col-d-pull-2.col-t-pull-2
-            .search-wrap
-              input.search(type="search" placeholder="검색어를 입력하세요")
-              a.search-btn.ion-search(href="#" role="button" aria-label="검색") 
-    //- 여기부터 메인
     main
       .container.register-class-container.mt-1
         .grid.mt-3
@@ -115,18 +96,7 @@
 
             input(type="submit" value="강의 등록").col.col-d-2.col-d-offset-5
             button(type="button").col.col-d-1.col-d-push-4 취소
-          //- form.register-lecture-form.col.col-d-8.col-d-push-2
-
-
-                  
-
-        
-    //- 여기부터 푸터
-    footer.mt-1
-      .container.copyright
-        .grid
-          .col.col-d-6.col-d-offset-3
-            p.copyright1 Copyright since &copy; 2017 All rights reserved by Jisu Kim , Hyejin.Cha , Jina Lee              
+          //- form.register-lecture-form.col.col-d-8.col-d-push-2 
 </template>
 
 
