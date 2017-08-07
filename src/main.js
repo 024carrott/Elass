@@ -1,13 +1,18 @@
 import Vue from 'vue';
+import VueRouter from 'vue-router';
+import routes from './routes';
 import App from './App';
-import SignUp from './html/SignUp';
-import SignUpComplete from './html/SignUpComplete';
-import SignIn from './html/SignIn';
-import List from './html/list';
-import View from './html/view';
-import Mypage from './html/mypage';
+ 
+Vue.use(VueRouter);
+
+const router = new VueRouter({
+  mode: 'history',
+  routes
+});
+
 
 new Vue({
   el: '#app',
-  render: h => h(List)
+  render: h => h(App),
+  router
 });

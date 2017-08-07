@@ -1,24 +1,6 @@
 <template lang="pug">
-    #list
-        header
-            .container.mt-1
-                .grid
-                    .col.col-d-2.col-t-2.col-m-2
-                        a
-                            img.logo-image(src="/src/assets/elass_logo.jpg" alt="로고 이미지")
-                    .col.col-d-2.col-t-2.col-m-1.col-d-push-8.col-t-push-4.col-m-push-1
-                        ul.site-menu
-                            li.login
-                                a.log-in(href="#") 로그인
-                            li
-                                a.sign-up(href="#") 회원가입
-                    .col.col-d-5.col-d-offset-3.col-t-4.col-m-4.col-d-pull-2.col-t-pull-2
-                        .search-wrap
-                            input.search(type="search" placeholder="검색어를 입력하세요")
-                            a.search-btn.ion-search(href="#" role="button" aria-label="검색")
-            .container.health-image.mt-1
-
         main
+            .container.health-image.mt-1
             .container.category-container.mt-2
                 .grid
                     h2.a11y-hidden 강의 카테고리
@@ -211,23 +193,13 @@
                                     i.ion-ios-star
                                     i.ion-ios-star
                                     i.ion-ios-star-outline
-
             .grid  
                 .col.col-d-2.col-d-offset-5.col-t-4.col-t-offset-2.col-m-4
-                    a(href role="button" aria-label="인기 강의 리스트 페이지로 이동하기").category-list-more-btn 강의 더 보기
-        footer
-            .container.copyright.category-copyright
-                .grid
-                    .col.col-d-6.col-d-offset-3
-                        p.copyright1 Copyright since &copy; 2017 All rights reserved by Jisu Kim , Hyejin.Cha , Jina Lee        
+                    a(href role="button" aria-label="인기 강의 리스트 페이지로 이동하기").category-list-more-btn 강의 더 보기 
 </template>
 
 <style lang="sass">
 @import '~default';
-
-.health-image
-    height: 200px
-    background-color: skyblue
 
 .search-box
     width: 100px
