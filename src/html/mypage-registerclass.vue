@@ -100,7 +100,7 @@
 </template>
 
 
-<style lang="scss">
+<style lang="scss" scoped>
   @import "~default";
   %border-top{
     border-top: 1px solid #bbc0d4;
