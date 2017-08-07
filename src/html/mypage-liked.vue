@@ -16,8 +16,7 @@
                     dl.favorite-lecture-content
                         dt.favorite-lecture-title 나의 정원을 위한 가드닝 첫 걸음 나의 정원을 위한 가드닝 첫 걸음
                         dd.favorite-lecture-user @김꽃잎
-                    a(href role="button" aria-label="나의 정원을 위한 가드닝 첫 걸음 강의 찜하기")
-                    .favorite-like
+                    a(href role="button" aria-label="나의 정원을 위한 가드닝 첫 걸음 강의 찜하기").favorite-like
                         //- 좋아요 클릭 off
                             img(src="../assets/favorite-list/favorite-like-btn-off.png")
                         //- 좋아요 클릭 on
@@ -38,8 +37,7 @@
                     dl.favorite-lecture-content
                         dt.favorite-lecture-title 건강한 장수를 꿈꾸는 식단 건강한 장수를 꿈꾸는 식단
                         dd.favorite-lecture-user @나오래
-                    a(href role="button" aria-label="건강한 장수를 꿈꾸는 식단 강의 찜하기")
-                    .favorite-like
+                    a(href role="button" aria-label="건강한 장수를 꿈꾸는 식단 강의 찜하기").favorite-like
                         //- 좋아요 클릭 off
                                 img(src="../assets/favorite-list/favorite-like-btn-off.png")
                         //- 좋아요 클릭 on
@@ -60,8 +58,7 @@
                     dl.favorite-lecture-content
                         dt.favorite-lecture-title 산으로 가지 않는 Vue.js
                         dd.favorite-lecture-user @yamoo9
-                    a(href role="button" aria-label="산으로 가지 않는 Vue.js 강의 찜하기")
-                    .favorite-like
+                    a(href role="button" aria-label="산으로 가지 않는 Vue.js 강의 찜하기").favorite-like
                         //- 좋아요 클릭 off
                         img(src="../assets/favorite-list/favorite-like-btn-off.png")
                         //- 좋아요 클릭 on
