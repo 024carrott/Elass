@@ -4,7 +4,7 @@
       .container.mt-1
         .grid
           .col.col-d-2.col-t-2.col-m-2
-            a
+            a(href)
               img.logo-image(src="./assets/elass_logo.jpg", alt="로고 이미지")
           .col.col-d-2.col-t-2.col-m-2.col-d-push-8.col-t-push-4
             ul.site-menu
