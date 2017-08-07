@@ -195,7 +195,7 @@
                                     i.ion-ios-star-outline
             .grid  
                 .col.col-d-2.col-d-offset-5.col-t-4.col-t-offset-2.col-m-4
-                    a(href role="button" aria-label="인기 강의 리스트 페이지로 이동하기").category-list-more-btn 강의 더 보기 
+                    a(href role="button" aria-label="헬스&뷰티 강의 더 보기").category-list-more-btn 강의 더 보기
 </template>
 
 <style lang="sass">
