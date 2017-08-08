@@ -4,14 +4,14 @@
       .container.mt-1
         .grid
           .col.col-d-2.col-t-2.col-m-2
-            a(href)
+            a(href="/")
               img.logo-image(src="./assets/elass_logo.jpg", alt="로고 이미지")
           .col.col-d-2.col-t-2.col-m-2.col-d-push-8.col-t-push-4
             ul.site-menu
               li.login
-                a.log-in(href="#") 로그인
+                a.log-in(href="/signin") 로그인
               li
-                a.sign-up(href="#") 회원가입
+                a.sign-up(href="/signup") 회원가입
           .col.col-d-5.col-d-offset-3.col-t-4.col-m-4.col-d-pull-2.col-t-pull-2
             .search-wrap
               input.search(type="search" placeholder="검색어를 입력하세요")

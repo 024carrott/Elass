@@ -8,7 +8,7 @@
             fieldset
               legend.a11y-hidden 회원가입 입력 폼
               label(for="user-nickname").col.alpha 닉네임
-              input(id="user-nickname" name="user-nickname" type="text" placeholder="닉네임을 입력 해 주세요.").col.alpha
+              input(id="user-nickname" name="user-nickname" type="text" placeholder="닉네임을 입력 해 주세요." ref="").col.alpha
               label(for="user-email").col.alpha 이메일
               input(id="user-email" name="user-email" type="text" placeholder="이메일을 입력 해 주세요.").col.alpha
               label(for="user-password").col.alpha 비밀번호
@@ -17,7 +17,7 @@
               label(for="confirm" class="confirm")
                 span(tabindex="0")
                 | 이용약관 및 개인정보취급방침에 동의합니다.
-              button(type="submit" class="sign-up-btn").col 회원가입 하기
+              button(type="submit" class="sign-up-btn" @click="validation()").col 회원가입 하기
         .grid.mt-2
           span.col(class="or") or
         .grid.mt-2
@@ -27,6 +27,21 @@
             br
             | 유저의 허락 없이 게시물을 올리지 않습니다.    
 </template>
+
+<script>
+export default {
+  data(){
+    return {
+
+    }
+  },
+  methods:{
+    validation(){
+      // 가입 폼 유효성 검사
+    },
+  },
+}
+</script>
 
 <style lang="scss">  
   @import '~default';
