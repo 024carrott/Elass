@@ -87,9 +87,12 @@ export default {
   
   .video-img{
     height: 580px;
-    width: 100%;
+
     min-width: 1200px;
     overflow: hidden;
+    video{
+      width: 100%;
+    }
   }
   .container.category-container{
     .category-btns{

@@ -8,7 +8,7 @@
         .grid.mt-2
           .col.col-d-4.col-t-3.col-m-4
             .my-info
-              img(src="../assets/mypage/user-profile.jpg")
+              img(src="../../assets/mypage/user-profile.jpg")
               br
               span dfasdf1234
               br
@@ -18,21 +18,21 @@
               .mypage-menu-listener
                 h3.a11y-hidden 리스너 메뉴
                 .btn-group.left
-                  a.btn-white(role="button" href) 수강신청 강의 보기
-                  a.btn-white(role="button" href) 찜한 강의 보기
+                  router-link.btn-white(to="mypage/mylecturelist" role="button" href) 내가 수강한 강의
+                  router-link.btn-white(to="mypage/myfavoritelist" role="button" href) 내가 찜한 강의
               .mypage-menu-tutor
                 h3.a11y-hidden 튜터 메뉴
                 .btn-group.left
                   a.btn-gray(role="button" href) 튜터 등록하기
-                  a.btn-white(role="button" href) 등록한 강의 보기
-                  a.btn-white(role="button" href) 강의 등록하기
+                  router-link.btn-white(to="mypage/registeredclass" role="button" href) 내가 등록한 강의
+                  router-link.btn-white(to="mypage/registerclass" role="button" href) 강의 등록하기
       .modal(role="dialog")
           .modal-background
           .modal-content
               a.modal-close.ion-close(role="button" href aria-label="창 닫기")
               h4 내 정보 수정하기
               form.my-info-edit
-                img.my-photo(src="../assets/mypage/user-profile.jpg")
+                img.my-photo(src="../../assets/mypage/user-profile.jpg")
                 br
                 label.a11y-hidden(for="user-profile") 사진 등록/수정하기
                 input.input-file(type="file" name="user-profile" id="user-profile")
