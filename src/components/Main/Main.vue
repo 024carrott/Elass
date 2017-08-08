@@ -1,7 +1,8 @@
 <template lang="pug">
   main
-    h1.slogan 새로운거 배울땐 엘라스!
-    h2.sub-text 나에게 딱! 맞는 강의를 찾아보세요.
+    .slogan-container
+      h1.slogan 새로운거 배울땐 엘라스!
+      h2.sub-text 나에게 딱! 맞는 강의를 찾아보세요.
       
     .container.video-img.mt-1
       video(autoplay loop muted)
@@ -48,16 +49,17 @@
    
     //- 수강생 리뷰
     reviews
-
+    //- 탑버튼
+    top-button
 </template>
 
 <script>
 import LectureCarousel from '../LectureCarousel';
 import Reviews from './Reviews';
+import TopButton from '../TopButton'
 export default {
   components: {
-    LectureCarousel: LectureCarousel,
-    Reviews: Reviews
+    LectureCarousel, Reviews, TopButton
   },
   name: 'main'
 }
@@ -66,23 +68,21 @@ export default {
 <style lang="scss">
   @import "~default";
   
-  .slogan,
-  .sub-text{
-    text-align: center;
-    display: inline-block;
-    width: 100%;
+  .slogan-container{
+    height: auto;
     position: absolute;
+    transform: translateX(-50%);
+    text-align: center;
     color: #fff;
-  }
-  .slogan{
-    top: 400px;
-    font-size: 5.5rem;
-    font-weight: 700;
-  }
-  .sub-text{
-    top: 480px;
-    font-size: 2.0rem;
-    font-weight: 200;
+    margin-left: 50%;
+    top: 360px;
+    left: 0;
+    .slogan{
+      font-size: 5.5rem;
+    }
+    .sub-text{
+      font-size: 2.0rem;
+    }
   }
   
   .video-img{
