@@ -60,7 +60,7 @@
             p.mt-1 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi harum aliquam optio rem minima hic doloribus corporis, enim qui porro obcaecati, aut! Soluta iusto ipsam possimus enim! Explicabo saepe alias, tempore. Libero laudantium nesciunt corrupti tenetur, soluta blanditiis incidunt numquam!
         .grid.mt-2
           .col.col-d-2.col-d-offset-5.col-t-2.col-t-offset-3.col-m-2.col-m-offset-1
-            a.btn-white.is-full.is-small(role="button" href) 목록으로
+            router-link.btn-white.is-full.is-small(to="lecturelist" role="button" href) 목록으로
           a.btn-white.is-small.ion-edit(role="button" href)  강의수정
         .grid
           .col
@@ -82,7 +82,7 @@
               li.review-content
                 dl
                   dt 
-                    img(src="../assets/main/user-profile.jpg")
+                    img(src="../../assets/main/user-profile.jpg")
                     br
                     span Daniel Cracker
                     .favorite-star
@@ -98,7 +98,7 @@
               li.review-content
                 dl
                   dt 
-                    img(src="../assets/main/user-profile.jpg")
+                    img(src="../../assets/main/user-profile.jpg")
                     br
                     span Daniel Cracker
                     .favorite-star
@@ -114,7 +114,7 @@
               li.review-content
                 dl
                   dt 
-                    img(src="../assets/main/user-profile.jpg")
+                    img(src="../../assets/main/user-profile.jpg")
                     br
                     span Daniel Cracker
                     .favorite-star
@@ -130,7 +130,7 @@
               li.review-content
                 dl
                   dt 
-                    img(src="../assets/main/user-profile.jpg")
+                    img(src="../../assets/main/user-profile.jpg")
                     br
                     span Daniel Cracker
                     .favorite-star
@@ -195,7 +195,7 @@
     section
       width: 100%
       height: $leading * 20
-      background: url('../assets/lecture/600_458045023.jpg') 50% 50% /cover
+      background: url('../../assets/lecture/600_458045023.jpg') 50% 50% /cover
   // 강의 요약 테이블
   .class-summary
     tr:not(:last-child)

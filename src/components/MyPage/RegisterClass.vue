@@ -3,10 +3,10 @@
       .container.register-class-container.mt-1
         .grid.mt-3
           .register-class-header.col.col-d-4.col-d-push-4
-            h1 강의 등록 하기
+            h2 강의 등록 하기
         .grid.mt-2
           .col.alpha.omega
-              h2 강의 일반 정보
+              h3.register-subtitle 강의 일반 정보
           form.register-lecture-form.col.col-d-8.col-d-push-2
             fieldset
               legend.a11y-hidden 강의 등록하기 폼
@@ -56,14 +56,14 @@
               span(class="lecture-text").col.col-d-1.col-t-1.col-m-1 원
               //- 강의 상세 정보
               .col.mt-2.alpha.omega
-                h2 강의 상세 정보
+                h3.register-subtitle 강의 상세 정보
                 //- 대표이미지
                 //- 등록되었을 때
                 label(for="lecture-image").col.alpha 대표 이미지
                 .col.alpha.lecture-image-uploaded
                   a(href role="button" aria-label="현재 업로드된 사진 삭제하기")
                     span.ion-close-circled.image-delete-btn
-                  img(src="../assets/mypage/mypage-test.jpeg" alt="첫 번째 이미지")
+                  img(src="../../assets/mypage/mypage-test.jpeg" alt="첫 번째 이미지")
                 //- 등록 안되었을때
                 .col.alpha.lecture-image-container
                   input(id="lecture-image" class="lecture-image" name="lecture-image" type="file").col.col-d-12
@@ -72,7 +72,7 @@
                 
               //- 튜터 정보
               .col.mt-2.alpha.omega
-                h2 튜터 소개
+                h3.register-subtitle 튜터 소개
                 label(for="career-1").col.alpha 경력 사항
                 input(id="career-1" class="career" name="career" type="text" placeholder="경력 사항을 입력 해 주세요.").col.col-d-10.col-t-7.col-m-3
                 .col.col-d-2.col-t-1.col-m-1.omega
@@ -116,6 +116,12 @@
       margin-top: $leading / 2;
       line-height: $leading * 2;
       padding: 0 0 0 5px;
+    }
+    .register-subtitle{
+      text-align: center;
+      font-weight: lighter;
+      @extend %border-top;
+      padding-top: 15px;
     }
   }
 
@@ -234,5 +240,4 @@
     font-size: 1.6rem;
   }
   
-
 </style>

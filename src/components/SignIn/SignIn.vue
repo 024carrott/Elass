@@ -1,46 +1,27 @@
 <template lang="pug">
     main
-      .container.sign-up-container.mt-1
+      .container.sign-in-container.mt-1
         .grid.mt-3
-          h1.sign-up-header.col.col-d-4.col-d-push-4 엘라스 무료 회원가입
+          h1.sign-in-header.col.col-d-4.col-d-push-4 엘라스에 오신 것을 환영합니다
         .grid.mt-3
-          form.sign-up-form.col.col-d-6.col-d-push-3
+          form.sign-in-form.col.col-d-6.col-d-push-3
             fieldset
-              legend.a11y-hidden 회원가입 입력 폼
-              label(for="user-nickname").col.alpha 닉네임
-              input(id="user-nickname" name="user-nickname" type="text" placeholder="닉네임을 입력 해 주세요." ref="").col.alpha
+              legend.a11y-hidden 로그인 폼
               label(for="user-email").col.alpha 이메일
               input(id="user-email" name="user-email" type="text" placeholder="이메일을 입력 해 주세요.").col.alpha
               label(for="user-password").col.alpha 비밀번호
               input(id="user-password" name="user-password" type="text" placeholder="비밀번호를 입력 해 주세요.").col.alpha
+              a(href class="find-password-btn").col.alpha 비밀번호 찾기
               .checkbox.col.alpha.omega
-                input(id="confirm" type="checkbox" name="confirm" value="confirm" aria-label="이용약관 및 개인정보취급방침에 동의합니다.").a11y-hidden
-                label(for="confirm") 이용약관 및 개인정보취급방침에 동의합니다.
-              button(type="submit" class="sign-up-btn").col 회원가입 하기
+                input(id="confirm" type="checkbox" name="confirm" value="confirm" aria-label="다음에 방문 시 로그인 정보를 기억하기").a11y-hidden
+                label(for="confirm") 로그인 정보 기억하기
+
+              button(type="submit" class="sign-in-btn").col 로그인 하기
         .grid.mt-2
           span.col(class="or") or
         .grid.mt-2
-          a(href class="facebook-sign-up" role="button" aria-label="페이스북으로 회원가입 하기 버튼").col.col-d-6.col-d-push-3 페이스북으로 회원가입 하기
-        .grid.information
-          p 안심하세요!
-            br
-            | 유저의 허락 없이 게시물을 올리지 않습니다.    
+          a(href class="facebook-sign-in" role="button" aria-label="페이스북으로 로그인 하기 버튼").col.col-d-6.col-d-push-3 페이스북으로 로그인 하기
 </template>
-
-<script>
-export default {
-  data(){
-    return {
-
-    }
-  },
-  methods:{
-    validation(){
-      // 가입 폼 유효성 검사
-    },
-  },
-}
-</script>
 
 <style lang="scss">  
   @import '~default';
@@ -52,13 +33,13 @@ export default {
     border: 1px solid #bbc0d4;
   }
 
-  .sign-up-container{
+  .sign-in-container{
     @extend %border-top;
     margin-bottom: $leading * 3;
-    .sign-up-header{
+    .sign-in-header{
       text-align: center;
     }
-    .sign-up-form{
+    .sign-in-form{
       @extend %border;
       padding: 20px;
       label{
@@ -69,6 +50,11 @@ export default {
         margin: 10px 0 20px 0;
         padding-left: 5px;
         height: $leading * 2;
+      }
+      .find-password-btn{
+        color: #007aff;
+        margin-bottom: 20px;
+        text-decoration: underline;
       }
     }
   }
@@ -90,7 +76,7 @@ export default {
       }
     }
     input:checked + label::before{
-      background: url('../assets/sign-up/checked.png') 0 0/cover;
+      background: url('../../assets/sign-up/checked.png') 0 0/cover;
     }
     input:focus + label::before{
       outline: 1px dotted #212121;
@@ -98,7 +84,7 @@ export default {
     }
   }
 
-  .sign-up-btn{
+  .sign-in-btn{
     border: none;
     background: #007aff;
     color: #fff;
@@ -119,7 +105,7 @@ export default {
     font-size: 200;
   }
 
-  .facebook-sign-up{
+  .facebook-sign-in{
     text-align: center;
     background: #3b5998;
     color: #fff;
@@ -129,12 +115,6 @@ export default {
     &:hover, &:focus{
       background: #334c80;
     }
-  }
-
-  .information{
-    margin-top: 10px;
-    text-align: center;
-    line-height: 1.8rem;
   }
 
 </style>
