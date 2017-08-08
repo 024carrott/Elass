@@ -4,7 +4,7 @@
     h2.sub-text 나에게 딱! 맞는 강의를 찾아보세요.
       
     .container.video-img.mt-1
-      video(autoplay loop muted width="100%")
+      video(autoplay loop muted)
         source(src="../../assets/main-video.mp4" type="video/mp4")
         source(src="../../assets/main-video.webm" type="video/webm")
 
