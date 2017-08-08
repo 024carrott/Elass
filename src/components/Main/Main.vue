@@ -75,18 +75,18 @@ export default {
     color: #fff;
   }
   .slogan{
-    top: 40%;
+    top: 400px;
     font-size: 5.5rem;
     font-weight: 700;
   }
   .sub-text{
-    top: 49%;
+    top: 480px;
     font-size: 2.0rem;
     font-weight: 200;
   }
   
   .video-img{
-    height: 600px;
+    height: 580px;
     width: 100%;
     min-width: 1200px;
     overflow: hidden;
