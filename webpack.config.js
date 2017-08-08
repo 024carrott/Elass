@@ -14,9 +14,15 @@ module.exports = {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
+          html: 'attrs=video:src img:src',
           loaders: {
             'scss': 'vue-style-loader!css-loader!sass-loader',
             'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
+          },
+          // video 태그 불러오기
+          transformToRequire: {
+            img: 'src', image: 'xlink:href', // defaults
+            source: 'src',
           }
           // 다른 vue-loader 옵션을 설정하려면 아래에 설정해주세요.
           // 참고 URL:

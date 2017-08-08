@@ -1,4 +1,4 @@
-import Main from './html/Main';
+import Main from './components/Main/Main';
 import SignUp from './html/SignUp';
 import SignUpComplete from './html/SignUpComplete';
 import SignIn from './html/SignIn';
