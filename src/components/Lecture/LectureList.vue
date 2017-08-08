@@ -66,13 +66,15 @@ main
   .grid  
       .col.col-d-2.col-d-offset-5.col-t-4.col-t-offset-2.col-m-4
         a(href role="button" aria-label="강의 리스트 더 불러오기").lecture-list-more-btn 강의 더 보기
+  //- top-button
 </template>
 
 <script>
-import LectureItem from '../LectureItem'
+import LectureItem from '../LectureItem';
+import TopButton from '../TopButton';
 export default {
   components: {
-    LectureItem
+    LectureItem, TopButton
   }
 }
 </script>
