@@ -1,13 +1,14 @@
-import Main           from './html/Main';
-import SignUp         from './html/SignUp';
-import SignIn         from './html/SignIn';
-import List           from './html/list';
-import View           from './html/view';
-import Mypage         from './html/mypage';
-import RegClass       from './html/mypage-registerclass';
-import EntrollClass   from './html/mypage-enrolled';
-import LikedClass     from './html/mypage-liked';
-import MyClass        from './html/mypage-history';
+import Main from './components/Main/Main';
+import SignUp from './html/SignUp';
+import SignUpComplete from './html/SignUpComplete';
+import SignIn from './html/SignIn';
+import List from './html/list';
+import View from './html/view';
+import Mypage from './html/mypage';
+import RegClass from './html/mypage-registerclass';
+import EntrollClass from './html/mypage-enrolled';
+import LikedClass from './html/mypage-liked';
+import MyClass from './html/mypage-history';
 
 const routes = [
   { path: '/',                       component: Main },         // 홈
