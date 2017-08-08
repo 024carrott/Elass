@@ -69,33 +69,20 @@
                   input(id="lecture-image" class="lecture-image" name="lecture-image" type="file").col.col-d-12
                   .fake-file-upload.col.col-d-12.alpha.omega
                     input(placeholder="이미지를 업로드 하려면 여기를 클릭 하세요." disabled).col.col-d-12.alpha
-                .col.alpha.lecture-image-container
-                  input(id="lecture-image" class="lecture-image" name="lecture-image" type="file").col.col-d-12
-                  .fake-file-upload.col.col-d-12.alpha.omega
-                    input(placeholder="이미지를 업로드 하려면 여기를 클릭 하세요." disabled).col.col-d-12.alpha
-                .col.alpha.lecture-image-container
-                  input(id="lecture-image" class="lecture-image" name="lecture-image" type="file").col.col-d-12
-                  .fake-file-upload.col.col-d-12.alpha.omega
-                    input(placeholder="이미지를 업로드 하려면 여기를 클릭 하세요." disabled).col.col-d-12.alpha
-                .col.alpha.lecture-image-container
-                  input(id="lecture-image" class="lecture-image" name="lecture-image" type="file").col.col-d-12
-                  .fake-file-upload.col.col-d-12.alpha.omega
-                    input(placeholder="이미지를 업로드 하려면 여기를 클릭 하세요." disabled).col.col-d-12.alpha
+                
               //- 튜터 정보
               .col.mt-2.alpha.omega
                 h2 튜터 소개
-                label(for="career").col.alpha 경력 사항
-                input(id="career" class="career" name="career" type="text" placeholder="경력 사항을 입력 해 주세요.").col.col-d-10.col-t-7.col-m-3
+                label(for="career-1").col.alpha 경력 사항
+                input(id="career-1" class="career" name="career" type="text" placeholder="경력 사항을 입력 해 주세요.").col.col-d-10.col-t-7.col-m-3
                 .col.col-d-2.col-t-1.col-m-1.omega
                   button(class="add-career-btn" aria-label="경력 사항 입력 칸 추가하기") 추가
-                input(id="career" class="career" name="career" type="text" placeholder="경력 사항을 입력 해 주세요.").col.col-d-10.col-t-7.col-m-3
+                input(id="career-2" class="career" name="career" type="text" placeholder="경력 사항을 입력 해 주세요.").col.col-d-10.col-t-7.col-m-3
                 .col.col-d-2.col-t-1.col-m-1.omega
                   button(class="delete-career-btn" aria-label="경력 사항 입력 칸 삭제하기").col.col-d-2.col-t-1.col-m-1 삭제
-                input(id="career" class="career" name="career" type="text" placeholder="경력 사항을 입력 해 주세요.").col.col-d-10.col-t-7.col-m-3
-                .col.col-d-2.col-t-1.col-m-1.omega
-                  button(class="delete-career-btn" aria-label="경력 사항 입력 칸 삭제하기").col.col-d-2.col-t-1.col-m-1 삭제
+                
                 label(for="introduce").col.alpha 자기 소개
-                input(id="introduce" class="introduce" name="introduce" type="textarea" placeholder="자기 소개를 입력 해 주세요.").col.col-d-12
+                textarea(id="introduce" class="introduce" name="introduce" placeholder="자기 소개를 입력 해 주세요.").col.col-d-12
 
             input(type="submit" value="강의 등록").col.col-d-2.col-d-offset-5
             button(type="button").col.col-d-1.col-d-push-4 취소
@@ -215,8 +202,17 @@
     color: #db0101;
   }
 
-  input.introduce{
+  textarea.introduce{
+    @extend %border;
     height: $leading * 10;
+    margin-top: $leading / 2;
+    font-size: 1.6rem;
+    padding-top: 5px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    &::placeholder{
+      font-size: 1.6rem;
+    }
   }
   
   input[type="submit"]{

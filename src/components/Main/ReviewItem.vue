@@ -4,7 +4,7 @@
       h4 퍼스널 트레이닝 좋아요.
       p 레슨 시작 전부터 박주형 강사님은 제가 궁금해 하는 사항에 대해 자세히 알려주셨어요. 운동하는 것 이외에 일상생활의식습관같은이외에 일상생활의식습관이외에 일상생활의식습관이외에 일상생활의식습관이외에 일상생활의식습관 사소한 부분까지 챙겨주셔서 정말 좋았습니다!
       .main-review-member
-        img(src="../../assets/main/user-profile.jpg" class="user-profile-img")
+        img(src="../../assets/main/user-profile.jpg" class="user-profile-img" alt="누구누구의 프로필 사진")
         .star-rate
           span.a11y-hidden 강의평가 5점 만점에 4점
           i.ion-ios-star

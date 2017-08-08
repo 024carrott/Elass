@@ -10,9 +10,9 @@
         dd.favorite-lecture-user @김꽃잎
       a(href role="button" aria-label="나의 정원을 위한 가드닝 첫 걸음 강의 찜하기").favorite-like
         //- 좋아요 클릭 off
-        img(src="../assets/favorite-list/favorite-like-btn-off.png")
+        img(src="../assets/favorite-list/favorite-like-btn-off.png" alt="나의 정원을 위한 가드닝 첫 걸음 좋아요")
         //- 좋아요 클릭 on
-        //- img(src="../assets/favorite-list/favorite-like-btn-on.png")
+        //- img(src="../assets/favorite-list/favorite-like-btn-on.png" alt="나의 정원을 위한 가드닝 첫 걸음 좋아요 취소")
       .favorite-star
         span.a11y-hidden 강의평가 5점 만점에 4점
         i.ion-ios-star
