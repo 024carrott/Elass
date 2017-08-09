@@ -8,7 +8,25 @@ import App       from './App';
 Vue.use(VueRouter);
 const router = new VueRouter({
   mode: 'history',
+  // 페이지 변경 시 스크롤 최상단으로 이동
+  scrollBehavior: function(to){
+    if (to.hash){
+      return {
+        selector: to.hash
+      }
+    } else {
+      return {x: 0, y: 0}
+    }
+  },
   routes
+});
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresLogin) && !store.getters.isLogIn) {
+      window.alert('로그인이 필요합니다.');
+      next("/signin");
+  } else {
+      next();
+  }
 });
 
 new Vue({
@@ -17,5 +35,3 @@ new Vue({
   router,
   store
 });
-
-

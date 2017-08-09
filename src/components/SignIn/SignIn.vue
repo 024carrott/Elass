@@ -12,16 +12,32 @@
               label(for="user-password").col.alpha 비밀번호
               input(id="user-password" name="user-password" type="text" placeholder="비밀번호를 입력 해 주세요.").col.alpha
               a(href class="find-password-btn").col.alpha 비밀번호 찾기
-              input(id="remember" class="remember" type="checkbox" name="remember" value="remember" aria-label="다음에 방문 시 로그인 정보를 기억하기 위한 버튼")
-              label(for="remember" class="remember")
-                span
-                | 로그인 정보 기억하기
-              button(type="submit" class="sign-in-btn").col 로그인 하기
+              .checkbox.col.alpha.omega
+                input(id="confirm" type="checkbox" name="confirm" value="confirm" aria-label="다음에 방문 시 로그인 정보를 기억하기").a11y-hidden
+                label(for="confirm") 로그인 정보 기억하기
+
+              button(type="submit" class="sign-in-btn" @click.prevent="submitLogin").col 로그인 하기
         .grid.mt-2
           span.col(class="or") or
         .grid.mt-2
           a(href class="facebook-sign-in" role="button" aria-label="페이스북으로 로그인 하기 버튼").col.col-d-6.col-d-push-3 페이스북으로 로그인 하기
 </template>
+
+<script>
+export default {
+  data(){
+    return{
+
+    }
+  },
+  methods :{
+    submitLogin(){
+      this.$store.dispatch('login','good');
+    }
+  }
+}
+</script>
+
 
 <style lang="scss">  
   @import '~default';
@@ -56,28 +72,31 @@
         margin-bottom: 20px;
         text-decoration: underline;
       }
-      .remember{
-        font-size: 1.6rem;
-        font-weight: 200;
-        color: #656565;
+    }
+  }
+
+  .checkbox{
+    position: relative;
+    label{
+      position: relative;
+    padding-left: 25px;
+      &::before{
+        @extend %border;
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: $leading;
+        height: $leading;
+        @extend %border;
       }
-      input[type="checkbox"]{
-        display: none;
-        &+label span {
-          @extend %border;
-          position: relative;
-          top: -1px;
-          vertical-align: middle;
-          display: inline-block;
-          width: 20px;
-          height: 20px;
-          margin-right: 5px;
-          cursor: pointer;
-        }
-        &:checked+label span{
-          background: url('../assets/sign-up/checked.png') 0 0/cover;
-        }
-      }
+    }
+    input:checked + label::before{
+      background: url('../../assets/sign-up/checked.png') 0 0/cover;
+    }
+    input:focus + label::before{
+      outline: 1px dotted #212121;
+      outline: 5px auto -webkit-focus-ring-color;
     }
   }
 

@@ -1,14 +1,10 @@
 <template lang="pug">
   footer
-    .container.footer.mt-2
-      SignUpBanner
-      .grid
-        .col.col-d-4.col-d-offset-4.col-t-4.col-t-offset-2.col-m-4
-          button.sign-up-button(type="button") 회원가입 하러 가기
-    .container.copyright
+    SignUpBanner
+    .container.footer
       .grid
         .col.col-d-6.col-d-offset-3
-          p.copyright1 Copyright since &copy; 2017 All rights reserved by Jisu Kim , Hyejin.Cha , Jina Lee
+          p.copyright Copyright since &copy; 2017 All rights reserved by Jisu Kim , Hyejin.Cha , Jina Lee
 </template>
 
 <script>
@@ -25,3 +21,16 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+  @import '~default';
+  .footer{
+    background-color: #363636;
+  }
+  .copyright{
+    font-weight: 200;
+    color: #f7f7f7;
+    line-height: 300px;
+    text-align: center;
+  }
+</style>
