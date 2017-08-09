@@ -8,9 +8,9 @@
         .col.col-d-2.col-t-2.col-m-2.col-d-push-8.col-t-push-4
           ul.site-menu(v-if="isLogin")
             li.login
-              router-link.log-in(to="mypage") 마이페이지
+              router-link.mypage(to="mypage") 마이페이지
             li
-              a.sign-up(@click.prevent="logout") 로그아웃
+              a.log-out(href @click.prevent="logout" role="button" aria-label="로그아웃 버튼") 로그아웃
           ul.site-menu(v-else)
             li.login
               router-link.log-in(to="signin") 로그인
@@ -63,7 +63,7 @@ export default {
       text-indent: 10px;
     }
   }
-  .log-in, .sign-up{
+  .log-in, .sign-up, .mypage, .log-out{
     line-height: 42px;
     height: 42px;
     padding-right: 0;
