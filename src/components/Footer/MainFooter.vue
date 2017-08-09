@@ -1,5 +1,5 @@
 <template lang="pug">
-  footer
+  footer.mt-3
     SignUpBanner
     .container.footer
       .grid
@@ -11,7 +11,7 @@
 import SignUpBanner from './SignUpBanner';
 export default {
   components: {
-    SignUpBanner: SignUpBanner
+    SignUpBanner
   },
   name: 'footer',
   data () {

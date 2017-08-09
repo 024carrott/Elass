@@ -6,8 +6,8 @@
         a(href aria-label="나의 정원을 위한 가드닝 첫 걸음 상세 페이지로 가기")
           img(src="../assets/favorite-list/favorite-list-img-01.jpg" alt="나의 정원을 위한 가드닝 첫 걸음")
       dl.favorite-lecture-content
-        dt.favorite-lecture-title 나의 정원을 위한 가드닝 첫 걸음 나의 정원을 위한 가드닝 첫 걸음
-        dd.favorite-lecture-user @김꽃잎
+        dt.favorite-lecture-title {{lecture_name}}
+        dd.favorite-lecture-user {{teacher_name}}
       a(href role="button" aria-label="나의 정원을 위한 가드닝 첫 걸음 강의 찜하기").favorite-like
         //- 좋아요 클릭 off
         img(src="../assets/favorite-list/favorite-like-btn-off.png" alt="나의 정원을 위한 가드닝 첫 걸음 좋아요")
@@ -25,11 +25,7 @@
 <script>
 export default {
   name: 'lecture-item',
-  data () {
-    return {
-      
-    }
-  }
+  props: ['lecture_name', 'teacher_name']
 }
 </script>
 

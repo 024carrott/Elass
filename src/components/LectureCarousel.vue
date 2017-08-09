@@ -4,9 +4,7 @@
       h2.col.col-d-4.col-d-push-4 오늘의 인기 강의
     .grid.favorite-lecture
       ul
-        lecture-item
-        lecture-item
-        lecture-item
+        slot
     .prev-next-btns
       a(href role="button" aria-label="이전 리스트 보기").prev-list-btn.ion-chevron-left
       a(href role="button" aria-label="다음 리스트 보기").next-list-btn.ion-chevron-right
@@ -16,17 +14,15 @@
 </template>
 
 <script>
-import LectureItem from './LectureItem';
+
 export default {
-  components: {
-    LectureItem: LectureItem
-  },
+
   name: 'lecture-carousel',
   data () {
     return {
       
     }
-  }
+  },
 }
 </script>
 
