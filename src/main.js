@@ -20,6 +20,14 @@ const router = new VueRouter({
   },
   routes
 });
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresLogin) && !store.getters.isLogin) {
+      window.alert('로그인이 필요합니다.');
+      next("/signin");
+  } else {
+      next();
+  }
+});
 
 new Vue({
   el: '#app',
@@ -27,5 +35,3 @@ new Vue({
   router,
   store
 });
-
-
