@@ -11,8 +11,7 @@ import MainFooter from './components/Footer/MainFooter';
 
 export default {
   components: {
-    MainHeader: MainHeader,
-    MainFooter: MainFooter
+    MainHeader, MainFooter
   },
   name: 'app',
   data () {

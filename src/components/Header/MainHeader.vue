@@ -3,14 +3,14 @@
     .container.mt-1
       .grid
         .col.col-d-2.col-t-2.col-m-2
-          a(href)
+          router-link(to="/")
             img.logo-image(src="../../assets/elass_logo.png", alt="로고 이미지")
         .col.col-d-2.col-t-2.col-m-2.col-d-push-8.col-t-push-4
           ul.site-menu
             li.login
-              a.log-in(href="/signin") 로그인
+              router-link.log-in(to="signin") 로그인
             li
-              a.sign-up(href="/signup") 회원가입
+              router-link.sign-up(to="signup") 회원가입
         SearchBar
 </template>
 
@@ -53,39 +53,5 @@ export default {
     padding-right: 0;
     color: #333;
   }
-  .log-in{
-    padding-left: 20px
-  }
-  .health-image {
-    height: 200px;
-    background-color: skyblue;
-  }
-  .footer{
-    background-color: #0081ff;
-    font-size: 2.6rem;
-  }
-  .footer1{
-    text-align: center;
-    margin-top: $leading * 2;
-    color: #fff;
-  }
-  .sign-up-button{
-    width: 100%;
-    height: 63px;
-    margin-top: $leading;
-    margin-bottom: $leading * 2;
-    background-color: transparent;
-    border: 2px solid #fff;
-    border-radius: 10px;
-    color: #fff;
-    font-size: 1.6rem;
-  }
-  .copyright{
-    background-color: #363636;
-  }
-  .copyright1{
-    color: #f7f7f7;
-    margin-top: 210px;
-    margin-left: 20px;
-  }
+
 </style>

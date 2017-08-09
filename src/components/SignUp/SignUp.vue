@@ -13,11 +13,10 @@
               input(id="user-email" name="user-email" type="text" placeholder="이메일을 입력 해 주세요.").col.alpha
               label(for="user-password").col.alpha 비밀번호
               input(id="user-password" name="user-password" type="text" placeholder="비밀번호를 입력 해 주세요.").col.alpha
-              input(id="confirm" class="confirm" type="checkbox" name="confirm" value="confirm" aria-label="이용약관 및 개인정보취급방침에 동의합니다.")
-              label(for="confirm" class="confirm")
-                span(tabindex="0")
-                | 이용약관 및 개인정보취급방침에 동의합니다.
-              button(type="submit" class="sign-up-btn" @click="validation()").col 회원가입 하기
+              .checkbox.col.alpha.omega
+                input(id="confirm" type="checkbox" name="confirm" value="confirm" aria-label="이용약관 및 개인정보취급방침에 동의합니다.").a11y-hidden
+                label(for="confirm") 이용약관 및 개인정보취급방침에 동의합니다.
+              button(type="submit" class="sign-up-btn").col 회원가입 하기
         .grid.mt-2
           span.col(class="or") or
         .grid.mt-2
@@ -71,28 +70,31 @@ export default {
         padding-left: 5px;
         height: $leading * 2;
       }
-      .confirm{
-        font-size: 1.6rem;
-        font-weight: 200;
-        color: #656565;
+    }
+  }
+
+  .checkbox{
+    position: relative;
+    label{
+      position: relative;
+    padding-left: 25px;
+      &::before{
+        @extend %border;
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: $leading;
+        height: $leading;
+        @extend %border;
       }
-      input[type="checkbox"]{
-        display: none;
-        &+label span {
-          @extend %border;
-          position: relative;
-          top: -1px;
-          vertical-align: middle;
-          display: inline-block;
-          width: 20px;
-          height: 20px;
-          margin-right: 5px;
-          cursor: pointer;
-        }
-        &:checked+label span{
-          background: url('../assets/sign-up/checked.png') 0 0/cover;
-        }
-      }
+    }
+    input:checked + label::before{
+      background: url('../../assets/sign-up/checked.png') 0 0/cover;
+    }
+    input:focus + label::before{
+      outline: 1px dotted #212121;
+      outline: 5px auto -webkit-focus-ring-color;
     }
   }
 
@@ -136,6 +138,3 @@ export default {
   }
 
 </style>
-
-
-
