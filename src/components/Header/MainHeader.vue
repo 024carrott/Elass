@@ -8,9 +8,9 @@
         .col.col-d-2.col-t-2.col-m-2.col-d-push-8.col-t-push-4
           ul.site-menu
             li.login
-              a.log-in(href="#") 로그인
+              a.log-in(href="/signin") 로그인
             li
-              a.sign-up(href="#") 회원가입
+              a.sign-up(href="/signup") 회원가입
         SearchBar
 </template>
 

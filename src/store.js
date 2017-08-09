@@ -33,3 +33,4 @@ const store = new Vuex.Store({
     isLogIn: state =>state.isLogIn
   }
 });
+export default store;
