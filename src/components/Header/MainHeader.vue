@@ -6,7 +6,12 @@
           router-link(to="/")
             img.logo-image(src="../../assets/elass_logo.png", alt="로고 이미지")
         .col.col-d-2.col-t-2.col-m-2.col-d-push-8.col-t-push-4
-          ul.site-menu
+          ul.site-menu(v-if="isLogin")
+            li.login
+              router-link.log-in(to="mypage") 마이페이지
+            li
+              a.sign-up(@click.prevent="logout") 로그아웃
+          ul.site-menu(v-else)
             li.login
               router-link.log-in(to="signin") 로그인
             li
@@ -25,7 +30,18 @@ export default {
     return {
       
     }
-  } 
+  },
+  computed:{
+    isLogin(){
+      return this.$store.getters.isLogIn;
+    }
+  },
+  methods:{
+    logout(){
+      this.$store.dispatch('logout');
+      this.$router.push('/');
+    }
+  }
 }
 </script>
 

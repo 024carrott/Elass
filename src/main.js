@@ -21,7 +21,7 @@ const router = new VueRouter({
   routes
 });
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresLogin) && !store.getters.isLogin) {
+  if (to.matched.some(record => record.meta.requiresLogin) && !store.getters.isLogIn) {
       window.alert('로그인이 필요합니다.');
       next("/signin");
   } else {

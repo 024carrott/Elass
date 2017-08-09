@@ -16,12 +16,28 @@
                 input(id="confirm" type="checkbox" name="confirm" value="confirm" aria-label="다음에 방문 시 로그인 정보를 기억하기").a11y-hidden
                 label(for="confirm") 로그인 정보 기억하기
 
-              button(type="submit" class="sign-in-btn").col 로그인 하기
+              button(type="submit" class="sign-in-btn" @click.prevent="submitLogin").col 로그인 하기
         .grid.mt-2
           span.col(class="or") or
         .grid.mt-2
           a(href class="facebook-sign-in" role="button" aria-label="페이스북으로 로그인 하기 버튼").col.col-d-6.col-d-push-3 페이스북으로 로그인 하기
 </template>
+
+<script>
+export default {
+  data(){
+    return{
+
+    }
+  },
+  methods :{
+    submitLogin(){
+      this.$store.dispatch('login','good');
+    }
+  }
+}
+</script>
+
 
 <style lang="scss">  
   @import '~default';
