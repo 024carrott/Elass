@@ -4,15 +4,15 @@
       span.favorite-lecture-tag {{class_item.category}}
       .favorite-lecture-image
         a(href aria-label="나의 정원을 위한 가드닝 첫 걸음 상세 페이지로 가기")
-          img(src="../assets/favorite-list/favorite-list-img-01.jpg" alt="나의 정원을 위한 가드닝 첫 걸음")
+          img(:src="`http://lorempicsum.com/up/627/500/` + active_index" :alt="`${class_item.title} 이미지`")
       dl.favorite-lecture-content
         dt.favorite-lecture-title {{class_item.title}}
         dd.favorite-lecture-user {{class_item.tutor_intro}}
-      a(href role="button" aria-label="나의 정원을 위한 가드닝 첫 걸음 강의 찜하기").favorite-like
+      a(href role="button" :aria-label="`${class_item.title} 좋아요`").favorite-like
         //- 좋아요 클릭 off
-        img(src="../assets/favorite-list/favorite-like-btn-off.png" alt="나의 정원을 위한 가드닝 첫 걸음 좋아요")
+        img(src="../assets/favorite-list/favorite-like-btn-off.png")
         //- 좋아요 클릭 on
-        //- img(src="../assets/favorite-list/favorite-like-btn-on.png" alt="나의 정원을 위한 가드닝 첫 걸음 좋아요 취소")
+        //- img(src="../assets/favorite-list/favorite-like-btn-on.png")
       .favorite-star
         span.a11y-hidden 강의평가 5점 만점에 4점
         i.ion-ios-star
@@ -28,12 +28,10 @@ export default {
   data(){
     return {
       class_item : this.lecture,
+      active_index: this.index + 1
     }
   },
-  props: ['lecture'],
-  // computed:{
-  //   cLecture: this.lecture,
-  // }
+  props: ['lecture', 'index'],
 }
 </script>
 

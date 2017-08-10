@@ -6,8 +6,8 @@
       ul
         slot
     .prev-next-btns
-      a(href role="button" aria-label="이전 리스트 보기").prev-list-btn.ion-chevron-left
-      a(href role="button" aria-label="다음 리스트 보기").next-list-btn.ion-chevron-right
+      a(href role="button" aria-label="이전 리스트 보기" @click.prevent="prevList").prev-list-btn.ion-chevron-left
+      a(href role="button" aria-label="다음 리스트 보기" @click.prevent="nextList").next-list-btn.ion-chevron-right
     .grid  
       .col.col-d-2.col-d-offset-5.col-t-4.col-t-offset-2.col-m-4
         router-link(to="lecturelist" role="button" aria-label="인기 강의 리스트 페이지로 이동하기").favorite-list-more-btn 인기 강의 더 보기
@@ -18,12 +18,22 @@
 export default {
 
   name: 'lecture-carousel',
+  props: ['start-index', 'end-index'],
   data () {
     return {
-     classList : []
-
+      classList : [],
     }
   },
+  methods: {
+    prevList(){
+      this.$emit('decreaseIndex');
+    },
+    nextList(){
+      let start = this.startIndex;
+      let end = this.endIndex;
+      this.$emit('increaseIndex', start, end);
+    }
+  }
 }
 </script>
 
