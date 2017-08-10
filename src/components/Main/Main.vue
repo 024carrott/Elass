@@ -10,13 +10,7 @@
         source(src="../../assets/main-video.webm" type="video/webm")
 
     //- 인기 강의
-    lecture-carousel(:start-index="start_index" :end-index="end_index" @decreaseIndex="decrease" @increaseIndex="increase")
-      lecture-carousel-item(
-        v-for="(lecture, index) in lectures"
-        key="index" :lecture="lecture"
-        v-show="index >= start_index && index <= end_index"
-        :index="index"
-        )
+    lecture-carousel
     //- 카테고리
     .container.category-container.mt-2
       .grid
@@ -61,39 +55,18 @@
 
 <script>
 import LectureCarousel from '../LectureCarousel';
-import LectureCarouselItem from '../LectureItem';
 import Reviews from './Reviews';
 import TopButton from '../TopButton'
 export default {
   components: {
-    LectureCarousel, LectureCarouselItem, Reviews, TopButton
-  },
-  created () {
-    const data_url = 'https://elass-6ad68.firebaseio.com/elass.json';
-    this.$http.get(data_url)
-    .then((response) => {
-      let res_data = response.data;
-      this.lectures = res_data;
-    });
+    LectureCarousel,  Reviews, TopButton
   },
   name: 'main',
   data () {
     return {
-      lectures: [],
-      start_index: 0,
-      end_index: 2
     }
   },
   methods: {
-    decrease(){
-      this.start_index--;
-      this.end_index--;
-    },
-    // 여기서부터 몸부림치다가 막혔어요 ㅠㅠ
-    increase(s, e){
-      this.start_index = s+1;
-      this.end_index = e+1;
-    },
   }
 }
 </script>
