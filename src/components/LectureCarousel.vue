@@ -24,8 +24,16 @@ export default {
   name: 'lecture-carousel',
   data () {
     return {
-      
+     classList : []
+
     }
+  },
+  mounted(){
+    this.$http.get('https://elass-5dba0.firebaseio.com/elass.json').then(
+      response =>{
+        console.log('axios response', response);
+      }
+    );
   }
 }
 </script>

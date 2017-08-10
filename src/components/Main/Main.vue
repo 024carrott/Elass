@@ -54,6 +54,15 @@
 </template>
 
 <script>
+export default {
+  data(){
+    return {
+    }
+  }
+}
+</script>
+
+<script>
 import LectureCarousel from '../LectureCarousel';
 import Reviews from './Reviews';
 import TopButton from '../TopButton'

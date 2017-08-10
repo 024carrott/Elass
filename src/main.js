@@ -4,8 +4,11 @@ import Vuex      from 'vuex';
 import routes    from './routes';
 import store     from './store';
 import App       from './App';
+import axios     from 'axios';
  
 Vue.use(VueRouter);
+Vue.prototype.$http = axios;
+
 const router = new VueRouter({
   mode: 'history',
   // 페이지 변경 시 스크롤 최상단으로 이동
