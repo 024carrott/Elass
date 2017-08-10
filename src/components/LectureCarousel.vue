@@ -4,7 +4,12 @@
       h2.col.col-d-4.col-d-push-4 오늘의 인기 강의
     .grid.favorite-lecture
       ul
-        slot
+        lecture-carousel-item(
+          v-for="(lecture, index) in lectures"
+          key="index" :lecture="lecture"
+          v-show="index >= start_index && index <= end_index"
+          :index="index"
+        )
     .prev-next-btns
       a(href role="button" aria-label="이전 리스트 보기" @click.prevent="prevList").prev-list-btn.ion-chevron-left
       a(href role="button" aria-label="다음 리스트 보기" @click.prevent="nextList").next-list-btn.ion-chevron-right
@@ -14,25 +19,48 @@
 </template>
 
 <script>
+import LectureCarouselItem from './LectureItem';
 
 export default {
 
   name: 'lecture-carousel',
-  props: ['start-index', 'end-index'],
+  created () {
+    const data_url = 'https://elass-6ad68.firebaseio.com/elass.json';
+    this.$http.get(data_url)
+    .then((response) => {
+      let res_data = response.data;
+      this.lectures = res_data;
+    });
+  },
+  components: { LectureCarouselItem },
   data () {
     return {
-      classList : [],
+      screen_width : window.document.body.offsetWidth,
+      lectures: [],
+      start_index: 0,
+      end_index: 2,
+    }
+  },
+  computed: {
+    media_count(){
+      if(this.screen_width > 1079){ // Desktop
+        return 3;
+      }else if(this.screen_width > 767){ // Tablet
+        return 2;
+      }else{  // mobile
+        return 1; 
+      }
     }
   },
   methods: {
     prevList(){
-      this.$emit('decreaseIndex');
+      this.start_index--;
+      this.end_index--;
     },
     nextList(){
-      let start = this.startIndex;
-      let end = this.endIndex;
-      this.$emit('increaseIndex', start, end);
-    }
+      this.start_index++;
+      this.end_index++;
+    },
   }
 }
 </script>
