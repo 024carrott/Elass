@@ -88,12 +88,13 @@ export default {
   }
   // 인기 강의 좋아요 아이콘
   .favorite-like{
+    z-index: 1;
     position: absolute;
     width: 60px;
     height: 60px;
     border-radius: 30px;
     top: 190px;
-    right: 32px;
+    right: 50px;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
   }
   // 인기 강의 별점
@@ -115,4 +116,5 @@ export default {
     justify-content: space-around;
     margin: 0 auto;
   }
+
 </style>
