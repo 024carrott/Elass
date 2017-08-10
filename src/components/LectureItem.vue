@@ -1,13 +1,13 @@
 <template lang="pug">
   li.col.col-d-4.col-4.col-t-4.col-m-4
     .favorite-lecture-item.mt-1
-      span.favorite-lecture-tag 이색취미
+      span.favorite-lecture-tag {{class_item.category}}
       .favorite-lecture-image
         a(href aria-label="나의 정원을 위한 가드닝 첫 걸음 상세 페이지로 가기")
           img(src="../assets/favorite-list/favorite-list-img-01.jpg" alt="나의 정원을 위한 가드닝 첫 걸음")
       dl.favorite-lecture-content
-        dt.favorite-lecture-title {{lecture_name}}
-        dd.favorite-lecture-user {{teacher_name}}
+        dt.favorite-lecture-title {{class_item.title}}
+        dd.favorite-lecture-user {{class_item.tutor_intro}}
       a(href role="button" aria-label="나의 정원을 위한 가드닝 첫 걸음 강의 찜하기").favorite-like
         //- 좋아요 클릭 off
         img(src="../assets/favorite-list/favorite-like-btn-off.png" alt="나의 정원을 위한 가드닝 첫 걸음 좋아요")
@@ -25,7 +25,15 @@
 <script>
 export default {
   name: 'lecture-item',
-  props: ['lecture_name', 'teacher_name']
+  data(){
+    return {
+      class_item : this.lecture,
+    }
+  },
+  props: ['lecture'],
+  // computed:{
+  //   cLecture: this.lecture,
+  // }
 }
 </script>
 

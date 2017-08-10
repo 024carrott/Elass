@@ -20,7 +20,8 @@ export default {
   name: 'lecture-carousel',
   data () {
     return {
-      
+     classList : []
+
     }
   },
 }

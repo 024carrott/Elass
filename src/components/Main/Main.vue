@@ -11,9 +11,7 @@
 
     //- 인기 강의
     lecture-carousel
-      lecture-carousel-item(v-for="(lecture, index) in lectures" key="index" :lecture_name="lectureName(index)" :teacher_name="teacherName(index)" v-show="index >= 0 && index < 3")
-      
-
+      lecture-carousel-item(v-for="(lecture, index) in lectures" key="index" :lecture="lecture" v-show="index >= 0 && index < 3")
     //- 카테고리
     .container.category-container.mt-2
       .grid
@@ -55,6 +53,15 @@
     //- 탑버튼
     top-button
 </template>
+
+<script>
+export default {
+  data(){
+    return {
+    }
+  }
+}
+</script>
 
 <script>
 import LectureCarousel from '../LectureCarousel';
