@@ -11,6 +11,7 @@
 
     //- 인기 강의
     lecture-carousel
+      lecture-carousel-item(v-for="(lecture, index) in lectures" key="index" :lecture="lecture" v-show="index >= 0 && index < 3")
     //- 카테고리
     .container.category-container.mt-2
       .grid
@@ -64,13 +65,35 @@ export default {
 
 <script>
 import LectureCarousel from '../LectureCarousel';
+import LectureCarouselItem from '../LectureItem';
 import Reviews from './Reviews';
 import TopButton from '../TopButton'
 export default {
   components: {
-    LectureCarousel, Reviews, TopButton
+    LectureCarousel, LectureCarouselItem, Reviews, TopButton
   },
-  name: 'main'
+  created () {
+    const data_url = 'https://elass-6ad68.firebaseio.com/elass.json';
+    this.$http.get(data_url)
+    .then((response) => {
+      let res_data = response.data;
+      this.lectures = res_data;
+    });
+  },
+  name: 'main',
+  data () {
+    return {
+      lectures: [],
+    }
+  },
+  methods: {
+    lectureName(i){
+      return this.lectures[i].class_intro;
+    },
+    teacherName(i){
+      return this.lectures[i].tutor_intro;
+    }
+  }
 }
 </script>
 

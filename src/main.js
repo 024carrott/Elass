@@ -4,7 +4,7 @@ import Vuex      from 'vuex';
 import routes    from './routes';
 import store     from './store';
 import App       from './App';
-import axios     from 'axios';
+import axios       from 'axios';
  
 Vue.use(VueRouter);
 Vue.prototype.$http = axios;
