@@ -81,20 +81,40 @@ export default {
     text-align: center;
     color: #fff;
     margin-left: 50%;
-    top: 360px;
+    top: 340px;
+    @include breakpoint(tablet){
+      top: 8%;
+    };
+    @include breakpoint(mobile){
+      top: 5%;
+    };
     left: 0;
     .slogan{
-      font-size: 5.5rem;
+      @include breakpoint(desktop){
+        font-size: 5.5rem
+      };
+      @include breakpoint(tablet){
+        font-size: 4.2rem
+      };
+      @include breakpoint(mobile){
+        font-size: 2.4rem
+      };
     }
     .sub-text{
+    @include breakpoint(desktop){
       font-size: 2.0rem;
+      }
+    @include breakpoint(tablet){
+      font-size: 1.6rem;
+      }
+    @include breakpoint(mobile){
+      font-size: 1.4rem;
+      }
     }
   }
   
   .video-img{
-    height: 580px;
-
-    min-width: 1200px;
+    max-height: 580px;
     overflow: hidden;
     video{
       width: 100%;

@@ -7,15 +7,16 @@
         lecture-carousel-item(
           v-for="(lecture, index) in lectures"
           key="index" :lecture="lecture"
-          v-show="index >= start_index && index <= end_index"
+          v-show="index >= start_index && index < end_index"
           :index="index"
         )
     .prev-next-btns
-      a(href role="button" aria-label="이전 리스트 보기" @click.prevent="prevList").prev-list-btn.ion-chevron-left
-      a(href role="button" aria-label="다음 리스트 보기" @click.prevent="nextList").next-list-btn.ion-chevron-right
+      //- a(href role="button" aria-label="이전 리스트 보기" @click.prevent="prevList").prev-list-btn.ion-chevron-left
+      a(href role="button" aria-label="이전 리스트 보기" @click.prevent="handler('prevList', 'prevSlide')").prev-list-btn.ion-chevron-left
+      a(href role="button" aria-label="다음 리스트 보기" @click.prevent="handler('nextList', 'nextSlide')").next-list-btn.ion-chevron-right
     .grid  
       .col.col-d-2.col-d-offset-5.col-t-4.col-t-offset-2.col-m-4
-        router-link(to="lecturelist" role="button" aria-label="인기 강의 리스트 페이지로 이동하기").favorite-list-more-btn 인기 강의 더 보기
+        router-link(to="lecturelist" role="button" aria-label="인기 강의 리스트 페이지로 이동하기").favorite-list-more-btn 강의 더 보기
 </template>
 
 <script>
@@ -32,13 +33,15 @@ export default {
       this.lectures = res_data;
     });
   },
+  mounted () {
+    window.addEventListener('resize', this.offsetWidth);
+  },
   components: { LectureCarouselItem },
   data () {
     return {
-      screen_width : window.document.body.offsetWidth,
+      screen_width: window.document.body.offsetWidth,
       lectures: [],
-      start_index: 0,
-      end_index: 2,
+      start_index: 0
     }
   },
   computed: {
@@ -50,17 +53,45 @@ export default {
       }else{  // mobile
         return 1; 
       }
+    },
+    end_index(){
+      return this.start_index + this.media_count;
+    },
+    active_lecture(){
+      if (this.media_count === 2){
+        return this.lectures.length - 1;
+      }
+      return this.lectures.length;
     }
   },
   methods: {
+    handler(func1, func2){
+      if (func1 === "nextList" && func2 === "nextSlide"){
+        this.nextList(func1);
+        this.nextSlide(func2);
+        return;
+      }
+      if (func1 === "prevList" && func2 === "prevSlide"){
+        this.prevList(func1);
+        this.prevSlide(func2);
+        return;
+      }
+    },
     prevList(){
-      this.start_index--;
-      this.end_index--;
+      this.end_index === this.media_count ? this.start_index = this.active_lecture - this.media_count : this.start_index -= this.media_count;
     },
     nextList(){
-      this.start_index++;
-      this.end_index++;
+      this.end_index >= this.active_lecture ? this.start_index = 0 : this.start_index += this.media_count;
     },
+    offsetWidth(){
+      this.screen_width = window.document.body.offsetWidth;
+    },
+    nextSlide(){
+      console.log('hi');
+    },
+    prevSlide(){
+      console.log('hello');
+    }
   }
 }
 </script>
@@ -77,14 +108,28 @@ export default {
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
-    width: 1230px;
+    @include breakpoint(desktop){
+      width: 1230px;
+    }
+    @include breakpoint(tablet){
+      width: 95%;
+    }
+    @include breakpoint(mobile){
+      width: 90%;
+    }
     position: absolute;
     transform: translateX(-50%);
     margin-left: 50%;
-    top: 250px;
+    top: 230px;
     .prev-list-btn, .next-list-btn{
       font-size: 1.8rem;
       color: #bbc0d4;
+      @include breakpoint(tablet){
+        font-size: 3.0rem;
+      }
+      @include breakpoint(mobile){
+        font-size: 4.0rem;
+      }
     }
   }
   // 인기 강의 더 보기 버튼
@@ -93,7 +138,6 @@ export default {
     position: relative;
     font-size: 0;
     border: 1px solid #bbc0d4;
-    // padding: 10px 20px;
     line-height: 40px;
     width: 100%;
     margin-top: 30px;
@@ -111,7 +155,7 @@ export default {
       transition: width 0.4s;
     }
     &::after{
-      content: '인기 강의 더 보기';
+      content: '강의 더 보기';
       position: absolute;
       font-size: 1.4rem;
       width: 100%;
@@ -130,4 +174,5 @@ export default {
       }
     }
   }
+
 </style>

@@ -1,5 +1,5 @@
 <template lang="pug">
-  #app
+  #app(v-cloak)
     main-header
     router-view
     main-footer
