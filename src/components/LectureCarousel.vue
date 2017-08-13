@@ -3,7 +3,7 @@
     .grid
       h2.col.col-d-4.col-d-push-4 오늘의 인기 강의
     .grid.favorite-lecture
-      ul
+      transition-group(tag="ul" :name="anim_type")
         lecture-carousel-item(
           v-for="(lecture, index) in lectures"
           key="index" :lecture="lecture"
@@ -11,19 +11,14 @@
           :index="index"
         )
     .prev-next-btns
-      //- a(href role="button" aria-label="이전 리스트 보기" @click.prevent="prevList").prev-list-btn.ion-chevron-left
-      a(href role="button" aria-label="이전 리스트 보기" @click.prevent="handler('prevList', 'prevSlide')").prev-list-btn.ion-chevron-left
-      a(href role="button" aria-label="다음 리스트 보기" @click.prevent="handler('nextList', 'nextSlide')").next-list-btn.ion-chevron-right
-    .grid  
-      .col.col-d-2.col-d-offset-5.col-t-4.col-t-offset-2.col-m-4
-        router-link(to="lecturelist" role="button" aria-label="인기 강의 리스트 페이지로 이동하기").favorite-list-more-btn 강의 더 보기
+      a(href role="button" aria-label="이전 리스트 보기" @click.prevent="prevList").prev-list-btn.ion-chevron-left
+      a(href role="button" aria-label="다음 리스트 보기" @click.prevent="nextList").next-list-btn.ion-chevron-right
 </template>
 
 <script>
 import LectureCarouselItem from './LectureItem';
 
 export default {
-
   name: 'lecture-carousel',
   created () {
     const data_url = 'https://elass-6ad68.firebaseio.com/elass.json';
@@ -36,12 +31,15 @@ export default {
   mounted () {
     window.addEventListener('resize', this.offsetWidth);
   },
-  components: { LectureCarouselItem },
+  components: { 
+    LectureCarouselItem
+  },
   data () {
     return {
+      direction: 'prev',
       screen_width: window.document.body.offsetWidth,
       lectures: [],
-      start_index: 0
+      start_index: 0,
     }
   },
   computed: {
@@ -62,36 +60,23 @@ export default {
         return this.lectures.length - 1;
       }
       return this.lectures.length;
+    },
+    anim_type(){
+      return 'slide-' + this.direction;
     }
   },
   methods: {
-    handler(func1, func2){
-      if (func1 === "nextList" && func2 === "nextSlide"){
-        this.nextList(func1);
-        this.nextSlide(func2);
-        return;
-      }
-      if (func1 === "prevList" && func2 === "prevSlide"){
-        this.prevList(func1);
-        this.prevSlide(func2);
-        return;
-      }
-    },
     prevList(){
+      this.direction = 'prev';
       this.end_index === this.media_count ? this.start_index = this.active_lecture - this.media_count : this.start_index -= this.media_count;
     },
     nextList(){
+      this.direction = 'next';
       this.end_index >= this.active_lecture ? this.start_index = 0 : this.start_index += this.media_count;
     },
     offsetWidth(){
       this.screen_width = window.document.body.offsetWidth;
     },
-    nextSlide(){
-      console.log('hi');
-    },
-    prevSlide(){
-      console.log('hello');
-    }
   }
 }
 </script>
@@ -100,8 +85,9 @@ export default {
   @import '~default';
   // 인기 강의 컨테이너
   .favorite-lecture-container{
-    margin-top: 40px;
     position: relative;
+    margin-top: 40px;
+    height: 430px;
   }
   // 인기 강의 이전, 다음 버튼
   .prev-next-btns{
