@@ -1,5 +1,5 @@
 <template lang="pug">
-  li.col.col-d-4.col-4.col-t-4.col-m-4
+  li.col.col-d-4.col-4.col-t-4.col-m-4.lecture-item
     .favorite-lecture-item.mt-1
       span.favorite-lecture-tag {{class_item.category}}
       .favorite-lecture-image
@@ -25,14 +25,34 @@
 <script>
 export default {
   name: 'lecture-item',
+  props: ['lecture', 'index'],
+  mounted () {
+    let items = window.document.querySelectorAll('.lecture-item');
+    let position = items[0].offsetLeft;
+    this.position = position;
+  
+    window.addEventListener('resize', this.getCurrentLeft);
+    
+  },
   data(){
     return {
-      class_item : this.lecture,
-      active_index: this.index + 1
+      lectures: this.$parent.$parent.lectures,
+      media: this.$parent.$parent.media_count,
+      class_item: this.lecture,
+      active_index: this.index + 1,
+      position: ''
     }
   },
-  props: ['lecture', 'index'],
+  methods: {
+    getCurrentLeft(){
+      let items = window.document.querySelectorAll('.lecture-item');
+      let position = items[0].offsetLeft;
+      this.position = position;
+    
+    }
+  }
 }
+  
 </script>
 
 <style lang="scss">
@@ -44,7 +64,7 @@ export default {
       border-radius: 10px 10px;
       border: 1px solid #e6e6e6;
       height: 370px;
-      position: relative;
+      position: absolute;
     }
     .favorite-lecture-tag{
       display: inline-block;
@@ -116,5 +136,38 @@ export default {
     justify-content: space-around;
     margin: 0 auto;
   }
+
+.slide-prev-enter-active
+  {animation: slide-prev-in 0.4s}
+.slide-prev-leave-active
+  {animation: slide-prev-out 0.4s}
+.slide-next-enter-active
+  {animation: slide-next-in 0.4s}
+.slide-next-leave-active
+  {animation: slide-next-out 0.4s}
+
+@keyframes slide-prev-in{
+  from
+    {transform: translateX(-100%)}
+  to
+    {transform: translateX(0%)}}
+
+@keyframes slide-prev-out{
+  from
+    {transform: translateX(0%)}
+  to
+    {transform: translateX(100%)}}
+
+@keyframes slide-next-in{
+  from
+    {transform: translateX(100%)}
+  to
+    {transform: translateX(0%)}}
+    
+@keyframes slide-next-out{
+  from
+    {transform: translateX(0%)}
+  to
+    {transform: translateX(-100%)}}
 
 </style>

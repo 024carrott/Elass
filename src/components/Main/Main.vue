@@ -11,6 +11,11 @@
 
     //- 인기 강의
     lecture-carousel
+    
+    .container
+      .grid  
+        .col.col-d-2.col-d-offset-5.col-t-4.col-t-offset-2.col-m-4
+          router-link(to="lecturelist" role="button" aria-label="인기 강의 리스트 페이지로 이동하기").favorite-list-more-btn 강의 더 보기
     //- 카테고리
     .container.category-container.mt-2
       .grid
