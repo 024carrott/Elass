@@ -1,5 +1,5 @@
 <template lang="pug">
-.container.sign-up-banner.mt-2
+.container.sign-up-banner.mt-2(v-if="is_signup")
   .grid
     .col
       p.sign-up-banner-title 회원이 되시면 더 많은 서비스를 이용하실 수 있습니다.
@@ -11,6 +11,11 @@
 <script>
 export default {
   name: 'SignUpBanner',
+  computed: {
+    is_signup(){
+      return this.$route.path !== '/signup' && !this.$store.getters.isLogIn;
+     }
+  },
   data () {
     return {
       

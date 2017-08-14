@@ -1,5 +1,5 @@
 <template lang="pug">
-  #app
+  #app(v-cloak)
     main-header
     router-view
     main-footer
@@ -22,7 +22,9 @@ export default {
 }
 </script>
 
-<style lang="sass">
+<style lang="scss">
   @import "~default";
-
+  [v-cloak]{
+    display: none;
+  }
 </style>

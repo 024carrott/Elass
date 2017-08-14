@@ -1,18 +1,18 @@
 <template lang="pug">
-  li.col.col-d-4.col-4.col-t-4.col-m-4
+  li.col.col-d-4.col-4.col-t-4.col-m-4.lecture-item
     .favorite-lecture-item.mt-1
-      span.favorite-lecture-tag 이색취미
+      span.favorite-lecture-tag {{class_item.category}}
       .favorite-lecture-image
         a(href aria-label="나의 정원을 위한 가드닝 첫 걸음 상세 페이지로 가기")
-          img(src="../assets/favorite-list/favorite-list-img-01.jpg" alt="나의 정원을 위한 가드닝 첫 걸음")
+          img(:src="`http://lorempicsum.com/up/627/500/` + active_index" :alt="`${class_item.title} 이미지`")
       dl.favorite-lecture-content
-        dt.favorite-lecture-title 나의 정원을 위한 가드닝 첫 걸음 나의 정원을 위한 가드닝 첫 걸음
-        dd.favorite-lecture-user @김꽃잎
-      a(href role="button" aria-label="나의 정원을 위한 가드닝 첫 걸음 강의 찜하기").favorite-like
+        dt.favorite-lecture-title {{class_item.title}}
+        dd.favorite-lecture-user {{class_item.tutor_intro}}
+      a(href role="button" :aria-label="`${class_item.title} 좋아요`").favorite-like
         //- 좋아요 클릭 off
-        img(src="../assets/favorite-list/favorite-like-btn-off.png" alt="나의 정원을 위한 가드닝 첫 걸음 좋아요")
+        img(src="../assets/favorite-list/favorite-like-btn-off.png")
         //- 좋아요 클릭 on
-        //- img(src="../assets/favorite-list/favorite-like-btn-on.png" alt="나의 정원을 위한 가드닝 첫 걸음 좋아요 취소")
+        //- img(src="../assets/favorite-list/favorite-like-btn-on.png")
       .favorite-star
         span.a11y-hidden 강의평가 5점 만점에 4점
         i.ion-ios-star
@@ -25,12 +25,34 @@
 <script>
 export default {
   name: 'lecture-item',
-  data () {
+  props: ['lecture', 'index'],
+  mounted () {
+    let items = window.document.querySelectorAll('.lecture-item');
+    let position = items[0].offsetLeft;
+    this.position = position;
+  
+    window.addEventListener('resize', this.getCurrentLeft);
+    
+  },
+  data(){
     return {
-      
+      lectures: this.$parent.$parent.lectures,
+      media: this.$parent.$parent.media_count,
+      class_item: this.lecture,
+      active_index: this.index + 1,
+      position: ''
+    }
+  },
+  methods: {
+    getCurrentLeft(){
+      let items = window.document.querySelectorAll('.lecture-item');
+      let position = items[0].offsetLeft;
+      this.position = position;
+    
     }
   }
 }
+  
 </script>
 
 <style lang="scss">
@@ -42,7 +64,7 @@ export default {
       border-radius: 10px 10px;
       border: 1px solid #e6e6e6;
       height: 370px;
-      position: relative;
+      position: absolute;
     }
     .favorite-lecture-tag{
       display: inline-block;
@@ -86,12 +108,13 @@ export default {
   }
   // 인기 강의 좋아요 아이콘
   .favorite-like{
+    z-index: 1;
     position: absolute;
     width: 60px;
     height: 60px;
     border-radius: 30px;
     top: 190px;
-    right: 32px;
+    right: 50px;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
   }
   // 인기 강의 별점
@@ -113,4 +136,38 @@ export default {
     justify-content: space-around;
     margin: 0 auto;
   }
+
+.slide-prev-enter-active
+  {animation: slide-prev-in 0.4s}
+.slide-prev-leave-active
+  {animation: slide-prev-out 0.4s}
+.slide-next-enter-active
+  {animation: slide-next-in 0.4s}
+.slide-next-leave-active
+  {animation: slide-next-out 0.4s}
+
+@keyframes slide-prev-in{
+  from
+    {transform: translateX(-100%)}
+  to
+    {transform: translateX(0%)}}
+
+@keyframes slide-prev-out{
+  from
+    {transform: translateX(0%)}
+  to
+    {transform: translateX(100%)}}
+
+@keyframes slide-next-in{
+  from
+    {transform: translateX(100%)}
+  to
+    {transform: translateX(0%)}}
+    
+@keyframes slide-next-out{
+  from
+    {transform: translateX(0%)}
+  to
+    {transform: translateX(-100%)}}
+
 </style>

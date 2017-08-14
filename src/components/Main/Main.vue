@@ -11,6 +11,11 @@
 
     //- 인기 강의
     lecture-carousel
+    
+    .container
+      .grid  
+        .col.col-d-2.col-d-offset-5.col-t-4.col-t-offset-2.col-m-4
+          router-link(to="lecturelist" role="button" aria-label="인기 강의 리스트 페이지로 이동하기").favorite-list-more-btn 강의 더 보기
     //- 카테고리
     .container.category-container.mt-2
       .grid
@@ -59,9 +64,15 @@ import Reviews from './Reviews';
 import TopButton from '../TopButton'
 export default {
   components: {
-    LectureCarousel, Reviews, TopButton
+    LectureCarousel,  Reviews, TopButton
   },
-  name: 'main'
+  name: 'main',
+  data () {
+    return {
+    }
+  },
+  methods: {
+  }
 }
 </script>
 
@@ -75,20 +86,40 @@ export default {
     text-align: center;
     color: #fff;
     margin-left: 50%;
-    top: 360px;
+    top: 340px;
+    @include breakpoint(tablet){
+      top: 8%;
+    };
+    @include breakpoint(mobile){
+      top: 5%;
+    };
     left: 0;
     .slogan{
-      font-size: 5.5rem;
+      @include breakpoint(desktop){
+        font-size: 5.5rem
+      };
+      @include breakpoint(tablet){
+        font-size: 4.2rem
+      };
+      @include breakpoint(mobile){
+        font-size: 2.4rem
+      };
     }
     .sub-text{
+    @include breakpoint(desktop){
       font-size: 2.0rem;
+      }
+    @include breakpoint(tablet){
+      font-size: 1.6rem;
+      }
+    @include breakpoint(mobile){
+      font-size: 1.4rem;
+      }
     }
   }
   
   .video-img{
-    height: 580px;
-
-    min-width: 1200px;
+    max-height: 580px;
     overflow: hidden;
     video{
       width: 100%;
