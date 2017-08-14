@@ -9,7 +9,7 @@
               legend.a11y-hidden 회원가입 입력 폼
               label(for="user-nickname").col.alpha 닉네임
               input(id="user-nickname" name="user-nickname" type="text" placeholder="닉네임을 입력 해 주세요." ref=""  @input="nickname").col.alpha
-              span.show(v-show="nickname_check") * 6글자 이상, 12글자 이하로 작성해주세요.
+              span.show(v-show="nickname_check").col.alpha * 6글자 이상, 12글자 이하로 작성해주세요.
               label(for="user-email").col.alpha 이메일
               input(id="user-email" name="user-email" type="text" placeholder="이메일을 입력 해 주세요." @input="email").col.alpha
               span.show(v-show="email_check").col.alpha * 올바른 이메일 형식이 아닙니다.
@@ -21,7 +21,7 @@
               .checkbox.col.alpha.omega
                 input(id="confirm" type="checkbox" name="confirm" value="confirm" aria-label="이용약관 및 개인정보취급방침에 동의합니다." @click="checkbox" :checked="check_box" ).a11y-hidden
                 label(for="confirm") 이용약관 및 개인정보취급방침에 동의합니다.
-              span.show(v-show="toggle_checkbox") * 해당 박스를 체크해주셔야 회원가입이 가능합니다. 
+              span.show(v-show="toggle_checkbox").col.alpha * 해당 박스를 체크해주셔야 회원가입이 가능합니다. 
               button(type="submit" class="sign-up-btn").col 회원가입 하기
         .grid.mt-2
           span.col(class="or") or
@@ -199,6 +199,6 @@ export default {
 
   .show{
     color: red;
-    display: inline-block;
+    display: inline;
   }
 </style>
