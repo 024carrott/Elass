@@ -2,14 +2,14 @@
   .container.favorite-lecture-container
     .grid
       h2.col.col-d-4.col-d-push-4 오늘의 인기 강의
-    .grid.favorite-lecture
-      transition-group(tag="ul" :name="anim_type")
-        lecture-carousel-item(
-          v-for="(lecture, index) in lectures"
-          key="index" :lecture="lecture"
-          v-show="index >= start_index && index < end_index"
-          :index="index"
-        )
+    transition-group(tag="ul" :name="anim_type" class="grid favorite-lecture")
+      lecture-carousel-item(
+        v-for="(lecture, index) in lectures"
+        key="index" :lecture="lecture"
+        v-show="index >= start_index && index < end_index"
+        :index="index"
+        :media="media_count"
+      )
     .prev-next-btns
       a(href role="button" aria-label="이전 리스트 보기" @click.prevent="prevList").prev-list-btn.ion-chevron-left
       a(href role="button" aria-label="다음 리스트 보기" @click.prevent="nextList").next-list-btn.ion-chevron-right
@@ -30,6 +30,7 @@ export default {
   },
   mounted () {
     window.addEventListener('resize', this.offsetWidth);
+    window.addEventListener('resize', this.$children.resetPosition);
   },
   components: { 
     LectureCarouselItem
@@ -85,17 +86,20 @@ export default {
   @import '~default';
   // 인기 강의 컨테이너
   .favorite-lecture-container{
-    position: relative;
     margin-top: 40px;
     height: 430px;
+    position: relative;
+    .favorite-lecture{
+      height: 390px;
+    }
   }
   // 인기 강의 이전, 다음 버튼
   .prev-next-btns{
-    margin: 0 auto;
+    // margin: 0 auto;
     display: flex;
     justify-content: space-between;
     @include breakpoint(desktop){
-      width: 1230px;
+      width: 1150px;
     }
     @include breakpoint(tablet){
       width: 95%;
@@ -110,6 +114,9 @@ export default {
     .prev-list-btn, .next-list-btn{
       font-size: 1.8rem;
       color: #bbc0d4;
+      @include breakpoint(desktop){
+        font-size: 2.8rem;
+      }
       @include breakpoint(tablet){
         font-size: 3.0rem;
       }
