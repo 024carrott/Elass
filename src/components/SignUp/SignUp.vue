@@ -7,37 +7,44 @@
           form.sign-up-form.col.col-d-6.col-d-push-3
             fieldset
               legend.a11y-hidden 회원가입 입력 폼
-              label(for="user-nickname" @input="nickname").col.alpha 닉네임
-              input(id="user-nickname" name="user-nickname" type="text" placeholder="닉네임을 입력 해 주세요." ref="").col.alpha
-              span.show(v-if="nickname.length > 12" v-show="true") * 6글자 이상, 12글자 이하로 작성해주세요.
+              label(for="user-nickname").col.alpha 닉네임
+              input(id="user-nickname" name="user-nickname" type="text" placeholder="닉네임을 입력 해 주세요." ref=""  @input="nickname").col.alpha
+              span.show(v-show="nickname_check") * 6글자 이상, 12글자 이하로 작성해주세요.
               label(for="user-email").col.alpha 이메일
               input(id="user-email" name="user-email" type="text" placeholder="이메일을 입력 해 주세요." @input="email").col.alpha
-              span.show(v-show="false").col.alpha * 올바른 이메일 형식이 아닙니다.
+              span.show(v-show="email_check").col.alpha * 올바른 이메일 형식이 아닙니다.
               label(for="user-password").col.alpha 비밀번호
               input(id="user-password" name="user-password" type="text" @input="pw" placeholder="비밀번호를 입력 해 주세요.").col.alpha
               label(for="user-password").col.alpha 비밀번호 확인
               input(id="user-password-2" name="user-password-check" type="text" @input="pw_2" placeholder="비밀번호를 한번 더 입력 해 주세요.").col.alpha
               span.show(v-show="pw_check").col.alpha * 비밀번호가 일치하지 않습니다.              
               .checkbox.col.alpha.omega
-                input(id="confirm" type="checkbox" name="confirm" value="confirm" aria-label="이용약관 및 개인정보취급방침에 동의합니다.").a11y-hidden
+                input(id="confirm" type="checkbox" name="confirm" value="confirm" aria-label="이용약관 및 개인정보취급방침에 동의합니다." @click="checkbox" :checked="check_box" ).a11y-hidden
                 label(for="confirm") 이용약관 및 개인정보취급방침에 동의합니다.
+              span.show(v-show="toggle_checkbox") * 해당 박스를 체크해주셔야 회원가입이 가능합니다. 
               button(type="submit" class="sign-up-btn").col 회원가입 하기
         .grid.mt-2
           span.col(class="or") or
         .grid.mt-2
-          a(href class="facebook-sign-up" role="button" aria-label="페이스북으로 회원가입 하기 버튼" @click="checkbox").col.col-d-6.col-d-push-3 페이스북으로 회원가입 하기
+          a(href class="facebook-sign-up" role="button" aria-label="페이스북으로 회원가입 하기 버튼").col.col-d-6.col-d-push-3 페이스북으로 회원가입 하기
         .grid.information
           p 안심하세요!
             br
-            | 유저의 허락 없이 게시물을 올리지 않습니다.    
+            | 유저의 허락 없이 게시물을 올리지 않습니다.
 </template>
 
 <script>
 export default {
   data(){
     return {
+      password: '',
+      password_2: '',
+      e_mail: '',
+      nick_name: '',
+      check_box: false
+
+
     }
-    // var em_math = '/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/';
   },
   methods:{
     pw(e){
@@ -51,6 +58,9 @@ export default {
     },
     nickname(e){
       this.nick_name = e.target.value
+    },
+    checkbox(e){
+      this.check_box = !this.check_box
     }
 
     
@@ -67,11 +77,28 @@ export default {
     pw_check(){
       return (this.password === this.password_2) ? false : true
     },
-    // em_check(){
-    //   return (this.email === em_math ) ? false : true
-    // },
-   
+    email_check(){
+      let regex=/([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+      if(this.e_mail === ''){
+        return false
+      }
+      return !regex.test(this.e_mail); 
+      },
+    toggle_checkbox(){
+      if(this.check_box === true){
+        return false
+      } else{
+        return true
+      }
+    },
+    nickname_check(){
+      let pattern = /^[\w\Wㄱ-ㅎㅏ-ㅣ가-힣]{6,12}$/;
+      if(this.nick_name === ''){
+        return false
+      }
+      return !pattern.test(this.nick_name);
     }
+  }
 }
 </script>
 
@@ -172,5 +199,6 @@ export default {
 
   .show{
     color: red;
+    display: inline-block;
   }
 </style>
