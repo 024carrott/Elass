@@ -7,12 +7,17 @@
           form.sign-up-form.col.col-d-6.col-d-push-3
             fieldset
               legend.a11y-hidden 회원가입 입력 폼
-              label(for="user-nickname").col.alpha 닉네임
+              label(for="user-nickname" @input="nickname").col.alpha 닉네임
               input(id="user-nickname" name="user-nickname" type="text" placeholder="닉네임을 입력 해 주세요." ref="").col.alpha
+              span.show(v-if="nickname.length > 12" v-show="true") * 6글자 이상, 12글자 이하로 작성해주세요.
               label(for="user-email").col.alpha 이메일
-              input(id="user-email" name="user-email" type="text" placeholder="이메일을 입력 해 주세요.").col.alpha
+              input(id="user-email" name="user-email" type="text" placeholder="이메일을 입력 해 주세요." @input="email").col.alpha
+              span.show(v-show="false").col.alpha * 올바른 이메일 형식이 아닙니다.
               label(for="user-password").col.alpha 비밀번호
-              input(id="user-password" name="user-password" type="text" placeholder="비밀번호를 입력 해 주세요.").col.alpha
+              input(id="user-password" name="user-password" type="text" @input="pw" placeholder="비밀번호를 입력 해 주세요.").col.alpha
+              label(for="user-password").col.alpha 비밀번호 확인
+              input(id="user-password-2" name="user-password-check" type="text" @input="pw_2" placeholder="비밀번호를 한번 더 입력 해 주세요.").col.alpha
+              span.show(v-show="pw_check").col.alpha * 비밀번호가 일치하지 않습니다.              
               .checkbox.col.alpha.omega
                 input(id="confirm" type="checkbox" name="confirm" value="confirm" aria-label="이용약관 및 개인정보취급방침에 동의합니다.").a11y-hidden
                 label(for="confirm") 이용약관 및 개인정보취급방침에 동의합니다.
@@ -20,7 +25,7 @@
         .grid.mt-2
           span.col(class="or") or
         .grid.mt-2
-          a(href class="facebook-sign-up" role="button" aria-label="페이스북으로 회원가입 하기 버튼").col.col-d-6.col-d-push-3 페이스북으로 회원가입 하기
+          a(href class="facebook-sign-up" role="button" aria-label="페이스북으로 회원가입 하기 버튼" @click="checkbox").col.col-d-6.col-d-push-3 페이스북으로 회원가입 하기
         .grid.information
           p 안심하세요!
             br
@@ -31,14 +36,42 @@
 export default {
   data(){
     return {
-
     }
+    // var em_math = '/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/';
   },
   methods:{
-    validation(){
-      // 가입 폼 유효성 검사
+    pw(e){
+      this.password = e.target.value
     },
+    pw_2(e){
+      this.password_2 = e.target.value
+    },
+    email(e){
+      this.e_mail = e.target.value
+    },
+    nickname(e){
+      this.nick_name = e.target.value
+    }
+
+    
+  
+    
+     
+  
+
+    // validation()
+    //   // 가입 폼 유효성 검사
+    // },
   },
+  computed:{
+    pw_check(){
+      return (this.password === this.password_2) ? false : true
+    },
+    // em_check(){
+    //   return (this.email === em_math ) ? false : true
+    // },
+   
+    }
 }
 </script>
 
@@ -137,4 +170,7 @@ export default {
     line-height: 1.8rem;
   }
 
+  .show{
+    color: red;
+  }
 </style>
