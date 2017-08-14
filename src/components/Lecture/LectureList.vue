@@ -55,14 +55,13 @@ main
             option(value="new" selected) 신규등록순
             option(value="average") 평점높은순
 
-  .grid.lecture-list
-    ul
-      lecture-item
-      lecture-item
-      lecture-item
-      lecture-item
-      lecture-item
-      lecture-item
+  ul.grid.lecture-list
+    lecture-item(
+      v-for="(lecture, index) in lectures"
+      :lecture="lecture"
+      key="index"
+      :index="index"
+      )
   .grid  
       .col.col-d-2.col-d-offset-5.col-t-4.col-t-offset-2.col-m-4
         a(href role="button" aria-label="강의 리스트 더 불러오기").lecture-list-more-btn 강의 더 보기
@@ -73,6 +72,20 @@ main
 import LectureItem from '../LectureItem';
 import TopButton from '../TopButton';
 export default {
+  created () {
+    const data_url = 'https://elass-6ad68.firebaseio.com/elass.json';
+    this.$http.get(data_url)
+    .then((response) => {
+      let res_data = response.data;
+      this.lectures = res_data;
+    });
+  },
+  data () {
+    return {
+      lectures: [],
+      class_item: this.lecture,
+    }
+  },
   components: {
     LectureItem, TopButton
   }

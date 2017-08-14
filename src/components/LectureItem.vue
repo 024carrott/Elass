@@ -1,5 +1,5 @@
 <template lang="pug">
-  li.col.col-d-4.col-4.col-t-4.col-m-4.lecture-item
+  li.col.col-d-4.col-t-4.col-m-4.lecture-item
     .favorite-lecture-item.mt-1
       span.favorite-lecture-tag {{class_item.category}}
       .favorite-lecture-image
@@ -25,30 +25,86 @@
 <script>
 export default {
   name: 'lecture-item',
-  props: ['lecture', 'index'],
+  props: ['lecture', 'index', 'media'],
   mounted () {
+    window.addEventListener('resize', this.resetPosition);
     let items = window.document.querySelectorAll('.lecture-item');
-    let position = items[0].offsetLeft;
-    this.position = position;
-  
-    window.addEventListener('resize', this.getCurrentLeft);
-    
+    if (this.media === 3){
+      items[0].classList.add('alpha');
+      items[1].classList.add('col-d-push-4');
+      items[2].classList.add('col-d-push-8');
+      items[3].classList.add('alpha');
+      items[4].classList.add('col-d-push-4');
+      items[5].classList.add('col-d-push-8');
+      items[6].classList.add('alpha');
+      items[7].classList.add('col-d-push-4');
+      items[8].classList.add('col-d-push-8');
+      return;
+    } else if (this.media === 2){
+      items[0].classList.add('alpha');
+      items[1].classList.add('col-t-push-4');
+      items[2].classList.add('alpha');
+      items[3].classList.add('col-t-push-4');
+      items[4].classList.add('alpha');
+      items[5].classList.add('col-t-push-4');
+      items[6].classList.add('alpha');
+      items[7].classList.add('col-t-push-4');
+      return;
+    } else {
+      for(let i = 0, l = items.length; i < l; i++){
+        items[i].classList.add('alpha');
+      }
+      return;
+    }
   },
   data(){
     return {
       lectures: this.$parent.$parent.lectures,
-      media: this.$parent.$parent.media_count,
       class_item: this.lecture,
       active_index: this.index + 1,
       position: ''
     }
   },
   methods: {
-    getCurrentLeft(){
+    resetPosition(){
       let items = window.document.querySelectorAll('.lecture-item');
-      let position = items[0].offsetLeft;
-      this.position = position;
-    
+      if (this.media === 3){
+        for(let i = 0, l = items.length; i < l; i++){
+          if (items[i].classList.contains('alpha')){
+            items[i].classList.remove('alpha')
+          }
+        }
+        items[0].classList.add('alpha');
+        items[1].classList.add('col-d-push-4');
+        items[2].classList.add('col-d-push-8');
+        items[3].classList.add('alpha');
+        items[4].classList.add('col-d-push-4');
+        items[5].classList.add('col-d-push-8');
+        items[6].classList.add('alpha');
+        items[7].classList.add('col-d-push-4');
+        items[8].classList.add('col-d-push-8');
+        return;
+      } else if (this.media === 2){
+        for(let i = 0, l = items.length; i < l; i++){
+          if (items[i].classList.contains('alpha')){
+            items[i].classList.remove('alpha')
+          }
+        }
+        items[0].classList.add('alpha');
+        items[1].classList.add('col-t-push-4');
+        items[2].classList.add('alpha');
+        items[3].classList.add('col-t-push-4');
+        items[4].classList.add('alpha');
+        items[5].classList.add('col-t-push-4');
+        items[6].classList.add('alpha');
+        items[7].classList.add('col-t-push-4');
+        return;
+      } else {
+        for(let i = 0, l = items.length; i < l; i++){
+          items[i].classList.add('alpha');
+        }
+        return;
+      }
     }
   }
 }
@@ -57,40 +113,38 @@ export default {
 
 <style lang="scss">
   @import '~default';
-  ul{
-    @extend %clearfix;
-    .favorite-lecture-item{
+  .favorite-lecture-item{
+    overflow: hidden;
+    border-radius: 10px 10px;
+    border: 1px solid #e6e6e6;
+    height: 370px;
+    position: absolute;
+  }
+  .favorite-lecture-tag{
+    display: inline-block;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    text-align: center;
+    position: absolute;
+    color: #fff;
+    top: 30px;
+    left: 30px;
+    line-height: 25px;
+    width: 70px;
+  }
+  .favorite-lecture-image{
+    a{
+      display: block;
+      height: 230px;
+      width: 100%;
       overflow: hidden;
-      border-radius: 10px 10px;
-      border: 1px solid #e6e6e6;
-      height: 370px;
-      position: absolute;
-    }
-    .favorite-lecture-tag{
-      display: inline-block;
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 15px;
-      text-align: center;
-      position: absolute;
-      color: #fff;
-      top: 30px;
-      left: 30px;
-      line-height: 25px;
-      width: 70px;
-    }
-    .favorite-lecture-image{
-      a{
-        display: block;
-        height: 230px;
+      img{
+        height: auto;
         width: 100%;
-        overflow: hidden;
-        img{
-          height: auto;
-          width: 100%;
-        }
       }
     }
   }
+  
   // 인기 강의 텍스트 컨텐츠
   .favorite-lecture-content{
     margin: 30px auto 0;
@@ -138,36 +192,64 @@ export default {
   }
 
 .slide-prev-enter-active
-  {animation: slide-prev-in 0.4s}
+  {animation: slide-prev-in 0.4s;}
 .slide-prev-leave-active
-  {animation: slide-prev-out 0.4s}
+  {animation: slide-prev-out 0.4s;}
 .slide-next-enter-active
-  {animation: slide-next-in 0.4s}
+  {animation: slide-next-in 0.4s;}
 .slide-next-leave-active
-  {animation: slide-next-out 0.4s}
+  {animation: slide-next-out 0.4s;}
 
 @keyframes slide-prev-in{
   from
-    {transform: translateX(-100%)}
+    {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
   to
-    {transform: translateX(0%)}}
+    {
+      transform: translateX(0%);
+      opacity: 1;
+    }
+  }
 
 @keyframes slide-prev-out{
   from
-    {transform: translateX(0%)}
+    {
+      transform: translateX(0%);
+      opacity: 1;
+    }
   to
-    {transform: translateX(100%)}}
+    {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
 
 @keyframes slide-next-in{
   from
-    {transform: translateX(100%)}
+    {
+      transform: translateX(100%);
+      opacity: 0;
+    }
   to
-    {transform: translateX(0%)}}
+    {
+      transform: translateX(0%);
+      opacity: 1
+    }
+  }
     
 @keyframes slide-next-out{
   from
-    {transform: translateX(0%)}
+    {
+      transform: translateX(0%);
+      opacity: 1;
+    }
   to
-    {transform: translateX(-100%)}}
+    {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
 
 </style>
