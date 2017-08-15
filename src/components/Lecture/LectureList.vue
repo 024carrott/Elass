@@ -45,7 +45,7 @@ main
     .grid
       .col
         h2 헬스 & 뷰티
-        p.text 총 12,931 개의 강의가 등록되어 있습니다.
+        p.text 총 {{this.lectures.length}} 개의 강의가 등록되어 있습니다.
 
   .container
     .grid
@@ -54,22 +54,22 @@ main
           select.select-box(title="search-select")
             option(value="new" selected) 신규등록순
             option(value="average") 평점높은순
-
-  ul.grid.lecture-list
-    lecture-item(
-      v-for="(lecture, index) in lectures"
-      :lecture="lecture"
-      key="index"
-      :index="index"
-      )
-  .grid  
+    ul.grid.lecture-list
+      lecture-list-item(
+        v-for="(lecture, index) in lectures"
+        key="index"
+        :lecture="lecture"
+        :index="index"
+        v-if="index < 6"
+        ) 
+  .grid
       .col.col-d-2.col-d-offset-5.col-t-4.col-t-offset-2.col-m-4
         a(href role="button" aria-label="강의 리스트 더 불러오기").lecture-list-more-btn 강의 더 보기
   //- top-button
 </template>
 
 <script>
-import LectureItem from '../LectureItem';
+import LectureListItem from './LectureListItem';
 import TopButton from '../TopButton';
 export default {
   created () {
@@ -83,11 +83,10 @@ export default {
   data () {
     return {
       lectures: [],
-      class_item: this.lecture,
     }
   },
   components: {
-    LectureItem, TopButton
+    TopButton, LectureListItem
   }
 }
 </script>

@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import LectureCarouselItem from './LectureItem';
+import LectureCarouselItem from './LectureCarouselItem';
 
 export default {
   name: 'lecture-carousel',
