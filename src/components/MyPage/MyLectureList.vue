@@ -3,25 +3,40 @@ main
   .container
     .grid.mt-2
       h2 내가 수강한 강의
-      p.text.mt-1 총 12개의 강의를 수강 하였습니다.
-  .grid.lecture-list
-    ul
-      lecture-item
-      lecture-item
-      lecture-item
-      lecture-item
-      lecture-item
-      lecture-item
+      p.text.mt-1 총 {{this.lectures.length}}개의 강의를 수강 하였습니다.
+    ul.grid.lecture-list
+      lecture-list-item(
+        v-for="(lecture, index) in lectures"
+        key="index"
+        :lecture="lecture"
+        :index="index"
+        v-if="index < 9"
+        )
     .grid  
       .col.col-d-2.col-d-offset-5.col-t-4.col-t-offset-2.col-m-4
         a(href role="button" aria-label="강의 리스트 더 불러오기").lecture-list-more-btn 강의 더 보기
+    top-button    
 </template>
 
 <script>
-import LectureItem from '../LectureItem'
+import LectureListItem from '../Lecture/LectureListItem';
+import TopButton from '../TopButton';
 export default {
+  created () {
+    const data_url = 'https://elass-6ad68.firebaseio.com/elass.json';
+    this.$http.get(data_url)
+    .then((response) => {
+      let res_data = response.data;
+      this.lectures = res_data;
+    });
+  },
+  data () {
+    return {
+      lectures: [],
+    }
+  },
   components: {
-    LectureItem
+    TopButton, LectureListItem
   }
 }
 </script>
