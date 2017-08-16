@@ -1,11 +1,13 @@
 <template lang="pug">
-    main
+    main(
+      v-if="this.id === this.compareId"
+    )
       .container.health-image.mt-1
       .container.mt-2
         .grid
           .col.class-title
-            h2 나도 바리스타 너도 바리스타 에블바디 바리스타
-            p coffeecopy
+            h2 {{this.showItem.title}}
+            p {{this.showItem.category}}
         .grid.mt-1
           .col.col-d-8.col-t-5.col-m-4
             .carousel-container(role="region" aria-label="강의 이미지")
@@ -24,43 +26,50 @@
                   a.ion-ios-circle-outline(role="tab")
               .carousel-panels     
                 section(id="lecture-image-0" role="tabpanel")
+                  img(:src="`http://lorempicsum.com/up/800/600/` + lecture_index" :alt="`${this.showItem.title} 이미지`")
           .col.col-d-4.col-t-3.col-m-4
             table.class-summary(summary="해당 강의에 대한 강의명, 수강료, 강사, 장소, 일시, 인원 정보")
               tr
                 th 수강료
-                td 300,000 원
+                td {{this.showItem.price}}
               tr
                 th 강의명
-                td 나도 바리스타 너도 바리스타 에블바디 바리스타
+                td {{this.showItem.title}}
               tr
                 th 강사
-                td coffeecopy
-                  a.tutor.ion-link(href="" aria-label="강사의 다른 강의 보기")
+                td {{this.showItem.tutor_intro}}
+                  a.tutor.ion-link(href="" :aria-label="`${this.showItem.tutor_intro} 강사의 다른 강의 보기`")
               tr
                 th 강의장소
-                td 서울시 강남구 테헤란로 123 오란다 빌딩 지하1층 101호
+                td {{lecturePlace}}
               tr
                 th 강의일시
                 td
-                  time(datetime="2017-08-09 14:00") 2017년 8월 9일 오후 2시
+                  time(datetime="2017-08-09 14:00")
+                    | {{`매주 ${this.koreanDay}`}}
+                    br
+                    | {{lectureTime}}
               tr
                 th 모집인원
-                td 30명
+                td
+                  | {{`최소 ${this.showItem.min_member}명`}}
+                  br
+                  | {{`최대 ${this.showItem.max_member}명`}}
             .btn-group.mt-1
               a.btn-submit(role="button" href="") 수강 신청하기
               a.btn-white(role="button" href="") 강의 찜하기
         .grid
           .col 
-            h3.mt-2.bb 튜터 소개
-            h4.mt-1 경력사항
-            p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit ab est aliquid quae tempora dolorum, magnam, vero. Odio voluptate culpa odit officiis quas, iure debitis molestias pariatur vel? Architecto, dolore.
-            h4.mt-1 자기소개
-            p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit ab est aliquid quae tempora dolorum, magnam, vero. Odio voluptate culpa odit officiis quas, iure debitis molestias pariatur vel? Architecto, dolore.
             h3.mt-2.bb 상세 정보
-            p.mt-1 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi harum aliquam optio rem minima hic doloribus corporis, enim qui porro obcaecati, aut! Soluta iusto ipsam possimus enim! Explicabo saepe alias, tempore. Libero laudantium nesciunt corrupti tenetur, soluta blanditiis incidunt numquam!
+            h4.mt-1 강의 정보
+            p {{this.showItem.class_intro}}
+            h4.mt-1 이런 분들이 들으시면 좋아요!
+            p {{this.showItem.target_intro}}
+            h3.mt-2.bb 튜터 소개
+            p.mt-1 {{this.showItem.tutor_intro}}
         .grid.mt-2
           .col.col-d-2.col-d-offset-5.col-t-2.col-t-offset-3.col-m-2.col-m-offset-1
-            router-link.btn-white.is-full.is-small(to="lecturelist" role="button" href) 목록으로
+            a.btn-white.is-full.is-small(to="lecturelist" role="button" href="/lecturelist/all") 목록으로
           a.btn-white.is-small.ion-edit(role="button" href) 강의수정
         .grid
           .col
@@ -154,12 +163,10 @@
               h4 강의 평가하기
               .favorite-star.big
                 span.a11y-hidden 강의평가 별점
-                //- radio 객체로 변경 https://codepen.io/chrisdpratt/pen/dmyne
-                a.ion-ios-star-outline(aria-label="1점" href)
-                a.ion-ios-star-outline(aria-label="2점" href)
-                a.ion-ios-star-outline(aria-label="3점" href)
-                a.ion-ios-star-outline(aria-label="4점" href)
-                a.ion-ios-star-outline(aria-label="5점" href)
+                .star-rating
+                  label(v-for="star_index in star_rating").star-rating-label
+                    input(type="radio" name="star_rating" :value="star_index" :title="star_index" :aria-label="`${star_index}점`" @click.prevent="setRating(star_index, $event)")
+
               textarea(placeholder="평가 내용을 입력하세요. (최대 300자)" aria-label="강의 평가 내용")
               .btn-group
                 a.btn-submit.is-small(role="button" href) 강의 평가 등록 하기
@@ -168,14 +175,108 @@
 
 <script>
 export default {
+  created () {
+    const data_url = 'https://elass-6ad68.firebaseio.com/elass.json';
+    this.$http.get(data_url)
+    .then((response) => {
+      let res_data = response.data;
+      this.lectures = res_data;
+      let title = [];
+      let day = [];
+      for (var i = 0, l = this.lectures.length; i < l; i++){
+        title.push(this.lectures[i].title);
+        day.push(this.lectures[i].locations[0].class_weekday);
+      }
+      this.lecture_day = day;
+      this.lecture_title = title;
+    });
+  },
   data(){
     return {
+      lectures: [],
+      lecture: {},
+      lecture_index: 0,
+      lecture_title: [],
+      lecture_day: [],
+      id: this.$route.params.id,
       modal_view: false,
+      star_rating: [5, 4, 3, 2, 1],
+      selected_rating: 0
     }
   },
   methods: {
+    setRating(index, e){
+      this.selected_rating = index;
+      let rating_btns = window.document.querySelectorAll('.star-rating-label');
+      for (var i = 0, l = rating_btns.length; i < l; i++){
+        if (rating_btns[i].classList.contains('selected') === true){
+          rating_btns[i].classList.remove('selected');
+        }
+      }
+      e.target.parentNode.classList.add('selected');
+    },
     toggleReviewWrite(){
       this.modal_view = !this.modal_view;
+      this.selected_rating = 0;
+      let rating_btns = window.document.querySelectorAll('.star-rating-label');
+      for (var i = 0, l = rating_btns.length; i < l; i++){
+        if (rating_btns[i].classList.contains('selected') === true){
+          rating_btns[i].classList.remove('selected');
+        }
+      }
+    }
+  },
+  computed: {
+    compareId(){
+      for (var i = 0, l = this.lecture_title.length; i < l; i++){
+        if (this.lecture_title[i] === this.id){
+          return this.id;
+        }
+      }
+    },
+    koreanDay(){
+      for (var i = 0, l = this.lecture_day.length; i < l; i++){
+        switch(this.lecture_day[i]){
+          case "sun" : this.lecture_day = "일요일";
+          break;
+          case "mon" : this.lecture_day = "월요일";
+          break;
+          case "tue" : this.lecture_day = "화요일";
+          break;
+          case "wed" : this.lecture_day = "수요일";
+          break;
+          case "thu" : this.lecture_day = "목요일";
+          break;
+          case "fri" : this.lecture_day = "금요일";
+          break;
+          case "sat" : this.lecture_day = "토요일";
+          break;
+        }
+        return this.lecture_day
+      }
+    },
+    lecturePlace(){
+      let state = this.showItem.locations[0].location1;
+      let city = this.showItem.locations[0].location2;
+      let detail_location = this.showItem.locations[0].location_option;
+      return `${state}시 ${city}구 ${detail_location}`;
+    },
+    lectureTime(){
+      let start_time = '';
+      let end_time = '';
+      let time = this.showItem.locations[0].class_time.split('-');
+      start_time = time[0];
+      end_time = time[1];
+      return `오전 ${start_time}시 ~ 오후 ${end_time}시`;
+    },
+    showItem(){
+      for (var i = 0, l = this.lectures.length; i < l; i++){
+        if (this.lectures[i].title === this.id){
+          this.lecture = this.lectures[i];
+          this.lecture_index = i + 1;
+          return this.lecture;
+        }
+      }
     }
   }
 }
@@ -183,6 +284,36 @@ export default {
 
 <style lang="sass">
   @import "~default";
+
+  .star-rating
+    unicode-bidi: bidi-override
+    direction: rtl
+    width: 4em
+    text-align: left
+    input
+      position: absolute
+      left: -999999px
+    label
+      display: inline-block
+      font-size: 0
+      cursor: pointer
+    > label:before
+      position: relative
+      display: block
+      content: "\f005"
+      font: 24px/1 FontAwesome
+      color: #ccc
+      background: -webkit-linear-gradient(-45deg, #d9d9d9 0%, #b3b3b3 100%)
+      -webkit-background-clip: text
+      -webkit-text-fill-color: transparent
+    > label:hover::before,
+    > label:hover ~ label::before,
+    > label.selected::before,
+    > label.selected ~ label::before
+      color: #f0ad4e
+      background: -webkit-linear-gradient(-45deg, #007aff 0%, #007aff 100%)
+      -webkit-background-clip: text
+      -webkit-text-fill-color: transparent
   .class-title
     p
       text-align: center
@@ -211,7 +342,6 @@ export default {
     section
       width: 100%
       height: $leading * 20
-      background: url('../../assets/lecture/600_458045023.jpg') 50% 50% /cover
   // 강의 요약 테이블
   .class-summary
     tr:not(:last-child)
