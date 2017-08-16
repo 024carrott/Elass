@@ -5,7 +5,7 @@
     transition-group(tag="ul" :name="anim_type" class="grid favorite-lecture")
       lecture-carousel-item(
         v-for="(lecture, index) in lectures"
-        key="index" :lecture="lecture"
+        :key="index" :lecture="lecture"
         v-show="index >= start_index && index < end_index"
         :index="index"
         :media="media_count"

@@ -61,7 +61,7 @@
         .grid.mt-2
           .col.col-d-2.col-d-offset-5.col-t-2.col-t-offset-3.col-m-2.col-m-offset-1
             router-link.btn-white.is-full.is-small(to="lecturelist" role="button" href) 목록으로
-          a.btn-white.is-small.ion-edit(role="button" href)  강의수정
+          a.btn-white.is-small.ion-edit(role="button" href) 강의수정
         .grid
           .col
             h3.bb.mt-2 강의 평가 
@@ -75,7 +75,7 @@
                   i.ion-ios-star(aria-hidden="true")
                   i.ion-ios-star-outline(aria-hidden="true")
                   span.is-small (3.9)
-              a.btn-write-review.btn-white.is-small.is-right(role="button" href) 강의 평가하기
+              a.btn-write-review.btn-white.is-small.is-right(role="button" @click.prevent="toggleReviewWrite" href) 강의 평가하기
         .grid
           .col.mt-1
             ul
@@ -146,14 +146,15 @@
         .grid.mt-1
           .col.col-d-2.col-d-offset-5.col-t-2.col-t-offset-3.col-m-2.col-m-offset-1
             a.btn-white.is-full.is-small(role="button" href) 강의 평가 더보기
-        .modal(role="dialog")
+        .modal(role="dialog" :class="{'is-active':modal_view}")
           .modal-background
           .modal-content
             .write-review
-              a.modal-close.ion-close(role="button" href aria-label="창 닫기")
+              a.modal-close.ion-close(@click.prevent="toggleReviewWrite" role="button" href aria-label="창 닫기")
               h4 강의 평가하기
               .favorite-star.big
                 span.a11y-hidden 강의평가 별점
+                //- radio 객체로 변경 https://codepen.io/chrisdpratt/pen/dmyne
                 a.ion-ios-star-outline(aria-label="1점" href)
                 a.ion-ios-star-outline(aria-label="2점" href)
                 a.ion-ios-star-outline(aria-label="3점" href)
@@ -164,6 +165,21 @@
                 a.btn-submit.is-small(role="button" href) 강의 평가 등록 하기
                 //- a.btn-white.is-small(role="button") 취소        
 </template>
+
+<script>
+export default {
+  data(){
+    return {
+      modal_view: false,
+    }
+  },
+  methods: {
+    toggleReviewWrite(){
+      this.modal_view = !this.modal_view;
+    }
+  }
+}
+</script>
 
 <style lang="sass">
   @import "~default";

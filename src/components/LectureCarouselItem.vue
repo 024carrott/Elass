@@ -3,7 +3,7 @@
     .favorite-lecture-item.mt-1
       span.favorite-lecture-tag {{class_item.category}}
       .favorite-lecture-image
-        a(href aria-label="나의 정원을 위한 가드닝 첫 걸음 상세 페이지로 가기")
+        a(:href="`lecturedetail/${class_item.title}`" :aria-label="`${class_item.title} 상세 페이지로 가기`")
           img(:src="`http://lorempicsum.com/up/627/500/` + active_index" :alt="`${class_item.title} 이미지`")
       dl.favorite-lecture-content
         dt.favorite-lecture-title {{class_item.title}}
