@@ -27,6 +27,7 @@ export default {
       let res_data = response.data;
       this.lectures = res_data;
     });
+    console.log(this.lectures);
   },
   mounted () {
     window.addEventListener('resize', this.offsetWidth);
