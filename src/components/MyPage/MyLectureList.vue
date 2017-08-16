@@ -10,11 +10,15 @@ main
         key="index"
         :lecture="lecture"
         :index="index"
-        v-if="index < 9"
+        v-if="index < visible_item"
         )
     .grid  
       .col.col-d-2.col-d-offset-5.col-t-4.col-t-offset-2.col-m-4
-        a(href role="button" aria-label="강의 리스트 더 불러오기").lecture-list-more-btn 강의 더 보기
+        a(
+          href role="button" aria-label="강의 리스트 더 불러오기"
+          @click.prevent="loadLecture"
+          v-if="visible_item < lectures.length"
+        ).lecture-list-more-btn 강의 더 보기
     top-button    
 </template>
 
@@ -33,10 +37,16 @@ export default {
   data () {
     return {
       lectures: [],
+      visible_item: 6
     }
   },
   components: {
     TopButton, LectureListItem
+  },
+  methods: {
+    loadLecture() {
+      this.visible_item += 6;
+    }
   }
 }
 </script>
