@@ -14,8 +14,8 @@ const routes = [
   { path: '/',                        component: Main },         // 홈
   { path: '/signup',                  component: SignUp },       // 회원가입
   { path: '/signin',                  component: SignIn },       // 로그인
-  { path: '/lecturelist',             component: LectureList },         // 강의 리스트 페이지
-  { path: '/lecturedetail',           component: LectureDetail },         // 강의 상세 페이지
+  { path: '/lecturelist/:category',   component: LectureList },         // 강의 리스트 페이지
+  { path: '/lecturedetail/:id',       component: LectureDetail },         // 강의 상세 페이지
   { path: '/mypage',                  component: MyPage,          meta : { requiresLogin: true }},       // 마이 페이지
   { path: '/mypage/mylecturelist',    component: MyLectureList,   meta : { requiresLogin: true }},      // 내가 수강한 강의 리스트
   { path: '/mypage/myfavoritelist',   component: MyFavoriteList,  meta : { requiresLogin: true }},   // 내가 찜한 강의 리스트
