@@ -12,23 +12,25 @@
               br
               span dfasdf1234
               br
-              a.btn-white.is-small(role="button" href) 내 정보 수정하기
+              a.btn-white.is-small(role="button" @click.prevent="" href) 내 정보 수정하기
           .col.col-d-8.col-t-5.col-m-4
             .mypage-menu-group
               .mypage-menu-listener
                 h3.a11y-hidden 리스너 메뉴
                 .btn-group.left
-                  router-link.btn-white(to="mypage/mylecturelist" role="button" href) 내가 수강한 강의
-                  router-link.btn-white(to="mypage/myfavoritelist" role="button" href) 내가 찜한 강의
+                  a.btn-white(href="/mypage/mylecturelist" role="button") 내가 수강한 강의
+                  a.btn-white(href="/mypage/myfavoritelist" role="button") 내가 찜한 강의
               .mypage-menu-tutor
                 h3.a11y-hidden 튜터 메뉴
                 .btn-group.left
-                  a.btn-gray(role="button" href) 튜터 등록하기
-                  router-link.btn-white(to="mypage/registeredclass" role="button" href) 내가 등록한 강의
-                  router-link.btn-white(to="mypage/registerclass" role="button" href) 강의 등록하기
+                  a.btn-gray(role="button" @click.prevent="" href) 튜터 등록하기
+                  a.btn-white(href="/mypage/registeredclass" role="button") 내가 등록한 강의
+                  a.btn-white(href="/mypage/registerclass" role="button") 강의 등록하기
+      //- '내 정보 수정하기' 버튼 클릭시 is-active 클래스 추가
       .modal(role="dialog")
           .modal-background
           .modal-content
+              //- 창 닫기 버튼 클릭 시 modal 각체에 is-active 클래스 제거
               a.modal-close.ion-close(role="button" href aria-label="창 닫기")
               h4 내 정보 수정하기
               form.my-info-edit
@@ -45,14 +47,19 @@
                   br
                   label(for="user-password") 비밀번호
                   input(type="text" name="user-password" id="user-password")
+                  br
+                  label(for="user-password-re") 비밀번호 확인
+                  input(type="text" name="user-password-re" id="user-password-re")
                   //- label(for="user-re-password") 비밀번호 재입력
                   //- input(type="text" name="user-re-password" id="user-re-password")
                 .btn-group.mt-1
                   a.btn-submit(role="button" href) 저장하기
                   a.btn-white(role="button" href) 취소
+      //- '튜터 등록하기' 버튼 클릭 시 is-active 클래스 추가
       .modal(role="dialog")
           .modal-background
           .modal-content
+              //- 창 닫기 버튼 클릭 시 modal 각체에 is-active 클래스 제거
               a.modal-close.ion-close(role="button" href aria-label="창 닫기")
               h4 튜터 등록하기
               form.tutor-info-edit
