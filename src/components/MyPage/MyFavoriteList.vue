@@ -18,7 +18,7 @@ main
           href role="button" aria-label="강의 리스트 더 불러오기"
           @click.prevent="loadLecture"
           v-if="visible_item < lectures.length"
-          ).lecture-list-more-btn 강의 더 보기
+        ).lecture-list-more-btn 강의 더 보기
     top-button
 </template>
 
