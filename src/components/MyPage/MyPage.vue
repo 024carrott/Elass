@@ -12,7 +12,7 @@
               br
               span dfasdf1234
               br
-              a.btn-white.is-small(role="button" @click.prevent="" href) 내 정보 수정하기
+              a.btn-white.is-small(role="button" @click.prevent="toggleEditMyInfo" href) 내 정보 수정하기
           .col.col-d-8.col-t-5.col-m-4
             .mypage-menu-group
               .mypage-menu-listener
@@ -23,15 +23,15 @@
               .mypage-menu-tutor
                 h3.a11y-hidden 튜터 메뉴
                 .btn-group.left
-                  a.btn-gray(role="button" @click.prevent="" href) 튜터 등록하기
+                  a.btn-gray(role="button" @click.prevent="toggleEnrollTutor" href) 튜터 등록하기
                   a.btn-white(href="/mypage/registeredclass" role="button") 내가 등록한 강의
                   a.btn-white(href="/mypage/registerclass" role="button") 강의 등록하기
       //- '내 정보 수정하기' 버튼 클릭시 is-active 클래스 추가
-      .modal(role="dialog")
+      .modal(role="dialog" :class="{'is-active':edit_modal_view}")
           .modal-background
           .modal-content
               //- 창 닫기 버튼 클릭 시 modal 각체에 is-active 클래스 제거
-              a.modal-close.ion-close(role="button" href aria-label="창 닫기")
+              a.modal-close.ion-close(role="button" href aria-label="창 닫기" @click.prevent="toggleEditMyInfo")
               h4 내 정보 수정하기
               form.my-info-edit
                 img.my-photo(src="../../assets/mypage/user-profile.jpg")
@@ -40,27 +40,32 @@
                 input.input-file(type="file" name="user-profile" id="user-profile")
                 .input-fileds.mt-1
                   label(for="user-name") 닉네임
-                  input(type="text" name="user-name" id="user-name")
+                  input(type="text" name="user-name" id="user-name" @input="nickname")
+                  span.show.col(v-show="nickname_check") * 6글자 이상, 12글자 이하로 작성해주세요.
                   br
                   label(for="user-email") 이메일
-                  input(type="text" name="user-email" id="user-email")
+                  input(type="text" name="user-email" id="user-email" @input="email")
+                  br
+                  span.show.col(v-show="email_check") * 이메일 형식이 아닙니다.
                   br
                   label(for="user-password") 비밀번호
-                  input(type="text" name="user-password" id="user-password")
+                  input(type="text" name="user-password" id="user-password" @input="pw")
                   br
                   label(for="user-password-re") 비밀번호 확인
-                  input(type="text" name="user-password-re" id="user-password-re")
-                  //- label(for="user-re-password") 비밀번호 재입력
-                  //- input(type="text" name="user-re-password" id="user-re-password")
+                  input(type="text" name="user-password-re" id="user-password-re" @input="pw_2")
+                  br
+                  span.show.col(v-show="pw_check") * 비밀번호가 일치하지 않습니다.
+                  // label(for="user-re-password") 비밀번호 재입력
+                  // input(type="text" name="user-re-password" id="user-re-password")
                 .btn-group.mt-1
                   a.btn-submit(role="button" href) 저장하기
                   a.btn-white(role="button" href) 취소
       //- '튜터 등록하기' 버튼 클릭 시 is-active 클래스 추가
-      .modal(role="dialog")
+      .modal(role="dialog" :class="{'is-active':tutor_modal_view}")
           .modal-background
           .modal-content
               //- 창 닫기 버튼 클릭 시 modal 각체에 is-active 클래스 제거
-              a.modal-close.ion-close(role="button" href aria-label="창 닫기")
+              a.modal-close.ion-close(role="button" href aria-label="창 닫기" @click.prevent="toggleEnrollTutor")
               h4 튜터 등록하기
               form.tutor-info-edit
                 label(for="user-name") 경력사항
@@ -72,6 +77,62 @@
                 a.btn-submit.is-small(role="button" href) 저장하기
                 a.btn-white.is-small(role="button" href) 취소        
 </template>
+
+<script>
+export default {
+  data(){
+    return {
+      password: '',
+      password_2: '',
+      e_mail: '',
+      nick_name: '',
+      edit_modal_view: false,
+      tutor_modal_view: false, 
+    }
+  },
+  
+  methods:{
+    pw(e){
+      this.password = e.target.value
+    },
+    pw_2(e){
+      this.password_2 = e.target.value
+    },
+    email(e){
+      this.e_mail = e.target.value
+    },
+    nickname(e){
+      this.nick_name = e.target.value
+    },
+    toggleEditMyInfo(){
+      this.edit_modal_view = !this.edit_modal_view
+    },
+    toggleEnrollTutor(){
+      this.tutor_modal_view = !this.tutor_modal_view
+    }
+  },
+
+  computed:{
+    pw_check(){
+      return (this.password === this.password_2) ? false : true
+    },
+    email_check(){
+      let regex=/([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+      if(this.e_mail === ''){
+        return false
+      }
+      return !regex.test(this.e_mail); 
+      },
+    nickname_check(){
+      let pattern = /^[\w\Wㄱ-ㅎㅏ-ㅣ가-힣]{6,12}$/;
+      if(this.nick_name === ''){
+        return false
+      }
+      return !pattern.test(this.nick_name);
+    }
+  }
+}
+</script>
 
 
 <style lang="sass">
@@ -115,4 +176,12 @@
     textarea
       width: 100%
       height: $leading * 8
+  .show
+    color: red
+    display: inline-block
+    width: 100%
+    text-indent: 30%
+    text-align: left
+    
+  
 </style>

@@ -191,6 +191,5 @@ export default {
 
   .show{
     color: red;
-    display: inline;
   }
 </style>
