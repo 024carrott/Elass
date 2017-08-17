@@ -1,10 +1,10 @@
 <template lang="pug">
   li.col.col-d-4.col-t-4.col-m-4.lecture-item
     .favorite-lecture-item.mt-1
-      span.favorite-lecture-tag {{class_item.category}}
+      span.favorite-lecture-tag {{koreanCategory}}
       .favorite-lecture-image
-        a(href aria-label="나의 정원을 위한 가드닝 첫 걸음 상세 페이지로 가기")
-          img(:src="`http://lorempicsum.com/up/627/500/` + active_index" :alt="`${class_item.title} 이미지`")
+        a(:href="`/lecturedetail/${class_item.id}`" :aria-label="`${class_item.title} 상세 페이지로 가기`")
+          img(:src="class_item.cover_photo" :alt="`${class_item.title} 이미지`")
       dl.favorite-lecture-content
         dt.favorite-lecture-title {{class_item.title}}
         dd.favorite-lecture-user {{class_item.tutor_intro}}
@@ -30,6 +30,27 @@ export default {
     return {
       class_item: this.lecture,
       active_index: this.index + 1,
+    }
+  },
+  computed: {
+    koreanCategory(){
+      switch(this.class_item.category){
+        case "hbn" : this.class_item.category = '헬스&뷰티';
+        break;
+        case "lang" : this.class_item.category = '외국어';
+        break;
+        case "com" : this.class_item.category = '컴퓨터';
+        break;
+        case "mna" : this.class_item.category = '음악/미술';
+        break;
+        case "sports" : this.class_item.category = '스포츠';
+        break;
+        case "major" : this.class_item.category = '전공/취업';
+        break;
+        case "hobby" : this.class_item.category = '이색취미';
+        break;
+      }
+      return this.class_item.category;
     }
   }
 }
