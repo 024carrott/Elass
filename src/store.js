@@ -18,9 +18,9 @@ const store = new Vuex.Store({
       changepwd: APIHOST+'member/change/password/'+localStorage.getItem("login_token")+'/',
     },
     lecture:{
-      list  : '',
-      detail: '',
-      review: '',
+      list  : 'http://eb-yykdev-taling-dev.ap-northeast-2.elasticbeanstalk.com/regiclass/class/list/',
+      detail: 'http://eb-yykdev-taling-dev.ap-northeast-2.elasticbeanstalk.com/regiclass/class/detail/',
+      review: 'http://eb-yykdev-taling-dev.ap-northeast-2.elasticbeanstalk.com/regiclass/review/make/',
     }
   },
   mutations: {
@@ -30,7 +30,7 @@ const store = new Vuex.Store({
   actions: {
    login({ commit }, payload) {
       // if success login (get token)
-      localStorage.setItem("login_token", "getToken");
+      localStorage.setItem("login_token", payload);
       commit(LOGIN);
    },
    logout({ commit }) {
@@ -40,7 +40,6 @@ const store = new Vuex.Store({
   },
   getters: {
     isLogIn: state =>state.isLogIn,
-
   }
 });
 export default store;
