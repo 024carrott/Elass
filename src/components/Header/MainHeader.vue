@@ -8,14 +8,14 @@
         .col.col-d-2.col-t-2.col-m-2.col-d-push-8.col-t-push-4
           ul.site-menu(v-if="isLogin")
             li.login
-              router-link.mypage(to="mypage") 마이페이지
+              router-link.mypage(to="/mypage") 마이페이지
             li
               a.log-out(href @click.prevent="logout" role="button" aria-label="로그아웃 버튼") 로그아웃
           ul.site-menu(v-else)
             li.login
-              router-link.log-in(to="signin") 로그인
+              router-link.log-in(to="/signin") 로그인
             li
-              router-link.sign-up(to="signup") 회원가입
+              router-link.sign-up(to="/signup") 회원가입
         SearchBar
 </template>
 

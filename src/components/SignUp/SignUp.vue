@@ -4,30 +4,31 @@
         .grid.mt-3
           h1.sign-up-header.col.col-d-4.col-d-push-4 엘라스 무료 회원가입
         .grid.mt-3
-          form.sign-up-form.col.col-d-6.col-d-push-3
-            fieldset
-              legend.a11y-hidden 회원가입 입력 폼
-              label(for="user-nickname").col.alpha 닉네임
-              input(id="user-nickname" name="user-nickname" type="text" placeholder="닉네임을 입력 해 주세요." ref=""  @input="nickname").col.alpha
-              span.show(v-show="nickname_check").col.alpha * 6글자 이상, 12글자 이하로 작성해주세요.
-              label(for="user-email").col.alpha 이메일
-              input(id="user-email" name="user-email" type="text" placeholder="이메일을 입력 해 주세요." @input="email").col.alpha
-              span.show(v-show="email_check").col.alpha * 올바른 이메일 형식이 아닙니다.
-              label(for="user-password").col.alpha 비밀번호
-              input(id="user-password" name="user-password" type="text" @input="pw" placeholder="비밀번호를 입력 해 주세요.").col.alpha
-              label(for="user-password").col.alpha 비밀번호 확인
-              input(id="user-password-2" name="user-password-check" type="text" @input="pw_2" placeholder="비밀번호를 한번 더 입력 해 주세요.").col.alpha
-              span.show(v-show="pw_check").col.alpha * 비밀번호가 일치하지 않습니다.              
-              .checkbox.col.alpha.omega
-                input(id="confirm" type="checkbox" name="confirm" value="confirm" aria-label="이용약관 및 개인정보취급방침에 동의합니다." @click="checkbox" :checked="check_box" ).a11y-hidden
-                label(for="confirm") 이용약관 및 개인정보취급방침에 동의합니다.
-              span.show(v-show="toggle_checkbox").col.alpha * 해당 박스를 체크해주셔야 회원가입이 가능합니다. 
-              button(type="submit" class="sign-up-btn").col 회원가입 하기
+          .sign-up-form.col.col-d-6.col-d-push-3
+            form
+              fieldset
+                legend.a11y-hidden 회원가입 입력 폼
+                label(for="user-nickname").col.alpha 아이디
+                input(id="user-nickname" name="user-nickname" type="text" placeholder="아이디를 입력 해 주세요." @input="nickname").col.alpha
+                span.show(v-show="nickname_check").col.alpha * 6글자 이상, 12글자 이하로 작성해주세요.
+                label(for="user-email").col.alpha 이메일
+                input(id="user-email" name="user-email" type="text" placeholder="이메일을 입력 해 주세요." @input="email").col.alpha
+                span.show(v-show="email_check").col.alpha * 올바른 이메일 형식이 아닙니다.
+                label(for="user-password").col.alpha 비밀번호
+                input(id="user-password" name="user-password" type="text" @input="pw" placeholder="비밀번호를 입력 해 주세요.").col.alpha
+                label(for="user-password").col.alpha 비밀번호 확인
+                input(id="user-password-2" name="user-password-check" type="text" @input="pw_2" placeholder="비밀번호를 한번 더 입력 해 주세요.").col.alpha
+                span.show(v-show="pw_check").col.alpha * 비밀번호가 일치하지 않습니다.              
+                .checkbox.col.alpha.omega
+                  input(id="confirm" type="checkbox" name="confirm" value="confirm" aria-label="이용약관 및 개인정보취급방침에 동의합니다." @click="checkbox" :checked="check_box" ).a11y-hidden
+                  label(for="confirm") 이용약관 및 개인정보취급방침에 동의합니다.
+                span.show(v-show="toggle_checkbox").col.alpha * 해당 박스를 체크해주셔야 회원가입이 가능합니다. 
+                button(type="submit" class="sign-up-btn").col 회원가입 하기
         .grid.mt-2
-          span.col(class="or") or
+          span.col.or or
         .grid.mt-2
           a(href class="facebook-sign-up" role="button" aria-label="페이스북으로 회원가입 하기 버튼").col.col-d-6.col-d-push-3 페이스북으로 회원가입 하기
-        .grid.information
+        .grid.information.mt-1
           p 안심하세요!
             br
             | 유저의 허락 없이 게시물을 올리지 않습니다.
@@ -37,13 +38,11 @@
 export default {
   data(){
     return {
+      nick_name: '',
       password: '',
       password_2: '',
       e_mail: '',
-      nick_name: '',
       check_box: false
-
-
     }
   },
   methods:{
@@ -62,13 +61,6 @@ export default {
     checkbox(e){
       this.check_box = !this.check_box
     }
-
-    
-  
-    
-     
-  
-
     // validation()
     //   // 가입 폼 유효성 검사
     // },

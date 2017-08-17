@@ -4,18 +4,17 @@
         .grid.mt-3
           h1.sign-in-header.col.col-d-4.col-d-push-4 엘라스에 오신 것을 환영합니다
         .grid.mt-3
-          form.sign-in-form.col.col-d-6.col-d-push-3
+          form#login.sign-in-form.col.col-d-6.col-d-push-3
             fieldset
               legend.a11y-hidden 로그인 폼
-              label(for="user-email").col.alpha 이메일
-              input(id="user-email" name="user-email" type="text" placeholder="이메일을 입력 해 주세요.").col.alpha
+              label(for="user-id").col.alpha 아이디
+              input(id="user-id" name="user-id" type="text" placeholder="아이디를 입력 해주세요." v-model="userID").col.alpha
               label(for="user-password").col.alpha 비밀번호
-              input(id="user-password" name="user-password" type="text" placeholder="비밀번호를 입력 해 주세요.").col.alpha
-              a(href class="find-password-btn").col.alpha 비밀번호 찾기
+              input(id="user-password" name="user-password" type="password" placeholder="비밀번호를 입력 해주세요." v-model="userPwd").col.alpha
+              //- a(href class="find-password-btn").col.alpha 비밀번호 찾기
               .checkbox.col.alpha.omega
                 input(id="confirm" type="checkbox" name="confirm" value="confirm" aria-label="다음에 방문 시 로그인 정보를 기억하기").a11y-hidden
                 label(for="confirm") 로그인 정보 기억하기
-
               button(type="submit" class="sign-in-btn" @click.prevent="submitLogin").col 로그인 하기
         .grid.mt-2
           span.col(class="or") or
@@ -25,15 +24,52 @@
 
 <script>
 export default {
+  created(){
+    this.loginFrm = new FormData();
+  },
   data(){
     return{
-
+      loginFrm : null,
+      userID: '',
+      userPwd : ''
     }
   },
   methods :{
     submitLogin(){
-      this.$store.dispatch('login','good');
-      this.$router.push('/');
+      if(!this.userID.length ){ 
+        window.alert('아이디를 입력하세요.');
+        document.getElementById("user-id").focus();
+        return;
+      }
+      if(!this.userPwd.length){
+        window.alert('비밀번호를 입력하세요.');
+        document.getElementById("user-password").focus();
+        return;
+      }
+      this.loginFrm.append('username', this.userID);
+      this.loginFrm.append('password', this.userPwd);
+      this.signinSubmit();
+    },
+    signinSubmit(){
+      this.$http.post(this.$store.state.member.signin, this.loginFrm)
+      .then(response => {
+        if(response.status===200 && response.data.token.length){
+          this.$store.dispatch('login', response.data.token);
+          this.$router.push('/');
+        }
+      })
+      .catch(error => {
+        switch(error.status){
+          case 400:
+            window.alert('아이디와 비밀번호가 일치하지 않습니다/\n 확인 후 다시 로그인 해주세요.');
+            break;
+          case 500:
+            window.alert('존재하지 않는 사용자입니다. 회원가입 후 이용해주세요.');
+            break;
+          default:
+            window.alert('로그인 정보가 바르지 않습니다.');
+        }
+      })
     }
   }
 }
@@ -62,7 +98,7 @@ export default {
       label{
         font-size: 1.6rem;
       }
-      input[type="text"]{
+      input[type="text"],input[type="password"]{
         @extend %border;
         margin: 10px 0 20px 0;
         padding-left: 5px;
@@ -133,6 +169,11 @@ export default {
       background: #334c80;
     }
   }
+  .show{
+    color: red;
+    display: inline;
+  }
+
 
 </style>
 

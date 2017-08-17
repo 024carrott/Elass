@@ -5,18 +5,27 @@ Vue.use(Vuex);
 
 const LOGIN  = "LOGIN";
 const LOGOUT = "LOGOUT";
+const APIHOST = 'http://eb-yykdev-taling-dev.ap-northeast-2.elasticbeanstalk.com/'
 
 const store = new Vuex.Store({
   state: {
-    isLogIn: !!localStorage.getItem("login_token")
+    isLogIn: !!localStorage.getItem("login_token"),
+    member:{
+      signup   : APIHOST+'member/signup/',
+      signin   : APIHOST+'member/login/',
+      fbsignin : APIHOST+'member/login/facebook/',
+      profile  : APIHOST+'member/profile/'+localStorage.getItem("login_token")+'/',
+      changepwd: APIHOST+'member/change/password/'+localStorage.getItem("login_token")+'/',
+    },
+    lecture:{
+      list  : '',
+      detail: '',
+      review: '',
+    }
   },
   mutations: {
-    [LOGIN] (state) {
-      state.isLogIn = true;
-    },
-    [LOGOUT](state) {
-      state.isLogIn = false;
-    }
+    [LOGIN] (state) { state.isLogIn = true; },
+    [LOGOUT](state) { state.isLogIn = false; }
   },
   actions: {
    login({ commit }, payload) {
@@ -30,7 +39,8 @@ const store = new Vuex.Store({
    }
   },
   getters: {
-    isLogIn: state =>state.isLogIn
+    isLogIn: state =>state.isLogIn,
+
   }
 });
 export default store;
