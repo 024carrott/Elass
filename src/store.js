@@ -10,6 +10,7 @@ const APIHOST = 'http://eb-yykdev-taling-dev.ap-northeast-2.elasticbeanstalk.com
 const store = new Vuex.Store({
   state: {
     isLogIn: !!localStorage.getItem("login_token"),
+    token: 'Token '+ localStorage.getItem("login_token"),
     member:{
       signup   : APIHOST+'member/signup/',
       signin   : APIHOST+'member/login/',
@@ -18,9 +19,11 @@ const store = new Vuex.Store({
       changepwd: APIHOST+'member/change/password/'+localStorage.getItem("login_token")+'/',
     },
     lecture:{
-      list  : 'http://eb-yykdev-taling-dev.ap-northeast-2.elasticbeanstalk.com/regiclass/class/list/',
-      detail: 'http://eb-yykdev-taling-dev.ap-northeast-2.elasticbeanstalk.com/regiclass/class/detail/',
-      review: 'http://eb-yykdev-taling-dev.ap-northeast-2.elasticbeanstalk.com/regiclass/review/make/',
+      list  : APIHOST+'regiclass/class/list/',
+      detail: APIHOST+'regiclass/class/detail/',
+      regist: APIHOST+'regiclass/class/make/',
+      review: APIHOST+'regiclass/review/make/',
+      like  : APIHOST+'regiclass/class/likeclass/',
     }
   },
   mutations: {
@@ -40,6 +43,7 @@ const store = new Vuex.Store({
   },
   getters: {
     isLogIn: state =>state.isLogIn,
+    token: state=>state.token,
   }
 });
 export default store;
