@@ -30,7 +30,7 @@ const store = new Vuex.Store({
   actions: {
    login({ commit }, payload) {
       // if success login (get token)
-      localStorage.setItem("login_token", "getToken");
+      localStorage.setItem("login_token", payload);
       commit(LOGIN);
    },
    logout({ commit }) {
