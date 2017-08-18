@@ -1,18 +1,21 @@
 <template lang="pug">
     main
       .container.health-image.mt-1
-      .container.mt-2
+      .container.mt-2(v-if="is_loaded")
         .grid
           .col
             h2 마이페이지
         .grid.mt-2
           .col.col-d-4.col-t-3.col-m-4
             .my-info
-              img(src="../../assets/mypage/user-profile.jpg")
+              img(:src="userpic")
               br
-              span dfasdf1234
+              label.a11y-hidden(for="user-profile") 사진 등록/수정하기
+              input.input-file(type="file" name="user-profile" id="user-profile")
               br
-              a.btn-white.is-small(role="button" @click.prevent="toggleEditMyInfo" href) 내 정보 수정하기
+              span {{ userid }}
+              br
+              a.btn-white.is-small(role="button" @click.prevent="toggleEditMyInfo" href) 비밀번호 변경
           .col.col-d-8.col-t-5.col-m-4
             .mypage-menu-group
               .mypage-menu-listener
@@ -32,34 +35,24 @@
           .modal-content
               //- 창 닫기 버튼 클릭 시 modal 각체에 is-active 클래스 제거
               a.modal-close.ion-close(role="button" href aria-label="창 닫기" @click.prevent="toggleEditMyInfo")
-              h4 내 정보 수정하기
+              h4 비밀번호 변경
               form.my-info-edit
-                img.my-photo(src="../../assets/mypage/user-profile.jpg")
+                img.my-photo(:src="userpic")
                 br
-                label.a11y-hidden(for="user-profile") 사진 등록/수정하기
-                input.input-file(type="file" name="user-profile" id="user-profile")
                 .input-fileds.mt-1
-                  label(for="user-name") 닉네임
-                  input(type="text" name="user-name" id="user-name" @input="nickname")
-                  span.show.col(v-show="nickname_check") * 6글자 이상, 12글자 이하로 작성해주세요.
+                  label(for="user-old-password") 현재 비밀번호
+                  input(type="text" name="user-old-password" id="user-old-password" v-model="oldpassword")
                   br
-                  label(for="user-email") 이메일
-                  input(type="text" name="user-email" id="user-email" @input="email")
-                  br
-                  span.show.col(v-show="email_check") * 이메일 형식이 아닙니다.
-                  br
-                  label(for="user-password") 비밀번호
+                  label(for="user-password") 새 비밀번호
                   input(type="text" name="user-password" id="user-password" @input="pw")
                   br
                   label(for="user-password-re") 비밀번호 확인
                   input(type="text" name="user-password-re" id="user-password-re" @input="pw_2")
                   br
                   span.show.col(v-show="pw_check") * 비밀번호가 일치하지 않습니다.
-                  // label(for="user-re-password") 비밀번호 재입력
-                  // input(type="text" name="user-re-password" id="user-re-password")
                 .btn-group.mt-1
-                  a.btn-submit(role="button" href) 저장하기
-                  a.btn-white(role="button" href) 취소
+                  a.btn-submit(role="button" href) 변경하기
+                  a.btn-white(role="button" @click.prevent="toggleEditMyInfo" href) 취소
       //- '튜터 등록하기' 버튼 클릭 시 is-active 클래스 추가
       .modal(role="dialog" :class="{'is-active':tutor_modal_view}")
           .modal-background
@@ -75,19 +68,33 @@
                 textarea(placeholder="자기소개를 입력하세요" aria-label="튜터 자기소개")
               .btn-group.mt-1
                 a.btn-submit.is-small(role="button" href) 저장하기
-                a.btn-white.is-small(role="button" href) 취소        
+                a.btn-white.is-small(role="button" @click.prevent="toggleEnrollTutor" href) 취소        
 </template>
 
 <script>
 export default {
+  created(){
+    this.$http.get(this.$store.state.member.profile, {headers:{Authorization:this.$store.getters.token}}).then((response) => {
+      this.user = response.data;
+      this.is_loaded = true;
+      this.userid = this.user.nickname;
+      this.userpic = this.user.my_photo;      
+    }).catch(error=>{
+      console.log(error);
+      this.is_loaded = true;
+    });
+  },
   data(){
     return {
+      user: null,
+      userid: '',
+      userpic:'',
+      oldpassword:'',
       password: '',
       password_2: '',
-      e_mail: '',
-      nick_name: '',
       edit_modal_view: false,
       tutor_modal_view: false, 
+      is_loaded: false,
     }
   },
   
@@ -98,12 +105,6 @@ export default {
     pw_2(e){
       this.password_2 = e.target.value
     },
-    email(e){
-      this.e_mail = e.target.value
-    },
-    nickname(e){
-      this.nick_name = e.target.value
-    },
     toggleEditMyInfo(){
       this.edit_modal_view = !this.edit_modal_view
     },
@@ -111,25 +112,10 @@ export default {
       this.tutor_modal_view = !this.tutor_modal_view
     }
   },
-
   computed:{
     pw_check(){
       return (this.password === this.password_2) ? false : true
     },
-    email_check(){
-      let regex=/([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-      if(this.e_mail === ''){
-        return false
-      }
-      return !regex.test(this.e_mail); 
-      },
-    nickname_check(){
-      let pattern = /^[\w\Wㄱ-ㅎㅏ-ㅣ가-힣]{6,12}$/;
-      if(this.nick_name === ''){
-        return false
-      }
-      return !pattern.test(this.nick_name);
-    }
   }
 }
 </script>
