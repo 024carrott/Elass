@@ -8,7 +8,10 @@
         .grid.mt-2
           .col.col-d-4.col-t-3.col-m-4
             .my-info
-              img(:src="my_photo")
+              img(:src="userpic")
+              br
+              label.a11y-hidden(for="user-profile") 사진 등록/수정하기
+              input.input-file(type="file" name="user-profile" id="user-profile")
               br
               span {{ userid }}
               br
@@ -34,10 +37,8 @@
               a.modal-close.ion-close(role="button" href aria-label="창 닫기" @click.prevent="toggleEditMyInfo")
               h4 비밀번호 변경
               form.my-info-edit
-                img.my-photo(:src="my_photo")
+                img.my-photo(:src="userpic")
                 br
-                label.a11y-hidden(for="user-profile") 사진 등록/수정하기
-                input.input-file(type="file" name="user-profile" id="user-profile")
                 .input-fileds.mt-1
                   label(for="user-old-password") 현재 비밀번호
                   input(type="text" name="user-old-password" id="user-old-password" v-model="oldpassword")
@@ -50,8 +51,8 @@
                   br
                   span.show.col(v-show="pw_check") * 비밀번호가 일치하지 않습니다.
                 .btn-group.mt-1
-                  a.btn-submit(role="button" href) 저장하기
-                  a.btn-white(role="button" href) 취소
+                  a.btn-submit(role="button" href) 변경하기
+                  a.btn-white(role="button" @click.prevent="toggleEditMyInfo" href) 취소
       //- '튜터 등록하기' 버튼 클릭 시 is-active 클래스 추가
       .modal(role="dialog" :class="{'is-active':tutor_modal_view}")
           .modal-background
@@ -67,7 +68,7 @@
                 textarea(placeholder="자기소개를 입력하세요" aria-label="튜터 자기소개")
               .btn-group.mt-1
                 a.btn-submit.is-small(role="button" href) 저장하기
-                a.btn-white.is-small(role="button" href) 취소        
+                a.btn-white.is-small(role="button" @click.prevent="toggleEnrollTutor" href) 취소        
 </template>
 
 <script>
@@ -77,13 +78,17 @@ export default {
       this.user = response.data;
       this.is_loaded = true;
       this.userid = this.user.nickname;
-      
+      this.userpic = this.user.my_photo;      
+    }).catch(error=>{
+      console.log(error);
+      this.is_loaded = true;
     });
   },
   data(){
     return {
       user: null,
       userid: '',
+      userpic:'',
       oldpassword:'',
       password: '',
       password_2: '',
