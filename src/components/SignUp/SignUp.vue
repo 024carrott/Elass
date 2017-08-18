@@ -8,9 +8,9 @@
             form
               fieldset
                 legend.a11y-hidden 회원가입 입력 폼
-                label(for="user-nickname").col.alpha 아이디
-                input(id="user-nickname" name="user-nickname" type="text" placeholder="아이디를 입력 해 주세요." @input="nickname").col.alpha
-                span.show(v-show="nickname_check").col.alpha * 6글자 이상, 12글자 이하로 작성해주세요.
+                label(for="user-userID").col.alpha 아이디
+                input(id="user-userID" name="user-userID" type="text" placeholder="아이디를 입력 해 주세요." @input="userID").col.alpha
+                span.show(v-show="userID_check").col.alpha * 6글자 이상, 12글자 이하로 작성해주세요.
                 label(for="user-email").col.alpha 이메일
                 input(id="user-email" name="user-email" type="text" placeholder="이메일을 입력 해 주세요." @input="email").col.alpha
                 span.show(v-show="email_check").col.alpha * 올바른 이메일 형식이 아닙니다.
@@ -23,7 +23,7 @@
                   input(id="confirm" type="checkbox" name="confirm" value="confirm" aria-label="이용약관 및 개인정보취급방침에 동의합니다." @click="checkbox" :checked="check_box" ).a11y-hidden
                   label(for="confirm") 이용약관 및 개인정보취급방침에 동의합니다.
                 span.show(v-show="toggle_checkbox").col.alpha * 해당 박스를 체크해주셔야 회원가입이 가능합니다. 
-                button(type="submit" class="sign-up-btn").col 회원가입 하기
+                button(type="submit" class="sign-up-btn" @click.prevent="submitSignup").col 회원가입 하기
         .grid.mt-2
           span.col.or or
         .grid.mt-2
@@ -36,13 +36,17 @@
 
 <script>
 export default {
+  created(){
+    this.signupFrm = new FormData();
+  },
   data(){
     return {
-      nick_name: '',
+      user_id: '',
       password: '',
       password_2: '',
       e_mail: '',
-      check_box: false
+      check_box: false,
+      signupFrm : null,
     }
   },
   methods:{
@@ -55,15 +59,61 @@ export default {
     email(e){
       this.e_mail = e.target.value
     },
-    nickname(e){
-      this.nick_name = e.target.value
+    userID(e){
+      this.user_id = e.target.value
     },
     checkbox(e){
       this.check_box = !this.check_box
+    },
+    // submit
+
+    submitSignup(){
+      if(!this.user_id.length || this.userID_check === true){
+        window.alert('아이디를 확인해주세요.');
+        document.getElementById("user-userID").focus();
+        return
+      }
+      if(!this.e_mail.length || this.email_check === true){
+        window.alert('이메일을 확인해주세요.');
+        document.getElementById("user-email").focus();
+        return;
+      }
+      if(!this.password.length){
+        window.alert('비밀번호를 확인해주세요.');
+        document.getElementById("user-password").focus();
+        return;
+      }
+      if(!this.password_2.length || this.pw_check === true){
+        window.alert('비밀번호 확인란을 확인해주세요.');
+        document.getElementById("user-password-2").focus();
+        return;
+      }
+      if(this.toggle_checkbox === true){
+        window.alert('체크박스를 확인해주세요.');
+        document.getElementById("check_box").focus();
+      }
+      this.signupFrm.append('username', this.user_id);
+      this.signupFrm.append('email', this.e_mail);
+      this.signupFrm.append('password', this.password);
+      this.signupFrm.append('confirm_password', this.password);
+      this.signupSubmit();
+    },
+    signupSubmit(){
+      this.$http.post(this.$store.state.member.signup, this.signupFrm)
+      .then(response => {
+        if(response.status === 201){
+          this.$router.push('/signin');
+        }
+      })
+      .catch(error => {
+        console.log('회원가입 실패',error);
+        switch(error.status){
+          case 400:
+            window.alert('회원가입이 불가 합니다.')
+            break;
+        }
+      })
     }
-    // validation()
-    //   // 가입 폼 유효성 검사
-    // },
   },
   computed:{
     pw_check(){
@@ -83,12 +133,12 @@ export default {
         return true
       }
     },
-    nickname_check(){
+    userID_check(){
       let pattern = /^[\w\Wㄱ-ㅎㅏ-ㅣ가-힣]{6,12}$/;
-      if(this.nick_name === ''){
+      if(this.user_id === ''){
         return false
       }
-      return !pattern.test(this.nick_name);
+      return !pattern.test(this.user_id);
     }
   }
 }
