@@ -67,12 +67,6 @@ export default {
     LectureCarousel,  Reviews, TopButton
   },
   name: 'main',
-  data () {
-    return {
-    }
-  },
-  methods: {
-  }
 }
 </script>
 

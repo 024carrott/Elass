@@ -28,7 +28,7 @@ main
       a(href="com" role="button" aria-label="컴퓨터 카테고리 보기").ion-mouse
         br
         small 컴퓨터
-      a(href="lang" role="button" aria-label="외국어 카테고리 보기").ion-earth
+      a(href="lang" role="button" aria-label="외국어 카테고리 보기" ).ion-earth
         br
         small 외국어
       a(href="mna" role="button" aria-label="음악 미술 카테고리 보기").ion-ios-musical-notes
@@ -44,8 +44,8 @@ main
   .container.mt-2
     .grid
       .col
-        h2 헬스 & 뷰티
-        p.text 총 {{this.lectures.length}} 개의 강의가 등록되어 있습니다.
+        h2 {{setCategory}}
+        p.text 총 {{lectures.length}} 개의 강의가 등록되어 있습니다.
 
   .container
     .grid
@@ -77,18 +77,56 @@ import LectureListItem from './LectureListItem';
 import TopButton from '../TopButton';
 export default {
   created () {
-    const data_url = 'https://elass-6ad68.firebaseio.com/elass.json';
-    this.$http.get(data_url)
-    .then((response) => {
+    this.$http.post(this.$store.state.lecture.list).then((response) => {
       let res_data = response.data;
       this.lectures = res_data;
     });
+  },
+  mounted () {
+    let selected_item;
+    if (this.category === 'all'){
+      let selected_item = window.document.querySelector('.ion-android-done-all')
+      selected_item.classList.add('selected-category')
+      return;
+    }
+    if (this.category === 'hbn'){
+      let selected_item = window.document.querySelector('.ion-ios-pulse-strong')
+      selected_item.classList.add('selected-category')
+      return;
+    }
+    if (this.category === 'com'){
+      let selected_item = window.document.querySelector('.ion-mouse')
+      selected_item.classList.add('selected-category')
+      return;
+    }
+    if (this.category === 'lang'){
+      let selected_item = window.document.querySelector('.ion-earth')
+      selected_item.classList.add('selected-category')
+      return;
+    }
+    if (this.category === 'mna'){
+      let selected_item = window.document.querySelector('.ion-ios-musical-notes')
+      selected_item.classList.add('selected-category')
+      return;
+    }
+    if (this.category === 'sports'){
+      let selected_item = window.document.querySelector('.ion-ios-football')
+      selected_item.classList.add('selected-category')
+      return;
+    }
+    if (this.category === 'hobby'){
+      let selected_item = window.document.querySelector('.ion-planet')
+      selected_item.classList.add('selected-category')
+      return;
+    }
   },
   data () {
     return {
       lectures: [],
       category : this.$route.params.category,
-      visible_item: 6
+      set_category: '',
+      visible_item: 6,
+      is_selected: false
     }
   },
   methods: {
@@ -98,6 +136,29 @@ export default {
   },
   components: {
     TopButton, LectureListItem
+  },
+  computed: {
+    setCategory(){
+      switch (this.category){
+        case "all" : this.set_category = '전체 보기';
+        break;
+        case "hbn" : this.set_category = '헬스&뷰티';
+        break;
+        case "lang" : this.set_category = '외국어';
+        break;
+        case "com" : this.set_category = '컴퓨터';
+        break;
+        case "mna" : this.set_category = '음악/미술';
+        break;
+        case "sports" : this.set_category = '스포츠';
+        break;
+        case "major" : this.set_category = '전공/취업';
+        break;
+        case "hobby" : this.set_category = '이색취미';
+        break;
+      }
+      return this.set_category;
+    }
   }
 }
 </script>
@@ -201,5 +262,9 @@ export default {
         color: #fff;
       }
     }
+  }
+  .selected-category{
+    background: #007aff;
+    color: #fff;
   }
 </style>

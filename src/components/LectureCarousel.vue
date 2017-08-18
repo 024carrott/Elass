@@ -21,13 +21,10 @@ import LectureCarouselItem from './LectureCarouselItem';
 export default {
   name: 'lecture-carousel',
   created () {
-    const data_url = 'https://elass-6ad68.firebaseio.com/elass.json';
-    this.$http.get(data_url)
-    .then((response) => {
+    this.$http.post(this.$store.state.lecture.list).then((response) => {
       let res_data = response.data;
       this.lectures = res_data;
     });
-    console.log(this.lectures);
   },
   mounted () {
     window.addEventListener('resize', this.offsetWidth);
