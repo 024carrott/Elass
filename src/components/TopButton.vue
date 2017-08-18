@@ -37,9 +37,12 @@ export default {
   .topbutton{
     z-index: 1;
     border: 1px solid #007aff;
-    background: transparent;
+    background: #fff;
     position: fixed;
     bottom: 25%;
+    @include breakpoint(mobile){
+      bottom: 28%;
+    }
     right: 50px;
     width: 40px;
     height: 40px;
