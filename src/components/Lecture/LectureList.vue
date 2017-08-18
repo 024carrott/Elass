@@ -19,25 +19,60 @@ main
     .grid
       h2.a11y-hidden 강의 카테고리
     .grid.category-btns.is-small
-      a(href="all" role="button" aria-label="전체 카테고리 보기").ion-android-done-all
+      a(
+        href="all"
+        role="button"
+        aria-label="전체 카테고리 보기"
+        :class="[category === 'all' ? 'selected-category' : '']"
+        ).ion-android-done-all
         br
         small 전체 보기
-      a(href="hbn" role="button" aria-label="헬스 뷰티 카테고리 보기").ion-ios-pulse-strong
+      a(
+        href="hbn"
+        role="button"
+        aria-label="헬스 뷰티 카테고리 보기"
+        :class="[category === 'hbn' ? 'selected-category' : '']"
+        ).ion-ios-pulse-strong
         br
         small 헬스&amp;뷰티
-      a(href="com" role="button" aria-label="컴퓨터 카테고리 보기").ion-mouse
+      a(
+        href="com"
+        role="button"
+        aria-label="컴퓨터 카테고리 보기"
+        :class="[category === 'com' ? 'selected-category' : '']"
+        ).ion-mouse
         br
         small 컴퓨터
-      a(href="lang" role="button" aria-label="외국어 카테고리 보기" ).ion-earth
+      a(
+        href="lang"
+        role="button"
+        aria-label="외국어 카테고리 보기"
+        :class="[category === 'lang' ? 'selected-category' : '']"
+        ).ion-earth
         br
         small 외국어
-      a(href="mna" role="button" aria-label="음악 미술 카테고리 보기").ion-ios-musical-notes
+      a(
+        href="mna"
+        role="button"
+        aria-label="음악 미술 카테고리 보기"
+        :class="[category === 'mna' ? 'selected-category' : '']"
+        ).ion-ios-musical-notes
         br
         small 음악&sol;미술
-      a(href="sports" role="button" aria-label="스포츠 카테고리 보기").ion-ios-football
+      a(
+        href="sports"
+        role="button"
+        aria-label="스포츠 카테고리 보기"
+        :class="[category === 'sports' ? 'selected-category' : '']"
+        ).ion-ios-football
         br
         small 스포츠
-      a(href="hobby" role="button" aria-label="이색취미 카테고리 보기").ion-planet
+      a(
+        href="hobby"
+        role="button"
+        aria-label="이색취미 카테고리 보기"
+        :class="[category === 'hobby' ? 'selected-category' : '']"
+        ).ion-planet
         br
         small 이색취미
 
@@ -81,44 +116,6 @@ export default {
       let res_data = response.data;
       this.lectures = res_data;
     });
-  },
-  mounted () {
-    let selected_item;
-    if (this.category === 'all'){
-      let selected_item = window.document.querySelector('.ion-android-done-all')
-      selected_item.classList.add('selected-category')
-      return;
-    }
-    if (this.category === 'hbn'){
-      let selected_item = window.document.querySelector('.ion-ios-pulse-strong')
-      selected_item.classList.add('selected-category')
-      return;
-    }
-    if (this.category === 'com'){
-      let selected_item = window.document.querySelector('.ion-mouse')
-      selected_item.classList.add('selected-category')
-      return;
-    }
-    if (this.category === 'lang'){
-      let selected_item = window.document.querySelector('.ion-earth')
-      selected_item.classList.add('selected-category')
-      return;
-    }
-    if (this.category === 'mna'){
-      let selected_item = window.document.querySelector('.ion-ios-musical-notes')
-      selected_item.classList.add('selected-category')
-      return;
-    }
-    if (this.category === 'sports'){
-      let selected_item = window.document.querySelector('.ion-ios-football')
-      selected_item.classList.add('selected-category')
-      return;
-    }
-    if (this.category === 'hobby'){
-      let selected_item = window.document.querySelector('.ion-planet')
-      selected_item.classList.add('selected-category')
-      return;
-    }
   },
   data () {
     return {
