@@ -54,7 +54,9 @@ export default {
       this.$http.post(this.$store.state.member.signin, this.loginFrm)
       .then(response => {
         if(response.status===200 && response.data.token.length){
-          this.$store.dispatch('login', response.data.token);
+          // console.log(response.data);
+          // return;
+          this.$store.dispatch('login', {token:response.data.token, userid:response.data.user.user_pk});
           this.$router.push('/');
         }
       })

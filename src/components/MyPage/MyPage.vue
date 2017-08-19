@@ -1,8 +1,7 @@
 <template lang="pug">
     main
-      .container.health-image.mt-1
-      .container.mt-2(v-if="is_loaded")
-        .grid
+      .container.mt-1(v-if="is_loaded").top-bd
+        .grid.mt-2
           .col
             h2 마이페이지
         .grid.mt-2
@@ -168,6 +167,5 @@ export default {
     width: 100%
     text-indent: 30%
     text-align: left
-    
   
 </style>

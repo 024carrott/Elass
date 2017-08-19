@@ -1,6 +1,5 @@
 <template lang="pug">
 main
-  .container.health-image.mt-1
   .container.mt-2
   .grid
     .col.col-d-2.col-t-2.col-m-1.col-d-offset-2
@@ -83,42 +82,6 @@ export default {
     });
   },
   mounted () {
-    let selected_item;
-    if (this.category === 'all'){
-      let selected_item = window.document.querySelector('.ion-android-done-all')
-      selected_item.classList.add('selected-category')
-      return;
-    }
-    if (this.category === 'hbn'){
-      let selected_item = window.document.querySelector('.ion-ios-pulse-strong')
-      selected_item.classList.add('selected-category')
-      return;
-    }
-    if (this.category === 'com'){
-      let selected_item = window.document.querySelector('.ion-mouse')
-      selected_item.classList.add('selected-category')
-      return;
-    }
-    if (this.category === 'lang'){
-      let selected_item = window.document.querySelector('.ion-earth')
-      selected_item.classList.add('selected-category')
-      return;
-    }
-    if (this.category === 'mna'){
-      let selected_item = window.document.querySelector('.ion-ios-musical-notes')
-      selected_item.classList.add('selected-category')
-      return;
-    }
-    if (this.category === 'sports'){
-      let selected_item = window.document.querySelector('.ion-ios-football')
-      selected_item.classList.add('selected-category')
-      return;
-    }
-    if (this.category === 'hobby'){
-      let selected_item = window.document.querySelector('.ion-planet')
-      selected_item.classList.add('selected-category')
-      return;
-    }
   },
   data () {
     return {
