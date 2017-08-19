@@ -1,6 +1,5 @@
 <template lang="pug">
 main
-  .container.health-image.mt-1
   .container.mt-2
   .grid
     .col.col-d-2.col-t-2.col-m-1.col-d-offset-2
