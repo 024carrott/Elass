@@ -60,13 +60,35 @@
               a.modal-close.ion-close(role="button" href aria-label="창 닫기" @click.prevent="toggleEnrollTutor")
               h4 튜터 등록하기
               form.tutor-info-edit
-                label(for="user-name") 경력사항
-                textarea(placeholder="경력사항을 입력하세요." aria-label="튜터 경력사항")
-                br
-                label(for="user-email") 자기소개
-                textarea(placeholder="자기소개를 입력하세요" aria-label="튜터 자기소개")
+                .input-fileds.mt-1
+                  label(for="cert_type") 인증 타입
+                  select.select-box-tutor(title="cert_type" id="type" @change="type" :value="tutor_type")
+                    option(value="university" selected) 대학 인증
+                    option(value="graduate-school") 대학원 인증
+                    option(value="identity") 신분증 인증
+                  label(for="school") 학교 이름
+                  input(type="text" name="school" id="school" @input="school" :value="tutor_school")
+                  br
+                  label(for="major") 전공
+                  input(type="text" name="major" id="major" @input="major" :value="tutor_major")
+                  br
+                  label(for="status_type") 상태
+                  select.select-box-tutor(title="status" @change="status" :value="tutor_status")
+                    option(value="nothing" selected) ------
+                    option(value="ing") 재학
+                    option(value="graduate") 졸업
+                    option(value="complet") 수료
+                  br
+                  label(for="my_photo") 프로필 사진
+                  input(type="file" name="my_photo" id="my_photo" @change="photo")
+                  br
+                  label(for="nickname") 닉네임
+                  input(type="text" name="nickname" id="nickname" @input="nick_name" :value="tutor_nick_name")
+                  br
+                  label(for="phone") 핸드폰 번호
+                  input(type="text" name="phone" id="phone" @input="phone" :value="tutor_phone")
               .btn-group.mt-1
-                a.btn-submit.is-small(role="button" href) 저장하기
+                a.btn-submit.is-small(role="button" href @click.prevent="submitTutor") 저장하기
                 a.btn-white.is-small(role="button" @click.prevent="toggleEnrollTutor" href) 취소        
 </template>
 
@@ -77,12 +99,15 @@ export default {
       this.user = response.data;
       this.is_loaded = true;
       this.userid = this.user.nickname;
-      this.userpic = this.user.my_photo;      
+      this.userpic = this.user.my_photo;
+      this.mypageFrm.append('Authorization', '5c2f739fb5f30eb3de8078434192de391b316595')           
     }).catch(error=>{
       console.log(error);
       this.is_loaded = true;
     });
+    this.mypageFrm = new FormData();
   },
+
   data(){
     return {
       user: null,
@@ -94,6 +119,13 @@ export default {
       edit_modal_view: false,
       tutor_modal_view: false, 
       is_loaded: false,
+      tutor_type: '',
+      tutor_school: '',
+      tutor_major: '',
+      tutor_status: '',
+      tutor_photo: '',
+      tutor_nick_name: '',
+      tutor_phone: '',
     }
   },
   
@@ -109,6 +141,88 @@ export default {
     },
     toggleEnrollTutor(){
       this.tutor_modal_view = !this.tutor_modal_view
+    },
+
+    // tutor
+    type(e){
+      this.tutor_type = e.target.value
+    },
+    school(e){
+      this.tutor_school = e.target.value
+    },
+    major(e){
+      this.tutor_major = e.target.value
+    },
+    status(e){
+      this.tutor_status = e.target.value
+      
+    },
+    photo(e){
+      this.tutor_photo = e.target.files
+    },
+    nick_name(e){
+      this.tutor_nick_name = e.target.value
+    },
+    phone(e){
+      this.tutor_phone = e.target.value
+    },
+
+    // submit
+
+    submitTutor(){
+      if(!this.tutor_type.length){
+        window.alert('인증 타입을 확안해주세요');
+        document.getElementById("type").focus();
+        return
+      }
+      if(!this.tutor_major.length){
+        window.alert('전공을 확인해주세요');
+        document.getElementById("major").focus();
+        return
+      }
+      if(!this.tutor_status.length){
+        window.alert('상태를 확인해주세요');
+        document.getElementById("status").focus();
+        return
+      }
+      if(!this.tutor_photo.length){
+        window.alert('프로필 사진을 확인해주세요');
+        document.getElementById("my_photo").focus();
+        return
+      }
+      if(!this.tutor_nick_name.length){
+        window.alert('닉네임을 확인해주세요');
+        document.getElementById("nickname").focus();
+        return
+      }
+      if(!this.tutor_phone.length){
+        window.alert('핸드폰 번호를 확인해주세요');
+        document.getElementById("phone").focus();
+        return
+      }
+      this.mypageFrm.append('cert_type', this.tutor_type);
+      this.mypageFrm.append('major', this.tutor_major);
+      this.mypageFrm.append('status_type', this.tutor_status);
+      this.mypageFrm.append('my_photo', this.tutor_photo);
+      this.mypageFrm.append('nickname', this.tutor_nick_name);
+      this.mypageFrm.append('phone', this.tutor_phone);
+      this.mypageSubmit();
+    },
+    mypageSubmit(){
+      this.$http.post(this.$store.state.lecture.regist, this.mypageFrm)
+      .then(response => {
+        if(response.status === 200){
+          this.$router.push('/');
+        }
+      })
+      .catch(error => {
+        console.log('튜터등록 실패', error);
+        switch(error.status){
+          case 400:
+            window.alert('튜터등록이 불가 합니다.')
+            break;
+        }
+      })
     }
   },
   computed:{
@@ -167,5 +281,15 @@ export default {
     width: 100%
     text-indent: 30%
     text-align: left
+
+  .select-box-tutor
+    width: 66%
+    height: $leading * 2
+    padding-left: 10px
+    font-size: 1.4rem
+    color: #181818
+    border: 1px solid #dcdcdc
+    background-color: #fff
+
   
 </style>
