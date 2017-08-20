@@ -8,11 +8,13 @@
           .col.col-d-4.col-t-3.col-m-4
             .my-info
               img(:src="userpic")
+              //- br
+              //- label.a11y-hidden(for="user-profile") 사진 등록/수정하기
+              //- input.input-file(type="file" name="user-profile" id="user-profile")
               br
-              label.a11y-hidden(for="user-profile") 사진 등록/수정하기
-              input.input-file(type="file" name="user-profile" id="user-profile")
-              br
-              span {{ userid }}
+              span {{ userid }} 
+                a(href aria-label="내정보 수정하기" role="button" @click.prevent="")
+                  i.fa.fa-edit 
               br
               a.btn-white.is-small(role="button" @click.prevent="toggleEditMyInfo" href) 비밀번호 변경
           .col.col-d-8.col-t-5.col-m-4
@@ -73,7 +75,7 @@
 <script>
 export default {
   created(){
-    this.$http.get(this.$store.state.member.profile, {headers:{Authorization:this.$store.getters.token}}).then((response) => {
+    this.$http.get(this.$store.state.member.profile+this.$store.state.userInfo+'/', {headers:{Authorization:this.$store.getters.token}}).then((response) => {
       this.user = response.data;
       this.is_loaded = true;
       this.userid = this.user.nickname;
