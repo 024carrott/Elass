@@ -64,7 +64,6 @@
               label(for="lecture-price").col.alpha 수강료
               input(id="lecture-price" class="lecture-price" name="lecture-price" v-model="price" type="number" value="30000").col.col-d-2.col-t-7.col-m-3
               span(class="lecture-text").col.col-d-1.col-t-1.col-m-1 원
-              
               //- 강의 상세 정보
               h3.register-subtitle.col.mt-1 강의 상세 정보
               //- 튜터 정보
@@ -110,7 +109,7 @@ export default {
       strTime:'10~12',
       memberCnt:'1',
       price:'20000',
-      photo:'',
+      photos:[],
       imgCnt: 0,
       type: 'info',
       classInfo:"♦︎ 제 수업은 프로젝션맵핑의(VJ) 기본적인 이해와 실습을 하고 모션그래픽디자인의 심화와 기초를 \n배울 수 있습니다.\n\n(a코스) 모션그래픽(중급-심화)\n\n(b코스)모션그래픽(기초)+프로젝션맵핑(vj)\n\n♦︎ 알려드릴 수 있는 툴은 포토샵,일러스트,에프터이펙트,시네마포디,Vdmx,Mad mapper등등 입니다.\n\n♦︎ 누구나 쉽게 배울 수 있도록 최선을 다해 알려드리겠습니다.\n\n♦︎ 4주 동안 수업 신청하신 분과 상담을 통해 수업을 진행하겠습니다.\n\n♦︎ 프로그램은 직접 설치해오셔도 좋고 제가 직접 공유해드릴 수 있습니다.\n\n♦︎ 수업 장소는 홍대,강남에서 진행합니다. 자세한 장소는 서로 조율해 보아요\n\n\n\n♦︎준비물\n\n\n노트북(맥북). 프로젝션맵핑(vj) 툴은 맥에서만 작동 합니다. 윈도우는 다른 툴로 가능.(협의)",
@@ -132,6 +131,7 @@ export default {
     },
     addFiles(e){
       this.imgCnt = e.target.files.length;
+      this.photos = e.target.files;
     },
     makeClass(){
       if(!this.title.length){
@@ -186,10 +186,15 @@ export default {
       this.classFrm.append('price', this.price);
       this.classFrm.append('location1', this.location1);
       this.classFrm.append('location2', this.location2);
+      this.classFrm.append('location_option', 'direct'); 
       this.classFrm.append('location_detail', this.location3); 
+      this.classFrm.append('location_etc_type', 'no'); 
       this.classFrm.append('class_weekday', this.strDate); 
       this.classFrm.append('class_time', this.strTime); 
       this.classFrm.append('state', 'activity'); 
+      for(let i=0, l=this.photos.length; i < l; i++){
+        this.classFrm.append('lecture_photo', this.photos[i], this.photos[i].name);
+      }
       this.sendFrm();
     },
     sendFrm(){
