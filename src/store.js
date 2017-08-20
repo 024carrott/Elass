@@ -16,8 +16,8 @@ const store = new Vuex.Store({
       signup   : APIHOST+'member/signup/',
       signin   : APIHOST+'member/login/',
       fbsignin : APIHOST+'member/login/facebook/',
-      profile  : APIHOST+'member/profile/'+localStorage.getItem("login_token")+'/',
-      changepwd: APIHOST+'member/change/password/'+localStorage.getItem("login_token")+'/',
+      profile  : APIHOST+'member/profile/'+this.userInfo+'/',
+      changepwd: APIHOST+'member/change/password/'+this.userInfo+'/',
     },
     lecture:{
       list  : APIHOST+'regiclass/class/list/',
