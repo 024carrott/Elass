@@ -1,6 +1,6 @@
 <template lang="pug">
 main
-  .container
+  .container.mt-1.top-bd
     .grid.mt-2
       h2 내가 수강한 강의
       p.text.mt-1 총 {{this.lectures.length}}개의 강의를 수강 하였습니다.

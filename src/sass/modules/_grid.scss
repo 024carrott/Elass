@@ -65,3 +65,6 @@ $device: (mobile,4,10), (tablet,8,10), (desktop,12,10); // 디바이스 종류 :
 .mt-5{
   margin-top : $leading * 5;
 }
+.top-bd {
+border-top: 1px solid #bbc0d4;
+}
