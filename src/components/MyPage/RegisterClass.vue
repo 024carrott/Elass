@@ -15,7 +15,7 @@
               input(id="lecture-title" v-model="title" class="lecture-title" name="lecture-title" type="text" placeholder="강의 제목을 입력 해 주세요.").col.alpha
               //- 카테고리
               label(for="lecture-category").col.alpha 카테고리
-              select(id="lecture-category" v-model="category" class="lecture-category" name="lecture-category").col.col-d-1.col-t-7.col-m-3
+              select(id="lecture-category" v-model="category" class="lecture-category" name="lecture-category").col.col-d-4.col-t-7.col-m-3
                 option(value="" selected disabled) 선택
                 option(value="hbn") 헬스&amp;뷰티
                 option(value="lang") 외국어
@@ -98,10 +98,12 @@ export default {
   data(){
     return {
       classFrm:'',
+      classData:{},
       title:'에프터이펙트를 활용한 모션그래픽+프로젝션 맵핑(VJ)을 배워 봅시다~',
       category:'com',
       coverImg:'',
       cover:'',
+      location:[],
       location1:'서울',
       location2:'강남',
       location3:'역삼동',
@@ -169,8 +171,20 @@ export default {
         document.getElementById("lecture-member").focus();
         return;
       }
+      let tempLoca = {
+          location1: this.location1,
+          location2: this.location2,
+          location_option: 'custom',
+          location_detail: this.location3,
+          location_etc_type: 'no',
+          location_etc_text: '',
+          class_weekday: this.strDate,
+          class_time: this.strTime
+      }
+      this.location.push(tempLoca);
       if(confirm("입력하신 내용으로 등록 하시겠습니까?")){
-        this.makeForm();
+        // this.makeForm();
+        this.makeJson();
       }
     },
     makeForm(){
@@ -184,23 +198,62 @@ export default {
       this.classFrm.append('class_intro', this.classInfo);
       this.classFrm.append('target_intro', this.targetInfo);
       this.classFrm.append('price', this.price);
-      this.classFrm.append('location1', this.location1);
-      this.classFrm.append('location2', this.location2);
-      this.classFrm.append('location_option', 'direct'); 
-      this.classFrm.append('location_detail', this.location3); 
-      this.classFrm.append('location_etc_type', 'no'); 
-      this.classFrm.append('class_weekday', this.strDate); 
-      this.classFrm.append('class_time', this.strTime); 
-      this.classFrm.append('state', 'activity'); 
-      for(let i=0, l=this.photos.length; i < l; i++){
-        this.classFrm.append('lecture_photo', this.photos[i], this.photos[i].name);
-      }
+      this.classFrm.append('locations', this.location); 
+      // this.classFrm.append('state', 'activity'); 
+      // for(let i=0, l=this.photos.length; i < l; i++){
+      //   this.classFrm.append('lecture_photo', this.photos[i], this.photos[i].name);
+      // }
+      this.classFrm.append('lecture_photo',this.photos);
       this.sendFrm();
+    },
+    makeJson(){
+      this.classData = {
+        title : this.title,
+        category : this.category,
+        class_type : 'group',
+        min_member : this.memberCnt,
+        max_member : this.memberCnt,
+        cover_photo : this.cover,
+        tutor_intro : this.tutorInfo,
+        class_intro : this.classInfo,
+        target_intro : this.targetInfo,
+        price: this.price,
+        lecture_photo : this.photos,
+        locations : this.location,
+        // location1: this.location1,
+        // location2: this.location2,
+        // location_option: 'custom',
+        // location_detail: this.location3,
+        // location_etc_type: 'no',
+        // location_etc_text: '',
+        // class_weekday: this.strDate,
+        // class_time: this.strTime,
+      }
+      console.log(this.classData);
+      this.sendJson();
     },
     sendFrm(){
       this.$http.post(this.$store.state.lecture.regist, this.classFrm, {headers:{Authorization:this.$store.getters.token}})
       .then(response => {
         console.log('강의생성 성공', this.classFrm);
+        return;
+        if(response.status === 201){
+          this.$router.push('/signin');
+        }
+      })
+      .catch(error => {
+        console.log('강의생성 실패', error);
+        switch(error.status){
+          case 400:
+            window.alert('강의 생성이 불가 합니다.')
+            break;
+        }
+      });
+    },
+    sendJson(){
+      this.$http.post(this.$store.state.lecture.regist, this.classData, {headers:{Authorization:this.$store.getters.token}})
+      .then(response => {
+        console.log('강의생성 성공', response);
         return;
         if(response.status === 201){
           this.$router.push('/signin');
