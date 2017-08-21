@@ -10,7 +10,8 @@ const APIHOST = 'http://eb-yykdev-taling-dev.ap-northeast-2.elasticbeanstalk.com
 const store = new Vuex.Store({
   state: {
     isLogIn: !!localStorage.getItem("login_token"),
-    userInfo: 0,
+    userInfo: localStorage.getItem('user_info'),
+    tutorInfo: localStorage.getItem('tutor_info'),
     token: 'Token '+ localStorage.getItem("login_token"),
     member:{
       signup   : APIHOST+'member/signup/',
@@ -28,9 +29,10 @@ const store = new Vuex.Store({
     }
   },
   mutations: {
-    [LOGIN] (state, userId) { 
+    [LOGIN] (state, payload) { 
       state.isLogIn = true; 
-      state.userInfo = userId;
+      state.userInfo = payload.userid;
+      state.tutorInfo = payload.tutorid;
     },
     [LOGOUT](state) { state.isLogIn = false; }
   },
@@ -38,7 +40,9 @@ const store = new Vuex.Store({
    login({ commit }, payload) {
       // if success login (get token)
       localStorage.setItem("login_token", payload.token);
-      commit(LOGIN, payload.userid);
+      localStorage.setItem("user_info", payload.userid);
+      localStorage.setItem("tutor_info", payload.tutorid);
+      commit(LOGIN, payload);
    },
    logout({ commit }) {
      localStorage.removeItem("login_token");
@@ -49,6 +53,7 @@ const store = new Vuex.Store({
     isLogIn: state =>state.isLogIn,
     token: state=>state.token,
     userInfo: state=>state.userInfo,
+    tutorInfo: state=>state.tutorInfo,
   }
 });
 export default store;

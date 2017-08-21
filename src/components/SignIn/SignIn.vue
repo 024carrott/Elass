@@ -56,7 +56,7 @@ export default {
         if(response.status===200 && response.data.token.length){
           // console.log(response.data);
           // return;
-          this.$store.dispatch('login', {token:response.data.token, userid:response.data.user.user_pk});
+          this.$store.dispatch('login', {token:response.data.token, userid:response.data.user.user_pk, tutorid:response.data.user.tutor_pk || 0});
           this.$router.push('/');
         }
       })

@@ -27,9 +27,9 @@
               .mypage-menu-tutor
                 h3.a11y-hidden 튜터 메뉴
                 .btn-group.left
-                  a.btn-gray(role="button" @click.prevent="toggleEnrollTutor" href) 튜터 등록하기
-                  a.btn-white(href="/mypage/registeredclass" role="button") 내가 등록한 강의
-                  a.btn-white(href="/mypage/registerclass" role="button") 강의 등록하기
+                  a.btn-gray(role="button" @click.prevent="toggleEnrollTutor" href v-if="!tutorInfo") 튜터 등록하기
+                  a.btn-white(href="/mypage/registeredclass" role="button" v-if="tutorInfo") 내가 등록한 강의
+                  a.btn-white(href="/mypage/registerclass" role="button" v-if="tutorInfo") 강의 등록하기
       //- '내 정보 수정하기' 버튼 클릭시 is-active 클래스 추가
       .modal(role="dialog" :class="{'is-active':edit_modal_view}")
           .modal-background
@@ -100,9 +100,9 @@ export default {
     this.$http.get(this.$store.state.member.profile+this.$store.state.userInfo+'/', {headers:{Authorization:this.$store.getters.token}}).then((response) => {
       this.user = response.data;
       this.is_loaded = true;
-      this.userid = this.user.nickname;
+      this.userid = this.user.username;
       this.userpic = this.user.my_photo;
-      this.mypageFrm.append('Authorization', '5c2f739fb5f30eb3de8078434192de391b316595')           
+      // this.mypageFrm.append('Authorization', '5c2f739fb5f30eb3de8078434192de391b316595')           
     }).catch(error=>{
       console.log(error);
       this.is_loaded = true;
@@ -128,6 +128,7 @@ export default {
       tutor_photo: '',
       tutor_nick_name: '',
       tutor_phone: '',
+      tutorInfo: this.$store.getters.tutorInfo * 1
     }
   },
   
@@ -160,7 +161,7 @@ export default {
       
     },
     photo(e){
-      this.tutor_photo = e.target.files
+      this.tutor_photo = e.target.files[0]
     },
     nick_name(e){
       this.tutor_nick_name = e.target.value
@@ -172,6 +173,7 @@ export default {
     // submit
 
     submitTutor(){
+      console.log(this.tutor_photo);
       if(!this.tutor_type.length){
         window.alert('인증 타입을 확안해주세요');
         document.getElementById("type").focus();
@@ -187,7 +189,7 @@ export default {
         document.getElementById("status").focus();
         return
       }
-      if(!this.tutor_photo.length){
+      if(!this.tutor_photo){
         window.alert('프로필 사진을 확인해주세요');
         document.getElementById("my_photo").focus();
         return
@@ -205,16 +207,16 @@ export default {
       this.mypageFrm.append('cert_type', this.tutor_type);
       this.mypageFrm.append('major', this.tutor_major);
       this.mypageFrm.append('status_type', this.tutor_status);
-      this.mypageFrm.append('my_photo', this.tutor_photo);
+      this.mypageFrm.append('my_photo', this.tutor_photo, this.tutor_photo.name);
       this.mypageFrm.append('nickname', this.tutor_nick_name);
       this.mypageFrm.append('phone', this.tutor_phone);
       this.mypageSubmit();
     },
     mypageSubmit(){
-      this.$http.post(this.$store.state.lecture.regist, this.mypageFrm)
+      this.$http.post(this.$store.state.lecture.regist, this.mypageFrm, {headers:{Authorization:this.$store.getters.token}})
       .then(response => {
         if(response.status === 200){
-          this.$router.push('/');
+          // this.$router.push('/');
         }
       })
       .catch(error => {
