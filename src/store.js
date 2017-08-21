@@ -18,6 +18,7 @@ const store = new Vuex.Store({
       fbsignin : APIHOST+'member/login/facebook/',
       profile  : APIHOST+'member/profile/',
       changepwd: APIHOST+'member/change/password/',
+      tutorup  : APIHOST+'member/tutor/register/'
     },
     lecture:{
       list  : APIHOST+'regiclass/class/list/',
@@ -33,7 +34,10 @@ const store = new Vuex.Store({
       state.userInfo = payload.userid;
       state.tutorInfo = payload.tutorid;
     },
-    [LOGOUT] (state) { state.isLogIn = false; }
+    [LOGOUT](state) { state.isLogIn = false; },
+    TUTOR(state, payload){
+      state.tutorInfo = payload;
+    }
   },
   actions: {
    login({ commit }, payload) {
@@ -46,6 +50,9 @@ const store = new Vuex.Store({
    logout({ commit }) {
      localStorage.removeItem("login_token");
      commit(LOGOUT);
+   },
+   tutorSet({commit}, payload){
+     commit('TUTOR', payload);
    }
   },
   getters: {
