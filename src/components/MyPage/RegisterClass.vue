@@ -99,24 +99,24 @@ export default {
     return {
       classFrm:'',
       classData:{},
-      title:'에프터이펙트를 활용한 모션그래픽+프로젝션 맵핑(VJ)을 배워 봅시다~',
-      category:'com',
+      title:'',
+      category:'',
       coverImg:'',
       cover:'',
       location:[],
-      location1:'서울',
-      location2:'강남',
-      location3:'역삼동',
-      strDate:'mon',
-      strTime:'10~12',
+      location1:'',
+      location2:'',
+      location3:'',
+      strDate:'',
+      strTime:'',
       memberCnt:'1',
-      price:'20000',
+      price:'',
       photos:[],
       imgCnt: 0,
       type: 'info',
-      classInfo:"♦︎ 제 수업은 프로젝션맵핑의(VJ) 기본적인 이해와 실습을 하고 모션그래픽디자인의 심화와 기초를 \n배울 수 있습니다.\n\n(a코스) 모션그래픽(중급-심화)\n\n(b코스)모션그래픽(기초)+프로젝션맵핑(vj)\n\n♦︎ 알려드릴 수 있는 툴은 포토샵,일러스트,에프터이펙트,시네마포디,Vdmx,Mad mapper등등 입니다.\n\n♦︎ 누구나 쉽게 배울 수 있도록 최선을 다해 알려드리겠습니다.\n\n♦︎ 4주 동안 수업 신청하신 분과 상담을 통해 수업을 진행하겠습니다.\n\n♦︎ 프로그램은 직접 설치해오셔도 좋고 제가 직접 공유해드릴 수 있습니다.\n\n♦︎ 수업 장소는 홍대,강남에서 진행합니다. 자세한 장소는 서로 조율해 보아요\n\n\n\n♦︎준비물\n\n\n노트북(맥북). 프로젝션맵핑(vj) 툴은 맥에서만 작동 합니다. 윈도우는 다른 툴로 가능.(협의)",
-      targetInfo:"-모션그래픽에 대해 알고 싶고 잘하고 싶으신 분\n\n-에프터이펙트 초보자\n\n-프로젝션맵핑(vj)에 대해 알고 싶으신 분\n\n-디자인을 잘 하고 싶으신 분\n\n-미디어아트에 대해 궁금하신 분\n\n-모션그래픽 포트폴리오 필요하신 분",
-      tutorInfo:"-GATSBY DANCE COMPETITION VJ @ 압구정 예홀\n\n-전자음악심포지엄 VJ @ 서울대학교\n\n-제네럴아이디어패션쇼VJ \n\n-1STF.ARTY NIGHT FOEA-MARKET VJ @ CLUB ABLE\n\n-WORLD DJ FESTIVAL FREE PARTY VJ 2013\n\n-CLUB OCTAGON RESIDENT VJ \n\n-CLUB ELLUI VJ \n\n-LOTTE HOTEL WORLD SPRING CONCERT VJ @ 롯데호텔\n\n-넥슨,삼성,kt,현대자동차 등등 대기업 광고 영상 제작.\n\n\n현) 디자인 스튜디오 모션그래픽 디자이너.\n\n\n♦︎ 저는 2년여간 클럽과 콘서트등을 위주로 vj 활동을 하였습니다.\n\n그리고 현재는 디자인 스튜디오에서 모션그래픽디자이너로 활동하고 있습니다.\n\n\nhttps://vimeo.com/zeroone012",
+      classInfo:"",
+      targetInfo:"",
+      tutorInfo:"",
     }
   },
   methods:{
@@ -171,20 +171,8 @@ export default {
         document.getElementById("lecture-member").focus();
         return;
       }
-      let tempLoca = {
-          location1: this.location1,
-          location2: this.location2,
-          location_option: 'custom',
-          location_detail: this.location3,
-          location_etc_type: 'no',
-          location_etc_text: '',
-          class_weekday: this.strDate,
-          class_time: this.strTime
-      }
-      this.location.push(tempLoca);
       if(confirm("입력하신 내용으로 등록 하시겠습니까?")){
-        // this.makeForm();
-        this.makeJson();
+        this.makeForm();
       }
     },
     makeForm(){
@@ -198,47 +186,25 @@ export default {
       this.classFrm.append('class_intro', this.classInfo);
       this.classFrm.append('target_intro', this.targetInfo);
       this.classFrm.append('price', this.price);
-      this.classFrm.append('locations', this.location); 
-      // this.classFrm.append('state', 'activity'); 
-      // for(let i=0, l=this.photos.length; i < l; i++){
-      //   this.classFrm.append('lecture_photo', this.photos[i], this.photos[i].name);
-      // }
-      this.classFrm.append('lecture_photo',this.photos);
+      this.classFrm.append('location1', this.location1);
+      this.classFrm.append('location2', this.location2);
+      this.classFrm.append('location_option', 'custom');
+      this.classFrm.append('location_detail', this.location3);
+      this.classFrm.append('location_etc_type', 'no');
+      this.classFrm.append('location_etc_text', 'no');
+      this.classFrm.append('class_weekday', this.strDate);
+      this.classFrm.append('class_time', this.strTime);
+      for(let i=0, l=this.photos.length; i < l; i++){
+        this.classFrm.append('lecture_photo', this.photos[i], this.photos[i].name);
+      }
+      // this.classFrm.append('lecture_photo[]',this.photos);
       this.sendFrm();
     },
-    makeJson(){
-      this.classData = {
-        title : this.title,
-        category : this.category,
-        class_type : 'group',
-        min_member : this.memberCnt,
-        max_member : this.memberCnt,
-        cover_photo : this.cover,
-        tutor_intro : this.tutorInfo,
-        class_intro : this.classInfo,
-        target_intro : this.targetInfo,
-        price: this.price,
-        lecture_photo : this.photos,
-        locations : this.location,
-        // location1: this.location1,
-        // location2: this.location2,
-        // location_option: 'custom',
-        // location_detail: this.location3,
-        // location_etc_type: 'no',
-        // location_etc_text: '',
-        // class_weekday: this.strDate,
-        // class_time: this.strTime,
-      }
-      console.log(this.classData);
-      this.sendJson();
-    },
     sendFrm(){
-      this.$http.post(this.$store.state.lecture.regist, this.classFrm, {headers:{Authorization:this.$store.getters.token}})
+      this.$http.post(this.$store.state.lecture.regist, this.classFrm, {headers:{'authorization':this.$store.getters.token}})
       .then(response => {
-        console.log('강의생성 성공', response);
-        return;
         if(response.status === 201){
-          this.$router.push('/signin');
+          this.$router.push('/mypage/registeredclass');
         }
       })
       .catch(error => {
@@ -246,24 +212,6 @@ export default {
         switch(error.status){
           case 400:
             window.alert('강의 생성이 불가 합니다.')
-            break;
-        }
-      });
-    },
-    sendJson(){
-      this.$http.post(this.$store.state.lecture.regist, this.classData, {headers:{Authorization:this.$store.getters.token}})
-      .then(response => {
-        console.log('강의생성 성공', response);
-        return;
-        if(response.status === 201){
-          this.$router.push('/signin');
-        }
-      })
-      .catch(error => {
-        console.log('강의생성 실패', error);
-        switch(error.status){
-          case 400:
-            window.alert('회원가입이 불가 합니다.')
             break;
         }
       });
