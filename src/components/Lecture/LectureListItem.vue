@@ -7,12 +7,11 @@
           img(:src="class_item.cover_photo" :alt="`${class_item.title} 이미지`")
       dl.favorite-lecture-content
         dt.favorite-lecture-title {{class_item.title}}
-        dd.favorite-lecture-user {{class_item.tutor_intro}}
-      a(href role="button" :aria-label="`${class_item.title} 좋아요`").favorite-like
-        //- 좋아요 클릭 off
+        dd.favorite-lecture-user {{class_item.tutor_info.nickname}}
+      a(v-if="is_like === false" href role="button" :aria-label="`${class_item.title} 좋아요`" @click.prevent="likeClass").favorite-like
         img(src="../../assets/favorite-list/favorite-like-btn-off.png")
-        //- 좋아요 클릭 on
-        //- img(src="../../assets/favorite-list/favorite-like-btn-on.png")
+      a(v-else href role="button" :aria-label="`${class_item.title} 좋아요 취소`" @click.prevent="unlikeClass($event)").favorite-like
+        img(src="../../assets/favorite-list/favorite-like-btn-on.png")
       .favorite-star
         span.a11y-hidden 강의평가 5점 만점에 4점
         i.ion-ios-star
@@ -26,10 +25,38 @@
 export default {
   name: 'lecture-item',
   props: ['lecture', 'index'],
+  created () {
+    if (this.$route.path === "/mypage/myfavoritelist"){
+      this.is_like = true;
+    }
+    this.likeForm = new FormData();
+  },
   data(){
     return {
       class_item: this.lecture,
       active_index: this.index + 1,
+      id: this.lecture.id,
+      is_like: false
+    }
+  },
+  methods: {
+    unlikeClass(e){
+      this.is_like = !this.is_like;
+      window.alert('해당 강의를 찜목록에서 삭제 했습니다.')
+    },
+    likeClass(){
+      if (this.is_login){
+        window.alert('로그인 후 이용할 수 있습니다.');
+        return;
+      }
+      this.is_like = !this.is_like;
+      if (this.is_like === true){
+        this.likeForm.append('lecture_id', this.id);
+        this.$http.post(this.$store.state.lecture.like, this.likeForm, {headers:{Authorization:this.$store.getters.token}})
+        .then(response => {
+          return;
+        });
+      }
     }
   },
   computed: {

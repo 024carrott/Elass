@@ -55,7 +55,8 @@
                   | {{`최대 ${lecture.max_member}명`}}
             .btn-group.mt-1
               a.btn-submit(role="button" href @click.prevent="registerClass") 수강 신청하기
-              a.btn-white(role="button" href @click.prevent="likeClass") 강의 찜하기
+              a.btn-white(v-if="is_like === false" role="button" href @click.prevent="likeClass") 강의 찜하기
+              a.btn-white(v-else role="button" href @click.prevent="unlikeClass").unlike-class 강의 찜취소
         .grid
           .col 
             h3.mt-2.bb 상세 정보
@@ -90,7 +91,9 @@
               li.review-content(v-for="(review,index) in reviews" v-if="index < visible_reviews")
                 dl
                   dt 
-                    img(:src="review.author.my_photo")
+                    //- img(:src="review.author.my_photo !== null ? review.author.my_photo : basic_my_photo")
+                    img(v-if="review.author.my_photo !== null" :src="review.author.my_photo")
+                    img(v-else src="../../assets/lecture/personal.png").basic-my-photo
                     br
                     span {{review.author.username}}
                     .favorite-star
@@ -135,7 +138,7 @@ export default {
       this.is_loaded = true;
       if (this.lecture.reviews.length > 0){
         for (let i = 0, l = this.lecture.reviews.length; i < l; i++){
-          this.reviews.push(this.lecture.reviews[i])
+          this.reviews.push(this.lecture.reviews[i]);
         }
       }
     });
@@ -162,6 +165,10 @@ export default {
     }
   },
   methods: {
+    unlikeClass(){
+      this.is_like = !this.is_like;
+      window.alert('해당 강의를 찜목록에서 삭제 했습니다.')
+    },
     likeClass(){
       if (!this.is_login){
         window.alert('로그인 후 이용할 수 있습니다.');
@@ -172,7 +179,8 @@ export default {
         this.likeForm.append('lecture_id', this.id);
         this.$http.post(this.$store.state.lecture.like, this.likeForm, {headers:{Authorization:this.$store.getters.token}})
         .then(response => {
-          console.log(response.data);
+          window.alert('해당 강의를 찜 했습니다.')
+          return;
         });
       }
     },
@@ -189,10 +197,8 @@ export default {
       this.review_content = e.target.value;
     },
     registerReview(){
-      // let date = new Date();
-      // this.reviewForm.append('modify_date', date);
       this.reviewForm.append('lecture_id', this.id);
-      this.reviewForm.append('curriculum_rate', this.setRating);
+      this.reviewForm.append('curriculum_rate', this.selected_rating);
       this.reviewForm.append('delivery_rate', 1);
       this.reviewForm.append('preparation_rate', 1);
       this.reviewForm.append('kindness_rate', 1);
@@ -203,7 +209,26 @@ export default {
     sendReview(){
       this.$http.post(this.$store.state.lecture.review, this.reviewForm, {headers:{Authorization:this.$store.getters.token}})
       .then(response => {
-        console.log(response.data);
+        this.reviews.push({
+          'curriculum_rate': this.selected_rating,
+          'delivery_rate': 1,
+          'preparation_rate': 1,
+          'kindness_rate': 1,
+          'punctually_rate': 1,
+          'content': this.review_content
+        });
+        this.lectureDetailFrm.append('lecture_id', this.id);
+        this.lectureDetailFrm.append('state', 'activity');
+        this.$http.post(this.$store.state.lecture.detail, this.lectureDetailFrm).then((response) => {
+          this.lecture = response.data;
+          this.is_loaded = true;
+          if (this.lecture.reviews.length > 0){
+            this.reviews = this.lecture.reviews; 
+          }
+        });
+        this.selected_rating = 0;
+        this.review_content = '';
+        this.modal_view = false;
       });
     },
     setRating(index, e){
@@ -408,7 +433,13 @@ export default {
       padding-right: $leading
       text-align: center
       img 
-        box-sizing: border-box;
+        box-sizing: border-box
+        width: 80px
+        height: 80px
+        border-radius: 40px
+        border: 2px solid #dcdcdc
+      img.basic-my-photo
+        box-sizing: border-box
         width: 80px
         height: 80px
         border-radius: 40px
@@ -427,4 +458,7 @@ export default {
     font-size: 2.4rem
   .ion-ios-star
     color: #007aff
+  a.unlike-class
+    color: #007aff
+    border: 1px solid #007aff
 </style>

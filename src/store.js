@@ -2,7 +2,6 @@ import Vue  from 'vue';
 import Vuex from 'vuex';
 
 Vue.use(Vuex);
-
 const LOGIN  = "LOGIN";
 const LOGOUT = "LOGOUT";
 const APIHOST = 'http://eb-yykdev-taling-dev.ap-northeast-2.elasticbeanstalk.com/'
@@ -34,7 +33,7 @@ const store = new Vuex.Store({
       state.userInfo = payload.userid;
       state.tutorInfo = payload.tutorid;
     },
-    [LOGOUT](state) { state.isLogIn = false; }
+    [LOGOUT] (state) { state.isLogIn = false; }
   },
   actions: {
    login({ commit }, payload) {
@@ -47,7 +46,7 @@ const store = new Vuex.Store({
    logout({ commit }) {
      localStorage.removeItem("login_token");
      commit(LOGOUT);
-   },
+   }
   },
   getters: {
     isLogIn: state =>state.isLogIn,
