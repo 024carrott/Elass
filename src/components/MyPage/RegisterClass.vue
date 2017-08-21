@@ -200,7 +200,7 @@ export default {
     sendFrm(){
       this.$http.post(this.$store.state.lecture.regist, this.classFrm, {headers:{Authorization:this.$store.getters.token}})
       .then(response => {
-        console.log('강의생성 성공', response);
+        console.log('강의생성 성공', this.classFrm);
         return;
         if(response.status === 201){
           this.$router.push('/signin');

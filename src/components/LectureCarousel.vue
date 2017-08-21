@@ -24,6 +24,9 @@ export default {
     this.$http.post(this.$store.state.lecture.list).then((response) => {
       let res_data = response.data;
       this.lectures = res_data;
+      if (this.lectures.length > 9){
+        this.lectures = this.lectures.slice(0, 9);
+      }
     });
   },
   mounted () {

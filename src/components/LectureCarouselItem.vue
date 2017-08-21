@@ -32,23 +32,23 @@ export default {
     if (this.media === 3){
       items[0].classList.add('alpha');
       items[1].classList.add('col-d-push-4');
-      // items[2].classList.add('col-d-push-8');
-      // items[3].classList.add('alpha');
-      // items[4].classList.add('col-d-push-4');
-      // items[5].classList.add('col-d-push-8');
-      // items[6].classList.add('alpha');
-      // items[7].classList.add('col-d-push-4');
-      // items[8].classList.add('col-d-push-8');
+      items[2].classList.add('col-d-push-8');
+      items[3].classList.add('alpha');
+      items[4].classList.add('col-d-push-4');
+      items[5].classList.add('col-d-push-8');
+      items[6].classList.add('alpha');
+      items[7].classList.add('col-d-push-4');
+      items[8].classList.add('col-d-push-8');
       return;
     } else if (this.media === 2){
       items[0].classList.add('alpha');
       items[1].classList.add('col-t-push-4');
-      // items[2].classList.add('alpha');
-      // items[3].classList.add('col-t-push-4');
-      // items[4].classList.add('alpha');
-      // items[5].classList.add('col-t-push-4');
-      // items[6].classList.add('alpha');
-      // items[7].classList.add('col-t-push-4');
+      items[2].classList.add('alpha');
+      items[3].classList.add('col-t-push-4');
+      items[4].classList.add('alpha');
+      items[5].classList.add('col-t-push-4');
+      items[6].classList.add('alpha');
+      items[7].classList.add('col-t-push-4');
       return;
     } else {
       for(let i = 0, l = items.length; i < l; i++){
@@ -97,13 +97,13 @@ export default {
         }
         items[0].classList.add('alpha');
         items[1].classList.add('col-d-push-4');
-        // items[2].classList.add('col-d-push-8');
-        // items[3].classList.add('alpha');
-        // items[4].classList.add('col-d-push-4');
-        // items[5].classList.add('col-d-push-8');
-        // items[6].classList.add('alpha');
-        // items[7].classList.add('col-d-push-4');
-        // items[8].classList.add('col-d-push-8');
+        items[2].classList.add('col-d-push-8');
+        items[3].classList.add('alpha');
+        items[4].classList.add('col-d-push-4');
+        items[5].classList.add('col-d-push-8');
+        items[6].classList.add('alpha');
+        items[7].classList.add('col-d-push-4');
+        items[8].classList.add('col-d-push-8');
         return;
       } else if (this.media === 2){
         for(let i = 0, l = items.length; i < l; i++){
@@ -113,12 +113,12 @@ export default {
         }
         items[0].classList.add('alpha');
         items[1].classList.add('col-t-push-4');
-        // items[2].classList.add('alpha');
-        // items[3].classList.add('col-t-push-4');
-        // items[4].classList.add('alpha');
-        // items[5].classList.add('col-t-push-4');
-        // items[6].classList.add('alpha');
-        // items[7].classList.add('col-t-push-4');
+        items[2].classList.add('alpha');
+        items[3].classList.add('col-t-push-4');
+        items[4].classList.add('alpha');
+        items[5].classList.add('col-t-push-4');
+        items[6].classList.add('alpha');
+        items[7].classList.add('col-t-push-4');
         return;
       } else {
         for(let i = 0, l = items.length; i < l; i++){

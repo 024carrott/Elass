@@ -27,14 +27,27 @@ import LectureListItem from '../Lecture/LectureListItem';
 import TopButton from '../TopButton';
 export default {
   created () {
+    let like = [];
     this.$http.post(this.$store.state.lecture.list).then((response) => {
       let res_data = response.data;
       this.lectures = res_data;
+      // 강의를 순환한다
+      for (let i = 0, l = this.lectures.length; i < l; i++){
+        if (this.lectures[i].like_users.length > 0){
+          like.push(this.lectures[i]);
+        }
+      }
+      for (let i = 0, l = like.length; i < l; i++){
+        if (like[i].like_users === this.$store.getters.userInfo){
+          this.like_lectures.push(like[i])
+        }
+      }
     });
   },
   data () {
     return {
       lectures: [],
+      like_lectures: [],
       visible_item: 6
     }
   },
