@@ -3,10 +3,10 @@ main
   .container.mt-1.top-bd
     .grid.mt-2
       h2 내가 찜한 강의
-      p.text.mt-1 총 {{this.lectures.length}}개의 강의를 찜 하였습니다.
+      p.text.mt-1 총 {{this.like_lectures.length}}개의 강의를 찜 하였습니다.
     ul.grid.lecture-list
       lecture-list-item(
-        v-for="(lecture, index) in lectures"
+        v-for="(lecture, index) in like_lectures"
         key="index"
         :lecture="lecture"
         :index="index"
@@ -17,7 +17,7 @@ main
         a(
           href role="button" aria-label="강의 리스트 더 불러오기"
           @click.prevent="loadLecture"
-          v-if="visible_item < lectures.length"
+          v-if="visible_item < like_lectures.length"
         ).lecture-list-more-btn 강의 더 보기
     top-button
 </template>
@@ -30,12 +30,20 @@ export default {
     this.$http.post(this.$store.state.lecture.list).then((response) => {
       let res_data = response.data;
       this.lectures = res_data;
+      for (let i = 0, l = this.lectures.length; i < l; i++){
+        for (let idx = 0, len = this.lectures[i].like_users.length; idx < len; idx++){
+          if (this.lectures[i].like_users[idx] === parseInt(this.$store.getters.userInfo)){
+            this.like_lectures.push(this.lectures[i]) 
+          }
+        }
+      }
     });
   },
   data () {
     return {
       lectures: [],
-      visible_item: 6
+      like_lectures: [],
+      visible_item: 6,
     }
   },
   components: {

@@ -2,7 +2,6 @@ import Vue  from 'vue';
 import Vuex from 'vuex';
 
 Vue.use(Vuex);
-
 const LOGIN  = "LOGIN";
 const LOGOUT = "LOGOUT";
 const APIHOST = 'http://eb-yykdev-taling-dev.ap-northeast-2.elasticbeanstalk.com/'

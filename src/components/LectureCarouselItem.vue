@@ -7,12 +7,11 @@
           img(:src="class_item.cover_photo" :alt="`${class_item.title} 이미지`")
       dl.favorite-lecture-content
         dt.favorite-lecture-title {{class_item.title}}
-        dd.favorite-lecture-user {{class_item.tutor_intro}}
-      a(href role="button" :aria-label="`${class_item.title} 좋아요`").favorite-like
-        //- 좋아요 클릭 off
+        dd.favorite-lecture-user {{class_item.tutor_info.nickname}}
+      a(v-if="is_like === false" href role="button" :aria-label="`${class_item.title} 좋아요`" @click.prevent="likeClass").favorite-like
         img(src="../assets/favorite-list/favorite-like-btn-off.png")
-        //- 좋아요 클릭 on
-        //- img(src="../assets/favorite-list/favorite-like-btn-on.png")
+      a(v-else href role="button" :aria-label="`${class_item.title} 좋아요 취소`" @click.prevent="unlikeClass").favorite-like
+        img(src="../assets/favorite-list/favorite-like-btn-on.png")
       .favorite-star
         span.a11y-hidden 강의평가 5점 만점에 4점
         i.ion-ios-star
@@ -20,35 +19,39 @@
         i.ion-ios-star
         i.ion-ios-star
         i.ion-ios-star-outline
+        
 </template>
 
 <script>
 export default {
   name: 'lecture-item',
   props: ['lecture', 'index', 'media'],
+  created () {
+    this.likeForm = new FormData();
+  },
   mounted () {
     window.addEventListener('resize', this.resetPosition);
     let items = window.document.querySelectorAll('.lecture-item');
     if (this.media === 3){
       items[0].classList.add('alpha');
       items[1].classList.add('col-d-push-4');
-      // items[2].classList.add('col-d-push-8');
-      // items[3].classList.add('alpha');
-      // items[4].classList.add('col-d-push-4');
-      // items[5].classList.add('col-d-push-8');
-      // items[6].classList.add('alpha');
-      // items[7].classList.add('col-d-push-4');
-      // items[8].classList.add('col-d-push-8');
+      items[2].classList.add('col-d-push-8');
+      items[3].classList.add('alpha');
+      items[4].classList.add('col-d-push-4');
+      items[5].classList.add('col-d-push-8');
+      items[6].classList.add('alpha');
+      items[7].classList.add('col-d-push-4');
+      items[8].classList.add('col-d-push-8');
       return;
     } else if (this.media === 2){
       items[0].classList.add('alpha');
       items[1].classList.add('col-t-push-4');
-      // items[2].classList.add('alpha');
-      // items[3].classList.add('col-t-push-4');
-      // items[4].classList.add('alpha');
-      // items[5].classList.add('col-t-push-4');
-      // items[6].classList.add('alpha');
-      // items[7].classList.add('col-t-push-4');
+      items[2].classList.add('alpha');
+      items[3].classList.add('col-t-push-4');
+      items[4].classList.add('alpha');
+      items[5].classList.add('col-t-push-4');
+      items[6].classList.add('alpha');
+      items[7].classList.add('col-t-push-4');
       return;
     } else {
       for(let i = 0, l = items.length; i < l; i++){
@@ -62,7 +65,10 @@ export default {
       lectures: this.$parent.$parent.lectures,
       class_item: this.lecture,
       active_index: this.index + 1,
-      position: ''
+      position: '',
+      id: this.lecture.id,
+      is_like: false,
+      is_login: this.$store.getters.isLogIn,
     }
   },
   computed: {
@@ -87,6 +93,25 @@ export default {
     }
   },
   methods: {
+    unlikeClass(){
+      this.is_like = !this.is_like;
+      window.alert('해당 강의를 찜목록에서 삭제 했습니다.')
+    },
+    likeClass(){
+      if (!this.is_login){
+        window.alert('로그인 후 이용할 수 있습니다.');
+        return;
+      }
+      this.is_like = !this.is_like;
+      if (this.is_like === true){
+        this.likeForm.append('lecture_id', this.id);
+        this.$http.post(this.$store.state.lecture.like, this.likeForm, {headers:{Authorization:this.$store.getters.token}})
+        .then(response => {
+          window.alert('해당 강의를 찜 했습니다.')
+          return;
+        });
+      }
+    },
     resetPosition(){
       let items = window.document.querySelectorAll('.lecture-item');
       if (this.media === 3){
@@ -97,13 +122,13 @@ export default {
         }
         items[0].classList.add('alpha');
         items[1].classList.add('col-d-push-4');
-        // items[2].classList.add('col-d-push-8');
-        // items[3].classList.add('alpha');
-        // items[4].classList.add('col-d-push-4');
-        // items[5].classList.add('col-d-push-8');
-        // items[6].classList.add('alpha');
-        // items[7].classList.add('col-d-push-4');
-        // items[8].classList.add('col-d-push-8');
+        items[2].classList.add('col-d-push-8');
+        items[3].classList.add('alpha');
+        items[4].classList.add('col-d-push-4');
+        items[5].classList.add('col-d-push-8');
+        items[6].classList.add('alpha');
+        items[7].classList.add('col-d-push-4');
+        items[8].classList.add('col-d-push-8');
         return;
       } else if (this.media === 2){
         for(let i = 0, l = items.length; i < l; i++){
@@ -113,12 +138,12 @@ export default {
         }
         items[0].classList.add('alpha');
         items[1].classList.add('col-t-push-4');
-        // items[2].classList.add('alpha');
-        // items[3].classList.add('col-t-push-4');
-        // items[4].classList.add('alpha');
-        // items[5].classList.add('col-t-push-4');
-        // items[6].classList.add('alpha');
-        // items[7].classList.add('col-t-push-4');
+        items[2].classList.add('alpha');
+        items[3].classList.add('col-t-push-4');
+        items[4].classList.add('alpha');
+        items[5].classList.add('col-t-push-4');
+        items[6].classList.add('alpha');
+        items[7].classList.add('col-t-push-4');
         return;
       } else {
         for(let i = 0, l = items.length; i < l; i++){
@@ -197,7 +222,6 @@ export default {
     font-size: 2.2rem;
     .ion-ios-star{
       color: #f8d64e;
-
     }
     .ion-ios-star-outline{
       color: #bbc0d4;

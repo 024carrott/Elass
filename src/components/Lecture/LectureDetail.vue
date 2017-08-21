@@ -24,7 +24,7 @@
                   a.ion-ios-circle-outline(role="tab")
               .carousel-panels     
                 section(id="lecture-image-0" role="tabpanel")
-                  img(:src="lecture.lecture_photos[0].photo" :alt="`${lecture.title} 이미지`")
+                  img(:src="lecture.lecture_photos[0].lecture_photo" :alt="`${lecture.title} 이미지`")
           .col.col-d-4.col-t-3.col-m-4
             table.class-summary(summary="해당 강의에 대한 강의명, 수강료, 강사, 장소, 일시, 인원 정보")
               tr
@@ -54,8 +54,9 @@
                   br
                   | {{`최대 ${lecture.max_member}명`}}
             .btn-group.mt-1
-              a.btn-submit(role="button" href="") 수강 신청하기
-              a.btn-white(role="button" href="") 강의 찜하기
+              a.btn-submit(role="button" href @click.prevent="registerClass") 수강 신청하기
+              a.btn-white(v-if="is_like === false" role="button" href @click.prevent="likeClass") 강의 찜하기
+              a.btn-white(v-else role="button" href @click.prevent="unlikeClass").unlike-class 강의 찜취소
         .grid
           .col 
             h3.mt-2.bb 상세 정보
@@ -69,90 +70,44 @@
           .col.col-d-2.col-d-offset-5.col-t-2.col-t-offset-3.col-m-2.col-m-offset-1
             a.btn-white.is-full.is-small(to="lecturelist" role="button" href="/lecturelist/all") 목록으로
           a.btn-white.is-small.ion-edit(role="button" href) 강의수정
-        .grid
+        .grid(v-if="this.reviews.length > 0")
+          h3.bb.mt-2 강의 평가 (총 {{this.reviews.length}}개의 평가가 있습니다.)
           .col
-            h3.bb.mt-2 강의 평가 
-              span (총 6개의 평가가 있습니다.)
             .star-rate-average.mt-1
               .favorite-star.big
-                  span.a11y-hidden 평균 평가 5점 만점에 4점
-                  i.ion-ios-star(aria-hidden="true")
-                  i.ion-ios-star(aria-hidden="true")
-                  i.ion-ios-star(aria-hidden="true")
-                  i.ion-ios-star(aria-hidden="true")
-                  i.ion-ios-star-outline(aria-hidden="true")
-                  span.is-small (3.9)
+                  span.a11y-hidden 평균 평가 5점 만점에 {{averageRate}}점
+                  i.ion-ios-star(v-for="(avr_star, index) in averageRate" aria-hidden="true" )
+                  i.ion-ios-star-outline(v-for="empty_star in (5 - averageRate)" aria-hidden="true" )
+                  span.is-small {{averageRate}}점 / 5점
               a.btn-write-review.btn-white.is-small.is-right(role="button" @click.prevent="toggleReviewWrite" href) 강의 평가하기
-        .grid
+        .grid(v-else)
+          h3.bb.mt-2 강의 평가 
+          .col.empty-review.col-d-4.col-d-offset-4.mt-2 현재 등록된 강의 평가가 없습니다.
+          a.col.col-d-2.col-d-offset-5.btn-write-review.btn-white.is-small.is-right(role="button" @click.prevent="toggleReviewWrite" href) 강의 평가하기
+              
+        .grid(v-if="this.reviews.length > 0")
           .col.mt-1
             ul
-              li.review-content
+              li.review-content(v-for="(review,index) in reviews" v-if="index < visible_reviews")
                 dl
                   dt 
-                    img(src="../../assets/main/user-profile.jpg")
+                    //- img(:src="review.author.my_photo !== null ? review.author.my_photo : basic_my_photo")
+                    img(v-if="review.author.my_photo !== null" :src="review.author.my_photo")
+                    img(v-else src="../../assets/lecture/personal.png").basic-my-photo
                     br
-                    span Daniel Cracker
+                    span {{review.author.username}}
                     .favorite-star
-                      span.a11y-hidden 강의평가 5점 만점에 4점
-                      i.ion-ios-star(aria-hidden="true")
-                      i.ion-ios-star(aria-hidden="true")
-                      i.ion-ios-star(aria-hidden="true")
-                      i.ion-ios-star(aria-hidden="true")
-                      i.ion-ios-star-outline(aria-hidden="true")
-                  dd Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus recusandae quibusdam iste debitis exercitationem reprehenderit tempore praesentium modi illo officiis.
+                      span.a11y-hidden 5점 만점에 {{review.curriculum_rate}}점
+                      i.ion-ios-star(v-for="(star, index) in review.curriculum_rate" aria-hidden="true")
+                      i.ion-ios-star-outline(v-for="empty_star in (5 - review.curriculum_rate)" aria-hidden="true")
+                  dd {{review.content}}
                   dd
-                    time(datetime="2017-08-09 11:00") 2017-08-09 11:00
-              li.review-content
-                dl
-                  dt 
-                    img(src="../../assets/main/user-profile.jpg")
-                    br
-                    span Daniel Cracker
-                    .favorite-star
-                      span.a11y-hidden 강의평가 5점 만점에 4점
-                      i.ion-ios-star(aria-hidden="true")
-                      i.ion-ios-star(aria-hidden="true")
-                      i.ion-ios-star(aria-hidden="true")
-                      i.ion-ios-star(aria-hidden="true")
-                      i.ion-ios-star-outline(aria-hidden="true")
-                  dd Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus recusandae quibusdam iste debitis exercitationem reprehenderit tempore praesentium modi illo officiis.
-                  dd
-                    time(datetime="2017-08-09 11:00") 2017-08-09 11:00
-              li.review-content
-                dl
-                  dt 
-                    img(src="../../assets/main/user-profile.jpg")
-                    br
-                    span Daniel Cracker
-                    .favorite-star
-                      span.a11y-hidden 강의평가 5점 만점에 4점
-                      i.ion-ios-star(aria-hidden="true")
-                      i.ion-ios-star(aria-hidden="true")
-                      i.ion-ios-star(aria-hidden="true")
-                      i.ion-ios-star(aria-hidden="true")
-                      i.ion-ios-star-outline(aria-hidden="true")
-                  dd Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea sunt blanditiis quia beatae perferendis perspiciatis doloribus delectus accusantium, nisi aut non atque error aliquid nesciunt consectetur laboriosam possimus hic obcaecati.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error sed, ipsum quo pariatur odio harum culpa optio maiores sint velit officia dolor doloremque ex quas repellendus, iste, dolores mollitia quos.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus recusandae quibusdam iste debitis exercitationem reprehenderit tempore praesentium modi illo officiis.
-                  dd
-                    time(datetime="2017-08-09 11:00") 2017-08-09 11:00
-              li.review-content
-                dl
-                  dt 
-                    img(src="../../assets/main/user-profile.jpg")
-                    br
-                    span Daniel Cracker
-                    .favorite-star
-                      span.a11y-hidden 강의평가 5점 만점에 4점
-                      i.ion-ios-star(aria-hidden="true")
-                      i.ion-ios-star(aria-hidden="true")
-                      i.ion-ios-star(aria-hidden="true")
-                      i.ion-ios-star(aria-hidden="true")
-                      i.ion-ios-star-outline(aria-hidden="true")
-                  dd Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus recusandae quibusdam iste debitis exercitationem reprehenderit tempore praesentium modi illo officiis.
-                  dd
-                    time(datetime="2017-08-09 11:00") 2017-08-09 11:00
-        .grid.mt-1
+                    time(datetime="2017-08-09 11:00") {{reviewYear[index]}} {{reviewDate[index]}}
+              
+        .grid.mt-1(v-if="this.reviews.length > 0")
           .col.col-d-2.col-d-offset-5.col-t-2.col-t-offset-3.col-m-2.col-m-offset-1
-            a.btn-white.is-full.is-small(role="button" href) 강의 평가 더보기
+            a.btn-white.is-full.is-small(href role="button" v-if="visible_reviews < this.reviews.length" @click.prevent="viewReviewMore") 강의 평가 더보기
+
         .modal(role="dialog" :class="{'is-active':modal_view}")
           .modal-background
           .modal-content
@@ -165,10 +120,10 @@
                   label(v-for="star_index in star_rating").star-rating-label
                     input(type="radio" name="star_rating" :value="star_index" :title="star_index" :aria-label="`${star_index}점`" @click.prevent="setRating(star_index, $event)")
 
-              textarea(placeholder="평가 내용을 입력하세요. (최대 300자)" aria-label="강의 평가 내용")
+              textarea(placeholder="평가 내용을 입력하세요. (최대 300자)" aria-label="강의 평가 내용" v-model="review_content" @input="content")
               .btn-group
-                a.btn-submit.is-small(role="button" href) 강의 평가 등록 하기
-                //- a.btn-white.is-small(role="button") 취소        
+                a.btn-submit.is-small(href role="button" aria-label="강의 평가 등록 하기" @click.prevent="registerReview") 강의 평가 등록 하기
+                //- a.btn-white.is-small(role="button") 취소
 </template>
 
 <script>
@@ -181,17 +136,19 @@ export default {
     this.$http.post(this.$store.state.lecture.detail, this.lectureDetailFrm).then((response) => {
       this.lecture = response.data;
       this.is_loaded = true;
+      if (this.lecture.reviews.length > 0){
+        for (let i = 0, l = this.lecture.reviews.length; i < l; i++){
+          this.reviews.push(this.lecture.reviews[i]);
+        }
+      }
     });
-
-    // 리뷰
-    this.$http.post(this.$store.state.lecture.review).then((response) => {
-      let res_data = response.data;
-      this.reviews = res_data;
-      console.log(response);
-    });
+    this.reviewForm = new FormData();
+    this.likeForm = new FormData();
   },
   data(){
     return {
+      reviewForm: '',
+      likeForm: '',
       is_loaded: false,
       lectureDetailFrm: null,
       lecture: {},
@@ -200,10 +157,80 @@ export default {
       modal_view: false,
       star_rating: [5, 4, 3, 2, 1],
       selected_rating: 0,
-      reviews: []
+      reviews: [],
+      visible_reviews: 4,
+      review_content: '',
+      is_login: this.$store.getters.isLogIn,
+      is_like: false,
     }
   },
   methods: {
+    unlikeClass(){
+      this.is_like = !this.is_like;
+      window.alert('해당 강의를 찜목록에서 삭제 했습니다.')
+    },
+    likeClass(){
+      if (!this.is_login){
+        window.alert('로그인 후 이용할 수 있습니다.');
+        return;
+      }
+      this.is_like = !this.is_like;
+      if (this.is_like === true){
+        this.likeForm.append('lecture_id', this.id);
+        this.$http.post(this.$store.state.lecture.like, this.likeForm, {headers:{Authorization:this.$store.getters.token}})
+        .then(response => {
+          window.alert('해당 강의를 찜 했습니다.')
+          return;
+        });
+      }
+    },
+    registerClass(){
+      if (!this.is_login){
+        window.alert('로그인 후 이용할 수 있습니다.');
+        return;
+      }
+    },
+    viewReviewMore(){
+      this.visible_reviews += 4;
+    },
+    content(e){
+      this.review_content = e.target.value;
+    },
+    registerReview(){
+      this.reviewForm.append('lecture_id', this.id);
+      this.reviewForm.append('curriculum_rate', this.selected_rating);
+      this.reviewForm.append('delivery_rate', 1);
+      this.reviewForm.append('preparation_rate', 1);
+      this.reviewForm.append('kindness_rate', 1);
+      this.reviewForm.append('punctually_rate', 1);
+      this.reviewForm.append('content', this.review_content);
+      this.sendReview();
+    },
+    sendReview(){
+      this.$http.post(this.$store.state.lecture.review, this.reviewForm, {headers:{Authorization:this.$store.getters.token}})
+      .then(response => {
+        this.reviews.push({
+          'curriculum_rate': this.selected_rating,
+          'delivery_rate': 1,
+          'preparation_rate': 1,
+          'kindness_rate': 1,
+          'punctually_rate': 1,
+          'content': this.review_content
+        });
+        this.lectureDetailFrm.append('lecture_id', this.id);
+        this.lectureDetailFrm.append('state', 'activity');
+        this.$http.post(this.$store.state.lecture.detail, this.lectureDetailFrm).then((response) => {
+          this.lecture = response.data;
+          this.is_loaded = true;
+          if (this.lecture.reviews.length > 0){
+            this.reviews = this.lecture.reviews; 
+          }
+        });
+        this.selected_rating = 0;
+        this.review_content = '';
+        this.modal_view = false;
+      });
+    },
     setRating(index, e){
       this.selected_rating = index;
       let rating_btns = window.document.querySelectorAll('.star-rating-label');
@@ -215,6 +242,10 @@ export default {
       e.target.parentNode.classList.add('selected');
     },
     toggleReviewWrite(){
+      if (!this.is_login){
+        window.alert('로그인 후 이용할 수 있습니다.');
+        return;
+      }
       this.modal_view = !this.modal_view;
       this.selected_rating = 0;
       let rating_btns = window.document.querySelectorAll('.star-rating-label');
@@ -226,6 +257,33 @@ export default {
     }
   },
   computed: {
+    averageRate(){
+      let sum = 0;
+      for (let i = 0, l = this.reviews.length; i < l; i++){
+        sum += this.reviews[i].curriculum_rate;
+      };
+      return parseInt(sum / this.reviews.length);
+    },
+    reviewYear(){
+      let convert_date = [], convert_years = [];
+      for (let i = 0, l = this.reviews.length; i < l; i++){
+        convert_date.push(this.reviews[i].modify_date);
+      };
+      for (let i = 0, l = this.reviews.length; i < l; i++){
+        convert_years.push(convert_date[i].split('T')[0]);
+      };
+      return convert_years;
+    },
+    reviewDate(){
+      let convert_date = [], convert_dates = [];
+      for (let i = 0, l = this.reviews.length; i < l; i++){
+        convert_date.push(this.reviews[i].modify_date);
+      };
+      for (let i = 0, l = this.reviews.length; i < l; i++){
+        convert_dates.push(convert_date[i].split('T')[1].split('.')[0]);
+      };
+      return convert_dates;
+    },
     koreanDay(){
       switch(this.lecture.locations[0].class_weekday){
         case "sun" : this.lecture_day = "일요일";
@@ -251,7 +309,7 @@ export default {
         break;
         case "lang" : this.lecture.category = '외국어';
         break;
-        case "com" : this.lecture.category = '컴퓨커';
+        case "com" : this.lecture.category = '컴퓨터';
         break;
         case "mna" : this.lecture.category = '음악/미술';
         break;
@@ -365,6 +423,7 @@ export default {
     position: absolute
     top: 0
     right: 0
+    text-align: center
   .review-content
     clear: both
     border-top: 1px solid #f7f7f7
@@ -372,8 +431,15 @@ export default {
     dt
       float: left
       padding-right: $leading
+      text-align: center
       img 
-        box-sizing: border-box;
+        box-sizing: border-box
+        width: 80px
+        height: 80px
+        border-radius: 40px
+        border: 2px solid #dcdcdc
+      img.basic-my-photo
+        box-sizing: border-box
         width: 80px
         height: 80px
         border-radius: 40px
@@ -385,4 +451,14 @@ export default {
     textarea
       width: 100%
       height: $leading * 5
+  .empty-review
+    font-weight: 200
+    margin-bottom: 40px
+    text-align: center
+    font-size: 2.4rem
+  .ion-ios-star
+    color: #007aff
+  a.unlike-class
+    color: #007aff
+    border: 1px solid #007aff
 </style>
