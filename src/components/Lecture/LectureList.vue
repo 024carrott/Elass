@@ -58,7 +58,7 @@ main
         :class="[category === 'mna'? 'selected-category' : '']"
         ).ion-ios-musical-notes
         br
-        small 전공&sol;취업
+        small 음악&sol;미술
       a(
         href="sports"
         role="button"
