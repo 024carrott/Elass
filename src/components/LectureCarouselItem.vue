@@ -222,10 +222,10 @@ export default {
   .star-rate{
     font-size: 2.2rem;
     .ion-ios-star{
-      color: #f8d64e;
+      color: #007aff;
     }
     .ion-ios-star-outline{
-      color: #bbc0d4;
+      color: #007aff;
     }
   }
   .favorite-star{

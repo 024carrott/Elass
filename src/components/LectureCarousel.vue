@@ -114,7 +114,12 @@ export default {
     top: 230px;
     .prev-list-btn, .next-list-btn{
       font-size: 1.8rem;
-      color: #bbc0d4;
+      color: #007aff;
+      opacity: 0.4;
+      transition: opacity 0.4s;
+      &:hover{
+        opacity: 1;
+      }
       @include breakpoint(desktop){
         font-size: 2.8rem;
       }

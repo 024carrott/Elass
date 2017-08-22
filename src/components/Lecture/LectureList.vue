@@ -83,12 +83,6 @@ main
         p.text 총 {{lectures.length}} 개의 강의가 등록되어 있습니다.
 
   .container
-    .grid
-      .col.col-d-2.col-t-2.col-m-1.col-d-offset-10.col-t-offset-6.col-m-offset-3
-        .box
-          select.select-box(title="search-select")
-            option(value="new" selected) 신규등록순
-            option(value="average") 평점높은순
     ul.grid.lecture-list
       lecture-list-item(
         v-for="(lecture, index) in lectures"
