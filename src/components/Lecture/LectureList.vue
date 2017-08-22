@@ -39,6 +39,7 @@ main
         role="button"
         aria-label="컴퓨터 카테고리 보기"
         :class="[category === 'com' ? 'selected-category' : '']"
+        @click="sortLectures(category)"
         ).ion-mouse
         br
         small 컴퓨터
@@ -95,7 +96,7 @@ main
         :lecture="lecture"
         :index="index"
         v-if="index < visible_item"
-        ) 
+        )
   .grid
       .col.col-d-2.col-d-offset-5.col-t-4.col-t-offset-2.col-m-4
         a(
@@ -122,7 +123,7 @@ export default {
       category : this.$route.params.category,
       set_category: '',
       visible_item: 6,
-      is_selected: false
+      is_selected: false,
     }
   },
   methods: {

@@ -8,11 +8,13 @@
           .col.col-d-4.col-t-3.col-m-4
             .my-info
               img(:src="userpic")
+              //- br
+              //- label.a11y-hidden(for="user-profile") 사진 등록/수정하기
+              //- input.input-file(type="file" name="user-profile" id="user-profile")
               br
-              label.a11y-hidden(for="user-profile") 사진 등록/수정하기
-              input.input-file(type="file" name="user-profile" id="user-profile")
-              br
-              span {{ userid }}
+              span {{ userid }} 
+                a(href aria-label="내정보 수정하기" role="button" @click.prevent="")
+                  i.fa.fa-edit 
               br
               a.btn-white.is-small(role="button" @click.prevent="toggleEditMyInfo" href) 비밀번호 변경
           .col.col-d-8.col-t-5.col-m-4
@@ -25,10 +27,11 @@
               .mypage-menu-tutor
                 h3.a11y-hidden 튜터 메뉴
                 .btn-group.left
-                  a.btn-gray(role="button" @click.prevent="toggleEnrollTutor" href) 튜터 등록하기
-                  a.btn-white(href="/mypage/registeredclass" role="button") 내가 등록한 강의
-                  a.btn-white(href="/mypage/registerclass" role="button") 강의 등록하기
-      //- '비밀번호 변경하기' 버튼 클릭시 is-active 클래스 추가
+                  a.btn-gray(role="button" @click.prevent="toggleEnrollTutor" href v-if="!tutorInfo") 튜터 등록하기
+                  a.btn-white(href="/mypage/registeredclass" role="button" v-if="tutorInfo") 내가 등록한 강의
+                  a.btn-white(href="/mypage/registerclass" role="button" v-if="tutorInfo") 강의 등록하기
+                  
+      //- '내 정보 수정하기' 버튼 클릭시 is-active 클래스 추가
       .modal(role="dialog" :class="{'is-active':edit_modal_view}")
           .modal-background
           .modal-content
@@ -36,8 +39,8 @@
               a.modal-close.ion-close(role="button" href aria-label="창 닫기" @click.prevent="toggleEditMyInfo")
               h4 비밀번호 변경
               form.my-info-edit
-                img.my-photo(:src="userpic")
-                br
+                //- img.my-photo(:src="userpic")
+                //- br
                 .input-fileds.mt-1
                   label(for="user-old-password") 현재 비밀번호
                   input(type="text" name="user-old-password" id="user-old-password" v-model="oldpassword")
@@ -63,8 +66,8 @@
                 .input-fileds.mt-1
                   label(for="cert_type") 인증 타입
                   select.select-box-tutor(title="cert_type" id="type" @change="type" :value="tutor_type")
-                    option(value="university" selected) 대학 인증
-                    option(value="graduate-school") 대학원 인증
+                    option(value="univ") 대학 인증
+                    option(value="grad") 대학원 인증
                     option(value="identity") 신분증 인증
                   label(for="school") 학교 이름
                   input(type="text" name="school" id="school" @input="school" :value="tutor_school")
@@ -74,10 +77,9 @@
                   br
                   label(for="status_type") 상태
                   select.select-box-tutor(title="status" @change="status" :value="tutor_status")
-                    option(value="nothing" selected) ------
                     option(value="ing") 재학
-                    option(value="graduate") 졸업
-                    option(value="complet") 수료
+                    option(value="graduation") 졸업
+                    option(value="complete") 수료
                   br
                   label(for="my_photo") 프로필 사진
                   input(type="file" name="my_photo" id="my_photo" @change="photo")
@@ -95,12 +97,12 @@
 <script>
 export default {
   created(){
-    this.$http.get(this.$store.state.member.profile, {headers:{Authorization:this.$store.getters.token}}).then((response) => {
+    this.$http.get(this.$store.state.member.profile+this.$store.state.userInfo+'/', {headers:{Authorization:this.$store.getters.token}}).then((response) => {
       this.user = response.data;
       this.is_loaded = true;
-      this.userid = this.user.nickname;
+      this.userid = this.user.username;
       this.userpic = this.user.my_photo;
-      this.mypageFrm.append('Authorization', '5c2f739fb5f30eb3de8078434192de391b316595')           
+      // this.mypageFrm.append('Authorization', '5c2f739fb5f30eb3de8078434192de391b316595')           
     }).catch(error=>{
       console.log(error);
       this.is_loaded = true;
@@ -127,6 +129,8 @@ export default {
       tutor_photo: '',
       tutor_nick_name: '',
       tutor_phone: '',
+      tutor_data : {},
+      tutorInfo: this.$store.getters.tutorInfo * 1
     }
   },
   
@@ -171,6 +175,7 @@ export default {
     // submit
 
     submitTutor(){
+      console.log(this.tutor_photo);
       if(!this.tutor_type.length){
         window.alert('인증 타입을 확안해주세요');
         document.getElementById("type").focus();
@@ -201,19 +206,47 @@ export default {
         document.getElementById("phone").focus();
         return
       }
+      // this.mypageFrm.append('my_photo','C:\\Users\\cindyCha\\Downloads\\images.jpg');
+      this.mypageFrm.append('my_photo', this.tutor_photo[0], this.tutor_photo[0].name );
+      this.mypageFrm.append('phone', this.tutor_phone);
+      this.mypageFrm.append('nickname', this.tutor_nick_name);
       this.mypageFrm.append('cert_type', this.tutor_type);
+      this.mypageFrm.append('school', this.tutor_school);
       this.mypageFrm.append('major', this.tutor_major);
       this.mypageFrm.append('status_type', this.tutor_status);
-      this.mypageFrm.append('my_photo', this.tutor_photo);
-      this.mypageFrm.append('nickname', this.tutor_nick_name);
-      this.mypageFrm.append('phone', this.tutor_phone);
+      this.tutor_data = {
+        my_photo: this.tutor_photo[0], 
+        phone:  this.tutor_phone, 
+        nickname: this.tutor_nick_name, 
+        cert_type: this.tutor_type, 
+        school: this.tutor_school, 
+        major: this.tutor_major, 
+        status_type: this.tutor_status, 
+      }
       this.mypageSubmit();
     },
     mypageSubmit(){
-      this.$http.post(this.$store.state.lecture.regist, this.mypageFrm)
+      // var xhr = new XMLHttpRequest();
+      // xhr.withCredentials = true;
+      // xhr.addEventListener("readystatechange", function () {
+      //   if (this.readyState === 4) {
+      //     if (this.status === 200){
+      //       console.log(this);
+      //     }else{
+      //       window.alert('튜터 등록이 불가합니다.');
+      //     }
+      //   }
+      // });
+      // xhr.open("POST", this.$store.state.member.tutorup);
+      // xhr.setRequestHeader("authorization", this.$store.getters.token);
+      // xhr.send(this.mypageFrm);
+      // return;
+
+      this.$http.post(this.$store.state.member.tutorup, this.mypageFrm, {headers:{'authorization':this.$store.getters.token}})
       .then(response => {
         if(response.status === 200){
-          this.$router.push('/');
+          console.log('튜터등록 성공',response);
+          // this.$router.push('/');
         }
       })
       .catch(error => {
