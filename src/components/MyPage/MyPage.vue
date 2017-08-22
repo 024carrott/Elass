@@ -30,6 +30,7 @@
                   a.btn-gray(role="button" @click.prevent="toggleEnrollTutor" href v-if="!tutorInfo") 튜터 등록하기
                   a.btn-white(href="/mypage/registeredclass" role="button" v-if="tutorInfo") 내가 등록한 강의
                   a.btn-white(href="/mypage/registerclass" role="button" v-if="tutorInfo") 강의 등록하기
+                  
       //- '내 정보 수정하기' 버튼 클릭시 is-active 클래스 추가
       .modal(role="dialog" :class="{'is-active':edit_modal_view}")
           .modal-background
@@ -52,7 +53,7 @@
                   br
                   span.show.col(v-show="pw_check") * 비밀번호가 일치하지 않습니다.
                 .btn-group.mt-1
-                  a.btn-submit(role="button" href) 변경하기
+                  a.btn-submit(role="button" href @click.prevent="submitNewPw") 변경하기
                   a.btn-white(role="button" @click.prevent="toggleEditMyInfo" href) 취소
       //- '튜터 등록하기' 버튼 클릭 시 is-active 클래스 추가
       .modal(role="dialog" :class="{'is-active':tutor_modal_view}")
@@ -107,6 +108,7 @@ export default {
       this.is_loaded = true;
     });
     this.mypageFrm = new FormData();
+    this.newPwFrm = new FormData();
   },
 
   data(){
@@ -252,6 +254,28 @@ export default {
         switch(error.status){
           case 400:
             window.alert('튜터등록이 불가 합니다.')
+            break;
+        }
+      })
+    },
+    submitNewPw(){
+      this.newPwFrm.append('old_password', this.oldpassword)
+      this.newPwFrm.append('new_password1', this.password);
+      this.newPwFrm.append('new_password1', this.password_2);
+      this.newPwSubmit();
+    },
+    newPwSubmit(){
+      this.$http.patch(this.$store.state.member.changepwd, this.newPwFrm)
+      .then(response => {
+        if(response.status === 200){
+          this.$router.push('/');
+        }
+      })
+      .catch(error => {
+        console.log('비밀번호 변경 실패', error);
+        switch(error.status){
+          case 400:
+            window.alert('비밀번호 변경이 불가 합니다.')
             break;
         }
       })
