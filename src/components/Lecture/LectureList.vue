@@ -55,10 +55,10 @@ main
         href="mna"
         role="button"
         aria-label="음악 미술 카테고리 보기"
-        :class="[category === 'mna' ? 'selected-category' : '']"
+        :class="[category === 'mna'? 'selected-category' : '']"
         ).ion-ios-musical-notes
         br
-        small 음악&sol;미술
+        small 전공&sol;취업
       a(
         href="sports"
         role="button"
@@ -113,8 +113,17 @@ import TopButton from '../TopButton';
 export default {
   created () {
     this.$http.post(this.$store.state.lecture.list).then((response) => {
+      let filteredLectures = [];
       let res_data = response.data;
       this.lectures = res_data;
+      if (this.category !== 'all'){
+        for (let i = 0, l = this.lectures.length; i < l; i++){
+          if (this.lectures[i].category === this.category){
+            filteredLectures.push(this.lectures[i]);
+          }
+        }
+        this.lectures = filteredLectures
+      }
     });
   },
   data () {
@@ -145,7 +154,7 @@ export default {
         break;
         case "com" : this.set_category = '컴퓨터';
         break;
-        case "mna" : this.set_category = '음악/미술';
+        case "mna": this.set_category = '음악/미술';
         break;
         case "sports" : this.set_category = '스포츠';
         break;
