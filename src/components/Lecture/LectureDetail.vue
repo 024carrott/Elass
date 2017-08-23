@@ -7,24 +7,9 @@
             h2 {{lecture.title}}
             p {{koreanCategory}}
         .grid.mt-1
-          .col.col-d-8.col-t-5.col-m-4
-            .carousel-container(role="region" aria-label="강의 이미지")
-              ul.carousel-tab(role="tablist")
-                li(role="presentation")
-                  a.ion-record(role="tab" href="#lecture-image-0")
-                li(role="presentation")
-                  a.ion-ios-circle-outline(role="tab")
-                li(role="presentation")
-                  a.ion-ios-circle-outline(role="tab")
-                li(role="presentation")
-                  a.ion-ios-circle-outline(role="tab")
-                li(role="presentation")
-                  a.ion-ios-circle-outline(role="tab")
-                li(role="presentation")
-                  a.ion-ios-circle-outline(role="tab")
-              .carousel-panels     
-                section(id="lecture-image-0" role="tabpanel")
-                  img(:src="lecture.lecture_photos[0].lecture_photo" :alt="`${lecture.title} 이미지`")
+          lecture-carousel
+            lecture-carousel-item(v-for="(image, index) in images" key="index")
+              img(:src="images[index].lecture_photo" :alt="`${lecture.title} 의 이미지`")
           .col.col-d-4.col-t-3.col-m-4
             table.class-summary(summary="해당 강의에 대한 강의명, 수강료, 강사, 장소, 일시, 인원 정보")
               tr
@@ -91,9 +76,8 @@
               li.review-content(v-for="(review,index) in reviews" v-if="index < visible_reviews")
                 dl
                   dt 
-                    //- img(:src="review.author.my_photo !== null ? review.author.my_photo : basic_my_photo")
                     img(v-if="review.author.my_photo !== null" :src="review.author.my_photo")
-                    img(v-else src="../../assets/lecture/personal.png").basic-my-photo
+                    img(v-else src="../../assets/lecture/personal.jpg").basic-my-photo
                     br
                     span {{review.author.username}}
                     .favorite-star
@@ -127,6 +111,8 @@
 </template>
 
 <script>
+import LectureCarousel from './LectureDetailCarousel'
+import LectureCarouselItem from './LectureDetailCarouselItem'
 export default {
   created () {
     // 강의 데이터
@@ -144,6 +130,9 @@ export default {
     });
     this.reviewForm = new FormData();
     this.likeForm = new FormData();
+  },
+  components: {
+    LectureCarousel, LectureCarouselItem
   },
   data(){
     return {
@@ -257,6 +246,13 @@ export default {
     }
   },
   computed: {
+    images(){
+      let images_array = [];
+      for (let i = 0, l = this.lecture.lecture_photos.length; i < l; i++){
+        images_array.push(this.lecture.lecture_photos[i])
+      }
+      return images_array;
+    },
     averageRate(){
       let sum = 0;
       for (let i = 0, l = this.reviews.length; i < l; i++){
@@ -341,8 +337,11 @@ export default {
 </script>
 
 <style lang="sass">
-  @import "~default";
-
+  @import "~default"
+  .lecture-carousel-item
+    img
+      max-width: 100%
+      height: auto
   .star-rating
     unicode-bidi: bidi-override
     direction: rtl
@@ -376,30 +375,6 @@ export default {
     p
       text-align: center
       font-size: 1.6rem
-  // 강의 이미지 캐러셀
-  .carousel-container
-    position: relative
-    width: 100%
-    overflow: hidden
-  .carousel-tab
-    position: absolute
-    z-index: 100
-    bottom: $leading
-    display: flex
-    left: 50%
-    transform: translateX(-50%)
-    li
-      a
-        padding: 5px
-        margin: 0 5px
-        font-size: 1.8rem
-        color: #f7f7f7
-  .carousel-panels
-    width: 100%
-    overflow: hidden
-    section
-      width: 100%
-      height: $leading * 20
   // 강의 요약 테이블
   .class-summary
     tr:not(:last-child)
@@ -437,13 +412,13 @@ export default {
         width: 80px
         height: 80px
         border-radius: 40px
-        border: 2px solid #dcdcdc
+        border: 3px solid #007aff
       img.basic-my-photo
         box-sizing: border-box
         width: 80px
         height: 80px
         border-radius: 40px
-        border: 2px solid #dcdcdc
+        border: 3px solid #007aff
     dd
       time
         color: #696969

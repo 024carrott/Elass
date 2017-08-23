@@ -1,23 +1,23 @@
 <template lang="pug">
   li.col.col-d-3.col-t-4.col-m-4.mt-1
     article.main-review
-      h4 퍼스널 트레이닝 좋아요.
-      p 레슨 시작 전부터 박주형 강사님은 제가 궁금해 하는 사항에 대해 자세히 알려주셨어요. 운동하는 것 이외에 일상생활의식습관같은이외에 일상생활의식습관이외에 일상생활의식습관이외에 일상생활의식습관이외에 일상생활의식습관 사소한 부분까지 챙겨주셔서 정말 좋았습니다!
+      h4 {{review.author.username}}님의 리얼 후기
+      p {{review.content}}
       .main-review-member
-        img(src="../../assets/main/user-profile.jpg" class="user-profile-img" alt="누구누구의 프로필 사진")
+        img(v-if="review.author.my_photo !== null" :src="review.author.my_photo")
+        img(v-else src="../../assets/lecture/personal.jpg")
         .star-rate
-          span.a11y-hidden 강의평가 5점 만점에 4점
-          i.ion-ios-star
-          i.ion-ios-star
-          i.ion-ios-star
-          i.ion-ios-star
-          i.ion-ios-star-outline
-        span.user-id @dfsd123
+        .star-rate
+          span.a11y-hidden 5점 만점에 {{review.curriculum_rate}}점
+          i.ion-ios-star(v-for="(star, index) in review.curriculum_rate" aria-hidden="true")
+          i.ion-ios-star-outline(v-for="empty_star in (5 - review.curriculum_rate)" aria-hidden="true")
+        span.user-id {{review.author.username}}
 </template>
 
 <script>
 export default {
   name: 'review-item',
+  props: ['review'],
   data () {
     return {
       
@@ -59,7 +59,7 @@ export default {
       width: 80px;
       height: 80px;
       border-radius: 40px;
-      border: 2px solid #dcdcdc;
+      border: 3px solid #007aff;
     }
   }
 </style>

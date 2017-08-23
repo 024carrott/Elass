@@ -55,7 +55,7 @@ main
         href="mna"
         role="button"
         aria-label="음악 미술 카테고리 보기"
-        :class="[category === 'mna' ? 'selected-category' : '']"
+        :class="[category === 'mna'? 'selected-category' : '']"
         ).ion-ios-musical-notes
         br
         small 음악&sol;미술
@@ -83,12 +83,6 @@ main
         p.text 총 {{lectures.length}} 개의 강의가 등록되어 있습니다.
 
   .container
-    .grid
-      .col.col-d-2.col-t-2.col-m-1.col-d-offset-10.col-t-offset-6.col-m-offset-3
-        .box
-          select.select-box(title="search-select")
-            option(value="new" selected) 신규등록순
-            option(value="average") 평점높은순
     ul.grid.lecture-list
       lecture-list-item(
         v-for="(lecture, index) in lectures"
@@ -113,8 +107,17 @@ import TopButton from '../TopButton';
 export default {
   created () {
     this.$http.post(this.$store.state.lecture.list).then((response) => {
+      let filteredLectures = [];
       let res_data = response.data;
       this.lectures = res_data;
+      if (this.category !== 'all'){
+        for (let i = 0, l = this.lectures.length; i < l; i++){
+          if (this.lectures[i].category === this.category){
+            filteredLectures.push(this.lectures[i]);
+          }
+        }
+        this.lectures = filteredLectures
+      }
     });
   },
   data () {
@@ -145,7 +148,7 @@ export default {
         break;
         case "com" : this.set_category = '컴퓨터';
         break;
-        case "mna" : this.set_category = '음악/미술';
+        case "mna": this.set_category = '음악/미술';
         break;
         case "sports" : this.set_category = '스포츠';
         break;
