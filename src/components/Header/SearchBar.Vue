@@ -1,5 +1,5 @@
 <template lang="pug">
-  .col.col-d-5.col-d-offset-3.col-t-4.col-m-4.col-d-pull-2.col-t-pull-2
+  .col.col-d-5.col-d-offset-3.col-t-4.col-m-4.col-d-pull-2.col-t-pull-2(:class="{'col-m-hd':is_list}")
     .search-wrap
       input.search(type="search" placeholder="검색어를 입력하세요" v-model="global_search")
       a.search-btn.ion-search(href @click.prevent="search" role="button" aria-label="검색")
@@ -10,7 +10,8 @@ export default {
   name: 'search-bar',
   data () {
     return {
-      global_search : ''
+      global_search : '',
+      is_list: this.$router.currentRoute.path.indexOf('/lecturelist/') > -1,
     }
   },
   methods: {

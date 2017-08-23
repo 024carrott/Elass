@@ -29,7 +29,11 @@ export default {
   created () {
     this.$http.post(this.$store.state.lecture.list).then((response) => {
       let res_data = response.data;
-      this.lectures = res_data;
+      for (let i = 0, l = res_data.length; i < l; i++){
+        if (res_data[i].tutor === parseInt(this.$store.getters.tutorInfo,10)){
+          this.lectures.push(res_data[i]);
+        }
+      }
     });
   },
   data () {

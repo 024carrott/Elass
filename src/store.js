@@ -49,6 +49,8 @@ const store = new Vuex.Store({
    },
    logout({ commit }) {
      localStorage.removeItem("login_token");
+     localStorage.removeItem("user_info");
+     localStorage.removeItem("tutor_info");
      commit(LOGOUT);
    },
    tutorSet({commit}, payload){

@@ -10,7 +10,7 @@
         dd.favorite-lecture-user {{class_item.tutor_info.nickname}}
       a(v-if="is_like === false" href role="button" :aria-label="`${class_item.title} 좋아요`" @click.prevent="likeClass").favorite-like
         img(src="../../assets/favorite-list/favorite-like-btn-off.png")
-      a(v-else href role="button" :aria-label="`${class_item.title} 좋아요 취소`" @click.prevent="unlikeClass($event)").favorite-like
+      a(v-else href role="button" :aria-label="`${class_item.title} 좋아요 취소`" @click.prevent="likeClass").favorite-like
         img(src="../../assets/favorite-list/favorite-like-btn-on.png")
       .favorite-star(v-if="review_average")
         span.a11y-hidden {{parseInt(review_average)}}
@@ -25,9 +25,9 @@ export default {
   name: 'lecture-item',
   props: ['lecture', 'index'],
   created () {
-    if (this.$route.path === "/mypage/myfavoritelist"){
-      this.is_like = true;
-    }
+    // if (this.$route.path === "/mypage/myfavoritelist"){
+    //   this.is_like = true;
+    // }
     this.likeForm = new FormData();
   },
   data(){
@@ -35,28 +35,22 @@ export default {
       class_item: this.lecture,
       active_index: this.index + 1,
       id: this.lecture.id,
-      is_like: false
+      is_like: !!this.$store.getters.userInfo && this.lecture.like_users.includes(parseInt(this.$store.getters.userInfo,10)),
     }
   },
   methods: {
-    unlikeClass(e){
-      this.is_like = !this.is_like;
-      window.alert('해당 강의를 찜목록에서 삭제 했습니다.')
-    },
     likeClass(){
       if (this.is_login){
         window.alert('로그인 후 이용할 수 있습니다.');
         return;
       }
-      this.is_like = !this.is_like;
-      if (this.is_like === true){
-        this.likeForm.append('lecture_id', this.id);
-        this.$http.post(this.$store.state.lecture.like, this.likeForm, {headers:{Authorization:this.$store.getters.token}})
-        .then(response => {
-          return;
-        });
-      }
+      this.likeForm.append('lecture_id', this.id);
+      this.$http.post(this.$store.state.lecture.like, this.likeForm, {headers:{Authorization:this.$store.getters.token}})
+      .then(response => {
+        this.is_like = !this.is_like;
+      });
     }
+    // }
   },
   computed: {
     review_average(){

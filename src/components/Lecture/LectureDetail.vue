@@ -20,7 +20,7 @@
                 td {{lecture.title}}
               tr
                 th 강사
-                td {{lecture.tutor_intro}}
+                td {{lecture.tutor_info.nickname}}
                   a.tutor.ion-link(href="" :aria-label="`${lecture.tutor_intro} 강사의 다른 강의 보기`")
               tr
                 th 강의장소
@@ -281,23 +281,26 @@ export default {
       return convert_dates;
     },
     koreanDay(){
-      switch(this.lecture.locations[0].class_weekday){
-        case "sun" : this.lecture_day = "일요일";
-        break;
-        case "mon" : this.lecture_day = "월요일";
-        break;
-        case "tue" : this.lecture_day = "화요일";
-        break;
-        case "wed" : this.lecture_day = "수요일";
-        break;
-        case "thu" : this.lecture_day = "목요일";
-        break;
-        case "fri" : this.lecture_day = "금요일";
-        break;
-        case "sat" : this.lecture_day = "토요일";
-        break;
+      if(this.lecture.locations[0]){
+        switch(this.lecture.locations[0].class_weekday){
+          case "sun" : this.lecture_day = "일요일";
+          break;
+          case "mon" : this.lecture_day = "월요일";
+          break;
+          case "tue" : this.lecture_day = "화요일";
+          break;
+          case "wed" : this.lecture_day = "수요일";
+          break;
+          case "thu" : this.lecture_day = "목요일";
+          break;
+          case "fri" : this.lecture_day = "금요일";
+          break;
+          case "sat" : this.lecture_day = "토요일";
+          break;
+        }
+        return this.lecture_day;
       }
-      return this.lecture_day
+      return '';
     },
     koreanCategory(){
       switch(this.lecture.category){
@@ -319,18 +322,26 @@ export default {
       return this.lecture.category;
     },
     lecturePlace(){
-      let state = this.lecture.locations[0].location1;
-      let city = this.lecture.locations[0].location2;
-      let detail_location = this.lecture.locations[0].location_option;
-      return `${state}시 ${city}구 ${detail_location}`;
+      if(this.lecture.locations[0]){
+        let state = this.lecture.locations[0].location1;
+        let city = this.lecture.locations[0].location2;
+        let detail_location = this.lecture.locations[0].location_detail;
+        return `${state}시 ${city}구 ${detail_location}`;
+      }else{
+        return '';
+      }
     },
     lectureTime(){
       let start_time = '';
       let end_time = '';
+      if (this.lecture.locations[0]){
       let time = this.lecture.locations[0].class_time.split('-');
-      start_time = time[0];
-      end_time = time[1];
-      return `오전 ${start_time}시 ~ 오후 ${end_time}시`;
+        start_time = time[0];
+        end_time = time[1];
+        return `오전 ${start_time}시 ~ 오후 ${end_time}시`;
+      }else{
+        return '';
+      }
     }
   }
 }
