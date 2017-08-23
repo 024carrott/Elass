@@ -46,11 +46,11 @@
           .col 
             h3.mt-2.bb 상세 정보
             h4.mt-1 강의 정보
-            p {{lecture.class_intro}}
+            p(v-html="rpbr(lecture.class_intro)")
             h4.mt-1 이런 분들이 들으시면 좋아요!
-            p {{lecture.target_intro}}
+            p(v-html="rpbr(lecture.target_intro)")
             h3.mt-2.bb 튜터 소개
-            p.mt-1 {{lecture.tutor_intro}}
+            p.mt-1(v-html="rpbr(lecture.tutor_intro)")
         .grid.mt-2
           .col.col-d-2.col-d-offset-5.col-t-2.col-t-offset-3.col-m-2.col-m-offset-1
             a.btn-white.is-full.is-small(to="lecturelist" role="button" href="/lecturelist/all") 목록으로
@@ -117,11 +117,15 @@ export default {
   created () {
     // 강의 데이터
     this.lectureDetailFrm = new FormData();
-    this.lectureDetailFrm.append('lecture_id', this.id);
+    this.lectureDetailFrm.append('lecture_id', this.$route.params.id);
     this.lectureDetailFrm.append('state', 'activity');
     this.$http.post(this.$store.state.lecture.detail, this.lectureDetailFrm).then((response) => {
       this.lecture = response.data;
-      this.is_like = !!this.$store.getters.userInfo && response.data.like_users.includes(parseInt(this.$store.getters.userInfo,10));
+      if(Array.isArray(response.data.like_users)){
+        this.is_like = !!this.$store.getters.userInfo && response.data.like_users.includes(parseInt(this.$store.getters.userInfo,10));
+      } else {
+        this.is_like = false;
+      }
       this.is_loaded = true;
       if (this.lecture.reviews.length > 0){
         for (let i = 0, l = this.lecture.reviews.length; i < l; i++){
@@ -131,6 +135,7 @@ export default {
     });
     this.reviewForm = new FormData();
     this.likeForm = new FormData();
+    this.likeForm.append('lecture_id', this.id);
   },
   components: {
     LectureCarousel, LectureCarouselItem
@@ -150,14 +155,21 @@ export default {
       reviews: [],
       visible_reviews: 4,
       review_content: '',
-      is_like: !!this.$store.getters.userInfo && this.lecture.like_users.includes(parseInt(this.$store.getters.userInfo,10)),
+      is_like: false,
       is_login: this.$store.getters.isLogIn
     }
   },
   methods: {
+    rpbr(str){
+      return str.replace(/\n/g, '<br/>');
+    },
     unlikeClass(){
       this.is_like = !this.is_like;
-      window.alert('해당 강의를 찜목록에서 삭제 했습니다.')
+      this.$http.post(this.$store.state.lecture.like, this.likeForm, {headers:{Authorization:this.$store.getters.token}})
+      .then(response => {
+      window.alert('해당 강의를 찜목록에서 삭제 했습니다.');
+        return;
+      });
     },
     likeClass(){
       if (!this.is_login){
@@ -165,10 +177,9 @@ export default {
         return;
       }
       this.is_like = !this.is_like;
-      this.likeForm.append('lecture_id', this.id);
       this.$http.post(this.$store.state.lecture.like, this.likeForm, {headers:{Authorization:this.$store.getters.token}})
       .then(response => {
-        window.alert('해당 강의를 찜 했습니다.')
+        window.alert('해당 강의를 찜 했습니다.');
         return;
       });
     },
