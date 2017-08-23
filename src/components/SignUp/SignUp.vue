@@ -17,6 +17,8 @@
                 label(for="user-email").col.alpha 이메일
                 input(id="user-email" name="user-email" type="text" placeholder="이메일을 입력 해 주세요." @input="email").col.alpha
                 span.show(v-show="email_check").col.alpha * 올바른 이메일 형식이 아닙니다.
+                label(for="user-photo").col.alpha 프로필 사진
+                input(id="user-photo" name="user-photo" type="file" @change="userPhoto").col.alpha
                 label(for="user-password").col.alpha 비밀번호
                 input(id="user-password" name="user-password" type="text" @input="pw" placeholder="비밀번호를 입력 해 주세요.").col.alpha
                 label(for="user-password").col.alpha 비밀번호 확인
@@ -50,6 +52,9 @@ export default {
       e_mail: '',
       check_box: false,
       signupFrm : null,
+      user_nickname: '',
+      user_photo: '',
+      
     }
   },
   methods:{
@@ -70,6 +75,9 @@ export default {
     },
     userNickname(e){
       this.user_nickname = e.target.value
+    },
+    userPhoto(e){
+      this.user_photo = e.target.files
     },
     // submit
 
@@ -108,6 +116,7 @@ export default {
       this.signupFrm.append('password', this.password);
       this.signupFrm.append('confirm_password', this.password);
       this.signupFrm.append('nickname', this.user_nickname);
+      this.signupFrm.append('my_photo', this.user_photo[0]);
       this.signupSubmit();
     },
     signupSubmit(){
@@ -185,7 +194,7 @@ export default {
       label{
         font-size: 1.6rem;
       }
-      input[type="text"]{
+      input[type="text"], input[type="file"]{
         @extend %border;
         margin: 10px 0 20px 0;
         padding-left: 5px;

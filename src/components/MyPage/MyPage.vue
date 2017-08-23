@@ -7,7 +7,8 @@
         .grid.mt-2
           .col.col-d-4.col-t-3.col-m-4
             .my-info
-              img(:src="userpic")
+              img(v-if="userpic !== null" :src="userpic" alt="프로필 사진" )
+              img(v-else src="../../assets/lecture/personal.png")
               //- br
               //- label.a11y-hidden(for="user-profile") 사진 등록/수정하기
               //- input.input-file(type="file" name="user-profile" id="user-profile")
@@ -76,16 +77,6 @@
                   a.btn-submit(role="button" href @click.prevent="submitnewMyinfo") 변경하기
                   a.btn-white(role="button" @click.prevent="toggleEditMyInfo" href) 취소
                   
-                  
-
-
-
-
-
-
-
-
-
       //- '튜터 등록하기' 버튼 클릭 시 is-active 클래스 추가
       .modal(role="dialog" :class="{'is-active':tutor_modal_view}")
           .modal-background
@@ -251,7 +242,7 @@ export default {
         return
       }
       // this.mypageFrm.append('my_photo','C:\\Users\\cindyCha\\Downloads\\images.jpg');
-      if(this.tutor_photo[0] === true ){
+      if(!!this.tutor_photo[0]){
         this.mypageFrm.append('my_photo', this.tutor_photo[0], this.tutor_photo[0].name );}
       this.mypageFrm.append('phone', this.tutor_phone);
       this.mypageFrm.append('nickname', this.tutor_nick_name);
@@ -330,8 +321,9 @@ export default {
     submitnewMyinfo(){
       this.newMyinfoFrm.append('nickname', this.new_nick_name);
       this.newMyinfoFrm.append('email', this.new_email);
-      if(this.new_photo[0] === true){
-      this.newMyinfoFrm.append('my_photo', this.new_photo[0], this.new_photo[0].name );}
+      if(!!this.new_photo[0]){
+        this.newMyinfoFrm.append('my_photo', this.new_photo[0], this.new_photo[0].name );
+      }
       this.newMyinfoSubmit();
     },
     newMyinfoSubmit(){
@@ -339,7 +331,7 @@ export default {
       .then(response => {
         if(response.status === 200){
           window.alert('내정보가 변경되었습니다.');
-          this.toggleEditMyInfo();
+          window.location.reload();
         }
       })
     },
@@ -373,6 +365,8 @@ export default {
     text-align: center
     img
       width: 60%
+      // background: url('../../assets/lecture/personal.png')
+      height: 60%
       border-radius: 50%
       margin-bottom: 5px
   .mypage-menu-group
