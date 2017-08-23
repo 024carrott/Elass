@@ -112,9 +112,6 @@ export default {
         margin: 10px 0 20px 0;
         padding-left: 5px;
         height: $leading * 2;
-        // -webkit-text-security: disc;
-        font: large Verdana,sans-serif;
-        // letter-spacing: 1px;
       }
       .find-password-btn{
         color: #007aff;
