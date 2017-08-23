@@ -1,5 +1,5 @@
 <template lang="pug">
-  li.col.col-d-4.col-t-4.col-m-4.lecture-item
+  li.col.col-d-4.col-t-4.col-m-4.lecture-item(v-if="is_show")
     .favorite-lecture-item.mt-1
       span.favorite-lecture-tag {{koreanCategory}}
       .favorite-lecture-image
@@ -10,7 +10,7 @@
         dd.favorite-lecture-user {{class_item.tutor_info.nickname}}
       a(v-if="is_like === false" href role="button" :aria-label="`${class_item.title} 좋아요`" @click.prevent="likeClass").favorite-like
         img(src="../../assets/favorite-list/favorite-like-btn-off.png")
-      a(v-else href role="button" :aria-label="`${class_item.title} 좋아요 취소`" @click.prevent="unlikeClass").favorite-like
+      a(v-else href role="button" :aria-label="`${class_item.title} 좋아요 취소`" @click.prevent="likeClass").favorite-like
         img(src="../../assets/favorite-list/favorite-like-btn-on.png")
       .favorite-star(v-if="review_average")
         span.a11y-hidden {{parseInt(review_average)}}
@@ -34,13 +34,10 @@ export default {
       id: this.lecture.id,
       is_login: this.$store.getters.isLogIn,
       is_like: !!this.$store.getters.userInfo && this.lecture.like_users.includes(parseInt(this.$store.getters.userInfo,10)),
+      is_show: true
     }
   },
   methods: {
-    unlikeClass(){
-      this.is_like = !this.is_like;
-      window.alert('해당 강의를 찜목록에서 삭제 했습니다.')
-    },
     likeClass(){
       if (!this.is_login){
         window.alert('로그인 후 이용할 수 있습니다.');
@@ -52,7 +49,7 @@ export default {
         this.is_like = !this.is_like;
         // 찜리스트에서 실행할 경우..
         if(!!this.$parent.like_lectures){
-          this.$parent.remove_like(this.index);
+          this.is_show = false;
         }
       });
     }

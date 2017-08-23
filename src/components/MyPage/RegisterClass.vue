@@ -207,7 +207,7 @@ export default {
       this.classFrm.append('location_detail', this.location3);
       this.classFrm.append('location_etc_type', 'no');
       this.classFrm.append('location_etc_text', 'no');
-      this.classFrm.append('class_weekday', this.strDate.join(','));
+      this.classFrm.append('class_weekday', this.strDate);
       this.classFrm.append('class_time', this.strTime);
       for(let i=0, l=this.photos.length; i < l; i++){
         this.classFrm.append('lecture_photo', this.photos[i], this.photos[i].name);

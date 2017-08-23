@@ -6,9 +6,9 @@ main
       p.text.mt-1 총 {{this.like_lectures.length}}개의 강의를 찜 하였습니다.
     ul.grid.lecture-list
       lecture-list-item(
-        v-for="(lecture, index) in like_lectures"
+        v-for="(item, index) in like_lectures"
         key="index"
-        :lecture="lecture"
+        :lecture="item"
         :index="index"
         v-if="index < visible_item"
         )
@@ -28,13 +28,12 @@ import TopButton from '../TopButton';
 export default {
   created () {
     this.$http.post(this.$store.state.lecture.list).then((response) => {
+      this.like_lectures = [];
       let res_data = response.data;
       this.lectures = res_data;
       for (let i = 0, l = this.lectures.length; i < l; i++){
-        for (let idx = 0, len = this.lectures[i].like_users.length; idx < len; idx++){
-          if (this.lectures[i].like_users[idx] === parseInt(this.$store.getters.userInfo)){
-            this.like_lectures.push(this.lectures[i]);
-          }
+        if (this.lectures[i].like_users.includes(parseInt(this.$store.getters.userInfo,10))){
+          this.like_lectures.push(this.lectures[i]);
         }
       }
     });
@@ -53,9 +52,6 @@ export default {
     loadLecture() {
       this.visible_item += 6;
     },
-    remove_like(idx){
-      window.location.reload();
-    }
   }
 }
 </script>
