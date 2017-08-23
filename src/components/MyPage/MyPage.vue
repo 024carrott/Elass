@@ -251,7 +251,8 @@ export default {
         return
       }
       // this.mypageFrm.append('my_photo','C:\\Users\\cindyCha\\Downloads\\images.jpg');
-      this.mypageFrm.append('my_photo', this.tutor_photo[0], this.tutor_photo[0].name );
+      if(this.tutor_photo[0] === true ){
+        this.mypageFrm.append('my_photo', this.tutor_photo[0], this.tutor_photo[0].name );}
       this.mypageFrm.append('phone', this.tutor_phone);
       this.mypageFrm.append('nickname', this.tutor_nick_name);
       this.mypageFrm.append('cert_type', this.tutor_type);
@@ -289,7 +290,8 @@ export default {
       this.$http.post(this.$store.state.member.tutorup, this.mypageFrm, {headers:{'authorization':this.$store.getters.token}})
       .then(response => {
         if(response.status === 200){
-          console.log('튜터등록 성공',response);
+          // window.alert('튜터등록이 완료되었습니다.');
+          // this.toggleEnrollTutor();
           // this.$router.push('/');
         }
       })
@@ -328,7 +330,8 @@ export default {
     submitnewMyinfo(){
       this.newMyinfoFrm.append('nickname', this.new_nick_name);
       this.newMyinfoFrm.append('email', this.new_email);
-      this.newMyinfoFrm.append('my_photo', this.new_photo[0], this.new_photo[0].name );
+      if(this.new_photo[0] === true){
+      this.newMyinfoFrm.append('my_photo', this.new_photo[0], this.new_photo[0].name );}
       this.newMyinfoSubmit();
     },
     newMyinfoSubmit(){
@@ -420,6 +423,7 @@ export default {
     color: #181818
     border: 1px solid #dcdcdc
     background-color: #fff
+
 
   
 </style>
