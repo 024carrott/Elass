@@ -41,7 +41,7 @@
             .btn-group.mt-1
               a.btn-submit(role="button" href @click.prevent="registerClass") 수강 신청하기
               a.btn-white(v-if="is_like === false" role="button" href @click.prevent="likeClass") 강의 찜하기
-              a.btn-white(v-else role="button" href @click.prevent="likeClass").unlike-class 강의 찜취소
+              a.btn-white(v-else role="button" href @click.prevent="unlikeClass").unlike-class 강의 찜취소
         .grid
           .col 
             h3.mt-2.bb 상세 정보
@@ -79,7 +79,7 @@
                     img(v-if="review.author.my_photo !== null" :src="review.author.my_photo")
                     img(v-else src="../../assets/lecture/personal.jpg").basic-my-photo
                     br
-                    span {{review.author.username}}
+                    span {{review.author.nickname}}
                     .favorite-star
                       span.a11y-hidden 5점 만점에 {{review.curriculum_rate}}점
                       i.ion-ios-star(v-for="(star, index) in review.curriculum_rate" aria-hidden="true")
@@ -150,11 +150,15 @@ export default {
       reviews: [],
       visible_reviews: 4,
       review_content: '',
-      is_login: this.$store.getters.isLogIn,
-      is_like: false,
+      is_like: !!this.$store.getters.userInfo && this.lecture.like_users.includes(parseInt(this.$store.getters.userInfo,10)),
+      is_login: this.$store.getters.isLogIn
     }
   },
   methods: {
+    unlikeClass(){
+      this.is_like = !this.is_like;
+      window.alert('해당 강의를 찜목록에서 삭제 했습니다.')
+    },
     likeClass(){
       if (!this.is_login){
         window.alert('로그인 후 이용할 수 있습니다.');
@@ -164,7 +168,7 @@ export default {
       this.likeForm.append('lecture_id', this.id);
       this.$http.post(this.$store.state.lecture.like, this.likeForm, {headers:{Authorization:this.$store.getters.token}})
       .then(response => {
-        // window.alert('해당 강의를 찜 했습니다.')
+        window.alert('해당 강의를 찜 했습니다.')
         return;
       });
     },
@@ -418,13 +422,13 @@ export default {
         width: 80px
         height: 80px
         border-radius: 40px
-        border: 3px solid #007aff
+        border: 2px solid #aeaeae
       img.basic-my-photo
         box-sizing: border-box
         width: 80px
         height: 80px
         border-radius: 40px
-        border: 3px solid #007aff
+        border: 2px solid #aeaeae
     dd
       time
         color: #696969
@@ -438,7 +442,7 @@ export default {
     text-align: center
     font-size: 2.4rem
   .ion-ios-star
-    color: #007aff
+    color: #f8d64e
   a.unlike-class
     color: #007aff
     border: 1px solid #007aff

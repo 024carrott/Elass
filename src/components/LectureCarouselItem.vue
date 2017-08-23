@@ -9,9 +9,9 @@
         dt.favorite-lecture-title {{class_item.title}}
         dd.favorite-lecture-user {{class_item.tutor_info.nickname}}
       a(v-if="is_like === false" href role="button" :aria-label="`${class_item.title} 좋아요`" @click.prevent="likeClass").favorite-like
-        img(src="../assets/favorite-list/favorite-like-btn-off.png")
+        img(src="../assets/favorite-list/favorite-like-btn-off.png" :alt="`${class_item.title} 좋아요`")
       a(v-else href role="button" :aria-label="`${class_item.title} 좋아요 취소`" @click.prevent="unlikeClass").favorite-like
-        img(src="../assets/favorite-list/favorite-like-btn-on.png")
+        img(src="../assets/favorite-list/favorite-like-btn-on.png" :alt="`${class_item.title} 좋아요 취소`")
       .favorite-star(v-if="review_average")
         span.a11y-hidden {{parseInt(review_average)}}
         i(v-for="i in 5" :class="i <= parseInt(review_average) || 0 ? 'ion-ios-star': 'ion-ios-star-outline'")
@@ -65,9 +65,9 @@ export default {
       active_index: this.index + 1,
       position: '',
       id: this.lecture.id,
-      is_like: false,
       is_login: this.$store.getters.isLogIn,
-    }
+      is_like: !!this.$store.getters.userInfo && this.lecture.like_users.includes(parseInt(this.$store.getters.userInfo,10)),
+      }
   },
   computed: {
     review_average(){
@@ -222,10 +222,10 @@ export default {
   .star-rate{
     font-size: 2.2rem;
     .ion-ios-star{
-      color: #007aff;
+      color: #f8d64e;
     }
     .ion-ios-star-outline{
-      color: #007aff;
+      color: #aeaeae;
     }
   }
   .favorite-star{

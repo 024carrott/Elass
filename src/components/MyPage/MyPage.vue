@@ -364,9 +364,9 @@ export default {
   .my-info
     text-align: center
     img
-      width: 60%
-      // background: url('../../assets/lecture/personal.png')
-      height: 60%
+      width: 250px
+      height: 250px
+      overflow: hidden
       border-radius: 50%
       margin-bottom: 5px
   .mypage-menu-group

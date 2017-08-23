@@ -1,7 +1,7 @@
 <template lang="pug">
   li.col.col-d-3.col-t-4.col-m-4.mt-1
     article.main-review
-      h4 {{review.author.username}}님의 리얼 후기
+      h4 {{review.author.nickname}}님의 리얼 후기
       p {{review.content}}
       .main-review-member
         img(v-if="review.author.my_photo !== null" :src="review.author.my_photo")
@@ -11,7 +11,7 @@
           span.a11y-hidden 5점 만점에 {{review.curriculum_rate}}점
           i.ion-ios-star(v-for="(star, index) in review.curriculum_rate" aria-hidden="true")
           i.ion-ios-star-outline(v-for="empty_star in (5 - review.curriculum_rate)" aria-hidden="true")
-        span.user-id {{review.author.username}}
+        span.user-id {{review.author.nickname}}
 </template>
 
 <script>
@@ -59,7 +59,7 @@ export default {
       width: 80px;
       height: 80px;
       border-radius: 40px;
-      border: 3px solid #007aff;
+      border: 2px solid #aeaeae
     }
   }
 </style>

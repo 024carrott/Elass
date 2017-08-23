@@ -2,13 +2,6 @@
 main
   .container.mt-2
   .grid
-    //- .col.col-d-2.col-t-2.col-m-1.col-d-offset-2
-    //-   .box
-    //-     select.select-box(title="search-select")
-    //-       option(value="all" selected) 전체
-    //-       option(value="lecture-name") 강의명 
-    //-       option(value="teacher-name") 강사명
-    //-       option(value="lecture-location") 지역
     .col.col-d-5.col-d-offset-3.col-t-7.col-m-3
       .list-search-wrap
         input.list-search(type="search" placeholder="검색어를 입력하세요" v-model="search_query")

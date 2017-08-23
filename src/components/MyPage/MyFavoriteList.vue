@@ -54,7 +54,6 @@ export default {
       this.visible_item += 6;
     },
     remove_like(idx){
-      // this.like_lectures.splice(idx,1);
       window.location.reload();
     }
   }
