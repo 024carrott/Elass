@@ -192,7 +192,7 @@ export default {
     span{
       font-size: 3.3rem;
       strong{
-        color: #007aff;
+        color: #99ccff;
       }
     }
   }
