@@ -48,25 +48,25 @@
               //- select(id="lecture-date" v-model="strDate" class="lecture-category" name="lecture-date")
               .col
                 .chk-wrap
-                  input(type="checkbox" name="lecture-date" id="lecture-date0" v-model="strDate" value="mon")
+                  input(type="radio" name="lecture-date" id="lecture-date0" v-model="strDate" value="mon")
                   label(for="lecture-date0").select-date 월
                 .chk-wrap
-                  input(type="checkbox" name="lecture-date" id="lecture-date1" v-model="strDate" value="tue")
+                  input(type="radio" name="lecture-date" id="lecture-date1" v-model="strDate" value="tue")
                   label(for="lecture-date1").select-date 화
                 .chk-wrap
-                  input(type="checkbox" name="lecture-date" id="lecture-date2" v-model="strDate" value="wed")
+                  input(type="radio" name="lecture-date" id="lecture-date2" v-model="strDate" value="wed")
                   label(for="lecture-date2").select-date 수
                 .chk-wrap
-                  input(type="checkbox" name="lecture-date" id="lecture-date3" v-model="strDate" value="thu")
+                  input(type="radio" name="lecture-date" id="lecture-date3" v-model="strDate" value="thu")
                   label(for="lecture-date3").select-date 목
                 .chk-wrap
-                  input(type="checkbox" name="lecture-date" id="lecture-date4" v-model="strDate" value="fri")
+                  input(type="radio" name="lecture-date" id="lecture-date4" v-model="strDate" value="fri")
                   label(for="lecture-date4").select-date 금
                 .chk-wrap
-                  input(type="checkbox" name="lecture-date" id="lecture-date5" v-model="strDate" value="sat")
+                  input(type="radio" name="lecture-date" id="lecture-date5" v-model="strDate" value="sat")
                   label(for="lecture-date5").select-date 토
                 .chk-wrap
-                  input(type="checkbox" name="lecture-date" id="lecture-date6" v-model="strDate" value="sun")
+                  input(type="radio" name="lecture-date" id="lecture-date6" v-model="strDate" value="sun")
                   label(for="lecture-date6").select-date 일
               //- 강의시간
               label(for="lecture-time").col.alpha 강의 시간
@@ -210,7 +210,7 @@ export default {
       this.classFrm.append('class_weekday', this.strDate.join(','));
       this.classFrm.append('class_time', this.strTime);
       for(let i=0, l=this.photos.length; i < l; i++){
-        this.classFrm.append('lecture_photo', this.photos);
+        this.classFrm.append('lecture_photo', this.photos[i], this.photos[i].name);
       }
       // this.classFrm.append('lecture_photo[]',this.photos);
       this.sendFrm();
