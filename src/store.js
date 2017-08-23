@@ -11,7 +11,7 @@ const store = new Vuex.Store({
     isLogIn: !!localStorage.getItem("login_token"),
     userInfo: localStorage.getItem('user_info'),
     tutorInfo: localStorage.getItem('tutor_info'),
-    token: '',
+    token: 'Token '+ localStorage.getItem("login_token"),
     member:{
       signup   : APIHOST+'member/signup/',
       signin   : APIHOST+'member/login/',
