@@ -25,13 +25,13 @@
                 span.show(v-show="toggle_checkbox").col.alpha * 해당 박스를 체크해주셔야 회원가입이 가능합니다. 
                 button(type="submit" class="sign-up-btn" @click.prevent="submitSignup").col 회원가입 하기
         .grid.mt-2
-          span.col.or or
-        .grid.mt-2
-          a(href class="facebook-sign-up" role="button" aria-label="페이스북으로 회원가입 하기 버튼").col.col-d-6.col-d-push-3 페이스북으로 회원가입 하기
-        .grid.information.mt-1
-          p 안심하세요!
-            br
-            | 유저의 허락 없이 게시물을 올리지 않습니다.
+        //-   span.col.or or
+        //- .grid.mt-2
+        //-   a(href class="facebook-sign-up" role="button" aria-label="페이스북으로 회원가입 하기 버튼").col.col-d-6.col-d-push-3 페이스북으로 회원가입 하기
+        //- .grid.information.mt-1
+        //-   p 안심하세요!
+        //-     br
+        //-     | 유저의 허락 없이 게시물을 올리지 않습니다.
 </template>
 
 <script>
