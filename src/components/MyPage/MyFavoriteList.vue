@@ -33,7 +33,7 @@ export default {
       for (let i = 0, l = this.lectures.length; i < l; i++){
         for (let idx = 0, len = this.lectures[i].like_users.length; idx < len; idx++){
           if (this.lectures[i].like_users[idx] === parseInt(this.$store.getters.userInfo)){
-            this.like_lectures.push(this.lectures[i]) 
+            this.like_lectures.push(this.lectures[i]);
           }
         }
       }
@@ -52,6 +52,10 @@ export default {
   methods: {
     loadLecture() {
       this.visible_item += 6;
+    },
+    remove_like(idx){
+      // this.like_lectures.splice(idx,1);
+      window.location.reload();
     }
   }
 }

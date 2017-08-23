@@ -48,6 +48,10 @@ export default {
       this.$http.post(this.$store.state.lecture.like, this.likeForm, {headers:{Authorization:this.$store.getters.token}})
       .then(response => {
         this.is_like = !this.is_like;
+        // 찜리스트에서 실행할 경우..
+        if(!!this.$parent.like_lectures){
+          this.$parent.remove_like(this.index);
+        }
       });
     }
     // }
