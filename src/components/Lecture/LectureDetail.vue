@@ -149,8 +149,7 @@ export default {
       reviews: [],
       visible_reviews: 4,
       review_content: '',
-      is_login: this.$store.getters.isLogIn,
-      is_like: false,
+      is_like: !!this.$store.getters.userInfo && this.lecture.like_users.includes(parseInt(this.$store.getters.userInfo,10)),
     }
   },
   methods: {

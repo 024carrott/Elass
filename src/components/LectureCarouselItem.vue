@@ -65,9 +65,9 @@ export default {
       active_index: this.index + 1,
       position: '',
       id: this.lecture.id,
-      is_like: false,
       is_login: this.$store.getters.isLogIn,
-    }
+      is_like: !!this.$store.getters.userInfo && this.lecture.like_users.includes(parseInt(this.$store.getters.userInfo,10)),
+      }
   },
   computed: {
     review_average(){
