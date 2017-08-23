@@ -210,7 +210,6 @@ export default {
     // submit
 
     submitTutor(){
-      console.log(this.tutor_photo);
       if(!this.tutor_type.length){
         window.alert('인증 타입을 확안해주세요');
         document.getElementById("type").focus();
@@ -243,7 +242,8 @@ export default {
       }
       // this.mypageFrm.append('my_photo','C:\\Users\\cindyCha\\Downloads\\images.jpg');
       if(!!this.tutor_photo[0]){
-        this.mypageFrm.append('my_photo', this.tutor_photo[0], this.tutor_photo[0].name );}
+        this.mypageFrm.append('my_photo', this.tutor_photo[0], this.tutor_photo[0].name );
+      }
       this.mypageFrm.append('phone', this.tutor_phone);
       this.mypageFrm.append('nickname', this.tutor_nick_name);
       this.mypageFrm.append('cert_type', this.tutor_type);
@@ -262,28 +262,12 @@ export default {
       this.mypageSubmit();
     },
     mypageSubmit(){
-      // var xhr = new XMLHttpRequest();
-      // xhr.withCredentials = true;
-      // xhr.addEventListener("readystatechange", function () {
-      //   if (this.readyState === 4) {
-      //     if (this.status === 200){
-      //       console.log(this);
-      //     }else{
-      //       window.alert('튜터 등록이 불가합니다.');
-      //     }
-      //   }
-      // });
-      // xhr.open("POST", this.$store.state.member.tutorup);
-      // xhr.setRequestHeader("authorization", this.$store.getters.token);
-      // xhr.send(this.mypageFrm);
-      // return;
-
       this.$http.post(this.$store.state.member.tutorup, this.mypageFrm, {headers:{'authorization':this.$store.getters.token}})
       .then(response => {
         if(response.status === 200){
-          // window.alert('튜터등록이 완료되었습니다.');
-          // this.toggleEnrollTutor();
-          // this.$router.push('/');
+          window.alert('튜터등록이 완료되었습니다.\n다시 로그인해주세요.');
+          this.$store.dispatch('logout');
+          this.$router.push('/signin');
         }
       })
       .catch(error => {
