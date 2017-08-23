@@ -50,6 +50,7 @@ export default {
         // 찜리스트에서 실행할 경우..
         if(!!this.$parent.like_lectures){
           this.is_show = false;
+          this.$parent.remove_like(this.index);
         }
       });
     }

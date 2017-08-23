@@ -3,7 +3,7 @@ main
   .container.mt-1.top-bd
     .grid.mt-2
       h2 내가 찜한 강의
-      p.text.mt-1 총 {{this.like_lectures.length}}개의 강의를 찜 하였습니다.
+      p.text.mt-1 총 {{like_cnt}}개의 강의를 찜 하였습니다.
     ul.grid.lecture-list
       lecture-list-item(
         v-for="(item, index) in like_lectures"
@@ -36,6 +36,7 @@ export default {
           this.like_lectures.push(this.lectures[i]);
         }
       }
+      this.like_cnt = this.like_lectures.length;
     });
   },
   data () {
@@ -43,6 +44,7 @@ export default {
       lectures: [],
       like_lectures: [],
       visible_item: 6,
+      like_cnt : 0,
     }
   },
   components: {
@@ -51,6 +53,9 @@ export default {
   methods: {
     loadLecture() {
       this.visible_item += 6;
+    },
+    remove_like(idx){
+      this.like_cnt--;
     },
   }
 }
