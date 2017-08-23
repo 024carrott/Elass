@@ -2,18 +2,18 @@
 main
   .container.mt-2
   .grid
-    .col.col-d-2.col-t-2.col-m-1.col-d-offset-2
-      .box
-        select.select-box(title="search-select")
-          option(value="all" selected) 전체
-          option(value="lecture-name") 강의명 
-          option(value="teacher-name") 강사명
-          option(value="lecture-location") 지역
-    .col.col-d-5.col-t-5.col-m-2
+    //- .col.col-d-2.col-t-2.col-m-1.col-d-offset-2
+    //-   .box
+    //-     select.select-box(title="search-select")
+    //-       option(value="all" selected) 전체
+    //-       option(value="lecture-name") 강의명 
+    //-       option(value="teacher-name") 강사명
+    //-       option(value="lecture-location") 지역
+    .col.col-d-5.col-d-offset-3.col-t-7.col-m-3
       .list-search-wrap
-        input.list-search(type="search" placeholder="검색어를 입력하세요")
+        input.list-search(type="search" placeholder="검색어를 입력하세요" v-model="search_query")
     .col.col-d-1.col-t-1.col-m-1
-      button.list-search-btn(role="button" aria-label="검색") 검색
+      button.list-search-btn(role="button" @click.prevent="search" aria-label="검색") 검색
   .container.category-container.mt-2
     .grid
       h2.a11y-hidden 강의 카테고리
@@ -106,7 +106,11 @@ import LectureListItem from './LectureListItem';
 import TopButton from '../TopButton';
 export default {
   created () {
-    this.$http.post(this.$store.state.lecture.list).then((response) => {
+    if(this.search_query.length){
+      this.listFrm = new FormData();
+      this.listFrm.append('search_text', this.search_query);
+    }
+    this.$http.post(this.$store.state.lecture.list, this.listFrm).then((response) => {
       let filteredLectures = [];
       let res_data = response.data;
       this.lectures = res_data;
@@ -116,7 +120,7 @@ export default {
             filteredLectures.push(this.lectures[i]);
           }
         }
-        this.lectures = filteredLectures
+        this.lectures = filteredLectures;
       }
     });
   },
@@ -125,13 +129,19 @@ export default {
       lectures: [],
       category : this.$route.params.category,
       set_category: '',
+      search_query: this.$route.query.q || '',
       visible_item: 6,
       is_selected: false,
+      listFrm: null,
     }
   },
   methods: {
     loadLecture() {
       this.visible_item += 6;
+    },
+    search(){
+      window.location.replace('/lecturelist/'+ this.category+'?q='+ this.search_query);
+
     }
   },
   components: {

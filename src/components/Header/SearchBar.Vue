@@ -1,8 +1,8 @@
 <template lang="pug">
   .col.col-d-5.col-d-offset-3.col-t-4.col-m-4.col-d-pull-2.col-t-pull-2
     .search-wrap
-      input.search(type="search" placeholder="검색어를 입력하세요")
-      a.search-btn.ion-search(href="#" role="button" aria-label="검색")
+      input.search(type="search" placeholder="검색어를 입력하세요" v-model="global_search")
+      a.search-btn.ion-search(href @click.prevent="search" role="button" aria-label="검색")
 </template>
 
 <script>
@@ -10,7 +10,12 @@ export default {
   name: 'search-bar',
   data () {
     return {
-      
+      global_search : ''
+    }
+  },
+  methods: {
+    search(){
+       window.location.replace('/lecturelist/all?q='+ this.global_search);
     }
   }
 }
