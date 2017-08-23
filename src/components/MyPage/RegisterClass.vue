@@ -44,15 +44,30 @@
               label(for="lecture-place3").a11y-hidden
               input(id="lecture-place3" class="lecture-place" v-model="location3" name="lecture-place3" type="text" placeholder="상세주소(서초동 120-2)" maxlength="100").col.alpha
               //- 강의시작년도
-              label(for="lecture-date").col.alpha 강의요일
-              select(id="lecture-date" v-model="strDate" class="lecture-category" name="lecture-date").col.col-d-1.col-t-7.col-m-3
-                option(value="mon") 월요일
-                option(value="tue") 화요일
-                option(value="wed") 수요일
-                option(value="thu") 목요일
-                option(value="fri") 금요일
-                option(value="sat") 토요일
-                option(value="sun") 일요일
+              .lecture-date.col.alpha 강의요일
+              //- select(id="lecture-date" v-model="strDate" class="lecture-category" name="lecture-date")
+              .col
+                .chk-wrap
+                  input(type="checkbox" name="lecture-date" id="lecture-date0" v-model="strDate" value="mon")
+                  label(for="lecture-date0").select-date 월
+                .chk-wrap
+                  input(type="checkbox" name="lecture-date" id="lecture-date1" v-model="strDate" value="tue")
+                  label(for="lecture-date1").select-date 화
+                .chk-wrap
+                  input(type="checkbox" name="lecture-date" id="lecture-date2" v-model="strDate" value="wed")
+                  label(for="lecture-date2").select-date 수
+                .chk-wrap
+                  input(type="checkbox" name="lecture-date" id="lecture-date3" v-model="strDate" value="thu")
+                  label(for="lecture-date3").select-date 목
+                .chk-wrap
+                  input(type="checkbox" name="lecture-date" id="lecture-date4" v-model="strDate" value="fri")
+                  label(for="lecture-date4").select-date 금
+                .chk-wrap
+                  input(type="checkbox" name="lecture-date" id="lecture-date5" v-model="strDate" value="sat")
+                  label(for="lecture-date5").select-date 토
+                .chk-wrap
+                  input(type="checkbox" name="lecture-date" id="lecture-date6" v-model="strDate" value="sun")
+                  label(for="lecture-date6").select-date 일
               //- 강의시간
               label(for="lecture-time").col.alpha 강의 시간
               input(id="lecture-time" class="lecture-time" name="lecture-time" v-model="strTime" type="text" placeholder="10 ~ 12").col.col-d-6
@@ -107,7 +122,7 @@ export default {
       location1:'',
       location2:'',
       location3:'',
-      strDate:'',
+      strDate:[],
       strTime:'',
       memberCnt:'1',
       price:'',
@@ -192,10 +207,10 @@ export default {
       this.classFrm.append('location_detail', this.location3);
       this.classFrm.append('location_etc_type', 'no');
       this.classFrm.append('location_etc_text', 'no');
-      this.classFrm.append('class_weekday', this.strDate);
+      this.classFrm.append('class_weekday', this.strDate.join(','));
       this.classFrm.append('class_time', this.strTime);
       for(let i=0, l=this.photos.length; i < l; i++){
-        this.classFrm.append('lecture_photo', this.photos[i], this.photos[i].name);
+        this.classFrm.append('lecture_photo', this.photos);
       }
       // this.classFrm.append('lecture_photo[]',this.photos);
       this.sendFrm();
@@ -375,4 +390,31 @@ export default {
     font-size: 1.6rem;
   }
   
+  .chk-wrap{
+    position: relative;
+    display: inline-block;
+    width: $leading * 4;
+    height: $leading * 4;
+    @extend  %border;
+    overflow: hidden;
+    margin-right: 5px;
+    input:checked+.select-date{
+      background-color: #007aff;
+      color: #fff;
+      font-weight: bold;
+    }
+  }
+  .select-date{
+    position: absolute;
+    display: block;
+    z-index: 10;
+    margin: 0 !important;
+    line-height: $leading * 4;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: #fff;
+    text-align: center;
+  }
 </style>
