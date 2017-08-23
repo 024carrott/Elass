@@ -46,15 +46,15 @@ export default {
         window.alert('로그인 후 이용할 수 있습니다.');
         return;
       }
-      this.is_like = !this.is_like;
-      if (this.is_like === true){
-        this.likeForm.append('lecture_id', this.id);
-        this.$http.post(this.$store.state.lecture.like, this.likeForm, {headers:{Authorization:this.$store.getters.token}})
-        .then(response => {
-          window.alert('해당 강의를 찜 했습니다.')
-          return;
-        });
-      }
+      this.likeForm.append('lecture_id', this.id);
+      this.$http.post(this.$store.state.lecture.like, this.likeForm, {headers:{Authorization:this.$store.getters.token}})
+      .then(response => {
+        this.is_like = !this.is_like;
+        // 찜리스트에서 실행할 경우..
+        if(!!this.$parent.like_lectures){
+          this.$parent.remove_like(this.index);
+        }
+      });
     }
   },
   computed: {

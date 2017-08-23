@@ -21,7 +21,7 @@
               tr
                 th 강사
                 td {{lecture.tutor_info.nickname}}
-                  a.tutor.ion-link(href="" :aria-label="`${lecture.tutor_intro} 강사의 다른 강의 보기`")
+                  a.tutor.ion-link(:href="`/lecturelist/all?q=${lecture.tutor_info.nickname}`" :aria-label="`${lecture.tutor_info.nickname} 강사의 다른 강의 보기`")
               tr
                 th 강의장소
                 td {{lecturePlace}}
@@ -41,7 +41,7 @@
             .btn-group.mt-1
               a.btn-submit(role="button" href @click.prevent="registerClass") 수강 신청하기
               a.btn-white(v-if="is_like === false" role="button" href @click.prevent="likeClass") 강의 찜하기
-              a.btn-white(v-else role="button" href @click.prevent="unlikeClass").unlike-class 강의 찜취소
+              a.btn-white(v-else role="button" href @click.prevent="likeClass").unlike-class 강의 찜취소
         .grid
           .col 
             h3.mt-2.bb 상세 정보
@@ -121,6 +121,7 @@ export default {
     this.lectureDetailFrm.append('state', 'activity');
     this.$http.post(this.$store.state.lecture.detail, this.lectureDetailFrm).then((response) => {
       this.lecture = response.data;
+      this.is_like = !!this.$store.getters.userInfo && response.data.like_users.includes(parseInt(this.$store.getters.userInfo,10));
       this.is_loaded = true;
       if (this.lecture.reviews.length > 0){
         for (let i = 0, l = this.lecture.reviews.length; i < l; i++){
@@ -153,24 +154,18 @@ export default {
     }
   },
   methods: {
-    unlikeClass(){
-      this.is_like = !this.is_like;
-      window.alert('해당 강의를 찜목록에서 삭제 했습니다.')
-    },
     likeClass(){
       if (!this.is_login){
         window.alert('로그인 후 이용할 수 있습니다.');
         return;
       }
       this.is_like = !this.is_like;
-      if (this.is_like === true){
-        this.likeForm.append('lecture_id', this.id);
-        this.$http.post(this.$store.state.lecture.like, this.likeForm, {headers:{Authorization:this.$store.getters.token}})
-        .then(response => {
-          window.alert('해당 강의를 찜 했습니다.')
-          return;
-        });
-      }
+      this.likeForm.append('lecture_id', this.id);
+      this.$http.post(this.$store.state.lecture.like, this.likeForm, {headers:{Authorization:this.$store.getters.token}})
+      .then(response => {
+        // window.alert('해당 강의를 찜 했습니다.')
+        return;
+      });
     },
     registerClass(){
       if (!this.is_login){
