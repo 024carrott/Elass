@@ -11,9 +11,14 @@
                 label(for="user-userID").col.alpha 아이디
                 input(id="user-userID" name="user-userID" type="text" placeholder="아이디를 입력 해 주세요." @input="userID").col.alpha
                 span.show(v-show="userID_check").col.alpha * 6글자 이상, 12글자 이하로 작성해주세요.
+                label(for="user-nickname").col.alpha 닉네임
+                input(id="user-nickname" name="user-nickname" type="text" placeholder="닉네임을 입력 해 주세요." @input="userNickname").col.alpha
+                span.show(v-show="user_nickname_check").col.alpha * 6글자 이상, 12글자 이하로 작성해주세요.
                 label(for="user-email").col.alpha 이메일
                 input(id="user-email" name="user-email" type="text" placeholder="이메일을 입력 해 주세요." @input="email").col.alpha
                 span.show(v-show="email_check").col.alpha * 올바른 이메일 형식이 아닙니다.
+                label(for="user-photo").col.alpha 프로필 사진
+                input(id="user-photo" name="user-photo" type="file" @change="userPhoto").col.alpha
                 label(for="user-password").col.alpha 비밀번호
                 input(id="user-password" name="user-password" type="text" @input="pw" placeholder="비밀번호를 입력 해 주세요.").col.alpha
                 label(for="user-password").col.alpha 비밀번호 확인
@@ -47,6 +52,9 @@ export default {
       e_mail: '',
       check_box: false,
       signupFrm : null,
+      user_nickname: '',
+      user_photo: '',
+      
     }
   },
   methods:{
@@ -65,12 +73,23 @@ export default {
     checkbox(e){
       this.check_box = !this.check_box
     },
+    userNickname(e){
+      this.user_nickname = e.target.value
+    },
+    userPhoto(e){
+      this.user_photo = e.target.files
+    },
     // submit
 
     submitSignup(){
       if(!this.user_id.length || this.userID_check === true){
         window.alert('아이디를 확인해주세요.');
         document.getElementById("user-userID").focus();
+        return
+      }
+      if(!this.user_nickname.length || this.user_nickname_check === true){
+        window.alert('닉네임을 확인해주세요.');
+        document.getElementById('user-nickname').focus();
         return
       }
       if(!this.e_mail.length || this.email_check === true){
@@ -96,6 +115,8 @@ export default {
       this.signupFrm.append('email', this.e_mail);
       this.signupFrm.append('password', this.password);
       this.signupFrm.append('confirm_password', this.password);
+      this.signupFrm.append('nickname', this.user_nickname);
+      this.signupFrm.append('my_photo', this.user_photo[0]);
       this.signupSubmit();
     },
     signupSubmit(){
@@ -118,6 +139,13 @@ export default {
   computed:{
     pw_check(){
       return (this.password === this.password_2) ? false : true
+    },
+    user_nickname_check(){
+      let pattern = /^[\w\Wㄱ-ㅎㅏ-ㅣ가-힣]{6,12}$/;
+      if(this.user_nickname === ''){
+        return false
+      }
+      return !pattern.test(this.user_nickname);
     },
     email_check(){
       let regex=/([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
@@ -166,7 +194,7 @@ export default {
       label{
         font-size: 1.6rem;
       }
-      input[type="text"]{
+      input[type="text"], input[type="file"]{
         @extend %border;
         margin: 10px 0 20px 0;
         padding-left: 5px;
