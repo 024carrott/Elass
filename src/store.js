@@ -33,6 +33,7 @@ const store = new Vuex.Store({
       state.isLogIn = true; 
       state.userInfo = payload.userid;
       state.tutorInfo = payload.tutorid;
+      state.token =  'Token '+ localStorage.getItem("login_token");
     },
     [LOGOUT](state) { state.isLogIn = false; },
     TUTOR(state, payload){

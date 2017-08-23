@@ -10,16 +10,16 @@
               label(for="user-id").col.alpha 아이디
               input(id="user-id" name="user-id" type="text" placeholder="아이디를 입력 해주세요." v-model="userID").col.alpha
               label(for="user-password").col.alpha 비밀번호
-              input(id="user-password" name="user-password" type="password" placeholder="비밀번호를 입력 해주세요." v-model="userPwd").col.alpha
+              input.password(id="user-password" name="user-password" type="password" placeholder="비밀번호를 입력 해주세요." v-model="userPwd").col.alpha
               //- a(href class="find-password-btn").col.alpha 비밀번호 찾기
               .checkbox.col.alpha.omega
                 input(id="confirm" type="checkbox" name="confirm" aria-label="다음에 방문 시 로그인 정보를 기억하기" v-model="signinBox").a11y-hidden
                 label(for="confirm") 아이디 기억하기
               button(type="submit" class="sign-in-btn" @click.prevent="submitLogin").col 로그인 하기
         .grid.mt-2
-          span.col(class="or") or
-        .grid.mt-2
-          a(href class="facebook-sign-in" role="button" aria-label="페이스북으로 로그인 하기 버튼").col.col-d-6.col-d-push-3 페이스북으로 로그인 하기
+        //-   span.col(class="or") or
+        //- .grid.mt-2
+        //-   a(href class="facebook-sign-in" role="button" aria-label="페이스북으로 로그인 하기 버튼").col.col-d-6.col-d-push-3 페이스북으로 로그인 하기
 </template>
 
 <script>
@@ -32,8 +32,7 @@ export default {
       loginFrm : null,
       userID: localStorage.getItem('login_remember_id'),
       userPwd : '',
-      signinBox: false
-      // signinBox: localStorage.getItem('login_remember_id')
+      signinBox: localStorage.getItem('login_remember_id')
     }
   },
   methods :{
@@ -62,6 +61,8 @@ export default {
           // 체크박스가 체크 됐을 경우
           if( this.signinBox === true ){
             localStorage.setItem("login_remember_id", this.userID);
+          }else{
+            localStorage.setItem("login_remember_id", '');
           }
           this.$router.push('/');
         }
@@ -111,6 +112,9 @@ export default {
         margin: 10px 0 20px 0;
         padding-left: 5px;
         height: $leading * 2;
+        // -webkit-text-security: disc;
+        font: large Verdana,sans-serif;
+        // letter-spacing: 1px;
       }
       .find-password-btn{
         color: #007aff;
