@@ -186,7 +186,7 @@ export default {
       width: 100%;
       overflow: hidden;
       img{
-        height: auto;
+        min-height: 230px;
         width: 100%;
       }
     }
