@@ -79,7 +79,7 @@
                     img(v-if="review.author.my_photo !== null" :src="review.author.my_photo")
                     img(v-else src="../../assets/lecture/personal.jpg").basic-my-photo
                     br
-                    span {{review.author.username}}
+                    span {{review.author.nickname}}
                     .favorite-star
                       span.a11y-hidden 5점 만점에 {{review.curriculum_rate}}점
                       i.ion-ios-star(v-for="(star, index) in review.curriculum_rate" aria-hidden="true")
@@ -412,13 +412,13 @@ export default {
         width: 80px
         height: 80px
         border-radius: 40px
-        border: 3px solid #007aff
+        border: 2px solid #aeaeae
       img.basic-my-photo
         box-sizing: border-box
         width: 80px
         height: 80px
         border-radius: 40px
-        border: 3px solid #007aff
+        border: 2px solid #aeaeae
     dd
       time
         color: #696969
@@ -432,7 +432,7 @@ export default {
     text-align: center
     font-size: 2.4rem
   .ion-ios-star
-    color: #007aff
+    color: #f8d64e
   a.unlike-class
     color: #007aff
     border: 1px solid #007aff
