@@ -13,8 +13,8 @@
               input(id="user-password" name="user-password" type="password" placeholder="비밀번호를 입력 해주세요." v-model="userPwd").col.alpha
               //- a(href class="find-password-btn").col.alpha 비밀번호 찾기
               .checkbox.col.alpha.omega
-                input(id="confirm" type="checkbox" name="confirm" value="confirm" aria-label="다음에 방문 시 로그인 정보를 기억하기").a11y-hidden
-                label(for="confirm") 로그인 정보 기억하기
+                input(id="confirm" type="checkbox" name="confirm" aria-label="다음에 방문 시 로그인 정보를 기억하기" v-model="signinBox").a11y-hidden
+                label(for="confirm") 아이디 기억하기
               button(type="submit" class="sign-in-btn" @click.prevent="submitLogin").col 로그인 하기
         .grid.mt-2
           span.col(class="or") or
@@ -30,8 +30,10 @@ export default {
   data(){
     return{
       loginFrm : null,
-      userID: '',
-      userPwd : ''
+      userID: localStorage.getItem('login_remember_id'),
+      userPwd : '',
+      signinBox: false
+      // signinBox: localStorage.getItem('login_remember_id')
     }
   },
   methods :{
@@ -57,6 +59,10 @@ export default {
           // console.log(response.data);
           // return;
           this.$store.dispatch('login', {token:response.data.token, userid:response.data.user.user_pk, tutorid:response.data.user.tutor_pk || 0});
+          // 체크박스가 체크 됐을 경우
+          if( this.signinBox === true ){
+            localStorage.setItem("login_remember_id", this.userID);
+          }
           this.$router.push('/');
         }
       })
@@ -72,8 +78,8 @@ export default {
             window.alert('로그인 정보가 바르지 않습니다.');
         }
       })
-    }
-  }
+    },
+  },
 }
 </script>
 
