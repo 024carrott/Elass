@@ -13,10 +13,10 @@
               //- input.input-file(type="file" name="user-profile" id="user-profile")
               br
               span {{ userid }} 
-                a(href aria-label="내정보 수정하기" role="button" @click.prevent="")
+                a(href aria-label="내정보 수정하기" role="button" @click.prevent="toggleEditMyInfo")
                   i.fa.fa-edit 
               br
-              a.btn-white.is-small(role="button" @click.prevent="toggleEditMyInfo" href) 비밀번호 변경
+              a.btn-white.is-small(role="button" @click.prevent="toggleEditNewpw" href) 비밀번호 변경
           .col.col-d-8.col-t-5.col-m-4
             .mypage-menu-group
               .mypage-menu-listener
@@ -30,13 +30,12 @@
                   a.btn-gray(role="button" @click.prevent="toggleEnrollTutor" href v-if="!tutorInfo") 튜터 등록하기
                   a.btn-white(href="/mypage/registeredclass" role="button" v-if="tutorInfo") 내가 등록한 강의
                   a.btn-white(href="/mypage/registerclass" role="button" v-if="tutorInfo") 강의 등록하기
-                  
-      //- '내 정보 수정하기' 버튼 클릭시 is-active 클래스 추가
+      //- '비밀번호 변경하기' 버튼 클릭시 is-active 클래스 추가
       .modal(role="dialog" :class="{'is-active':edit_modal_view}")
           .modal-background
           .modal-content
               //- 창 닫기 버튼 클릭 시 modal 각체에 is-active 클래스 제거
-              a.modal-close.ion-close(role="button" href aria-label="창 닫기" @click.prevent="toggleEditMyInfo")
+              a.modal-close.ion-close(role="button" href aria-label="창 닫기" @click.prevent="toggleEditNewpw")
               h4 비밀번호 변경
               form.my-info-edit
                 //- img.my-photo(:src="userpic")
@@ -54,7 +53,39 @@
                   span.show.col(v-show="pw_check") * 비밀번호가 일치하지 않습니다.
                 .btn-group.mt-1
                   a.btn-submit(role="button" href @click.prevent="submitNewPw") 변경하기
+                  a.btn-white(role="button" @click.prevent="toggleEditNewpw" href) 취소
+
+      //- '내정보 수정하기' 버튼 클릭시 is-active 클래스 추가
+      .modal(role="dialog" :class="{'is-active':edit_myinfo_view}")
+          .modal-background
+          .modal-content
+              a.modal-close.ion-close(role="button" href aria-label="창 닫기" @click.prevent="toggleEditMyInfo")
+              form.my-info-edit
+                .input-fileds.mt-1
+                  label(for="new-nickname") 닉네임
+                  input(type="text" name="new-nickname" id="new-nickname" v-model="new_nick_name")
+                  span.show.col(v-show="new_nickname_check") * 닉네임은 6글자 이상, 12글자 이하로 입력해주세요.                  
+                  br
+                  label(for="new-email") 이메일
+                  input(type="text" name="new-email" id="new-email" v-model="new_email")
+                  span.show.col(v-show="new_email_check") * 이메일 형식이 올바르지 않습니다..                  
+                  br
+                  label(for="new-photo") 프로필 사진
+                  input(type="file" name="new-photo" id="new-photo" @change="newPhoto")
+                .btn-group.mt-1
+                  a.btn-submit(role="button" href @click.prevent="submitnewMyinfo") 변경하기
                   a.btn-white(role="button" @click.prevent="toggleEditMyInfo" href) 취소
+                  
+                  
+
+
+
+
+
+
+
+
+
       //- '튜터 등록하기' 버튼 클릭 시 is-active 클래스 추가
       .modal(role="dialog" :class="{'is-active':tutor_modal_view}")
           .modal-background
@@ -102,6 +133,8 @@ export default {
       this.is_loaded = true;
       this.userid = this.user.username;
       this.userpic = this.user.my_photo;
+      this.new_nick_name = this.user.nickname;
+      this.new_email = this.user.email;
       // this.mypageFrm.append('Authorization', '5c2f739fb5f30eb3de8078434192de391b316595')           
     }).catch(error=>{
       console.log(error);
@@ -109,6 +142,7 @@ export default {
     });
     this.mypageFrm = new FormData();
     this.newPwFrm = new FormData();
+    this.newMyinfoFrm = new FormData();
   },
 
   data(){
@@ -121,6 +155,7 @@ export default {
       password_2: '',
       edit_modal_view: false,
       tutor_modal_view: false, 
+      edit_myinfo_view: false,
       is_loaded: false,
       tutor_type: '',
       tutor_school: '',
@@ -130,7 +165,10 @@ export default {
       tutor_nick_name: '',
       tutor_phone: '',
       tutor_data : {},
-      tutorInfo: this.$store.getters.tutorInfo * 1
+      tutorInfo: this.$store.getters.tutorInfo * 1,
+      new_nick_name: '',
+      new_email: '',
+      new_photo: '',
     }
   },
   
@@ -141,11 +179,17 @@ export default {
     pw_2(e){
       this.password_2 = e.target.value
     },
-    toggleEditMyInfo(){
+    newPhoto(e){
+      this.new_photo = e.target.files
+    },
+    toggleEditNewpw(){
       this.edit_modal_view = !this.edit_modal_view
     },
     toggleEnrollTutor(){
       this.tutor_modal_view = !this.tutor_modal_view
+    },
+    toggleEditMyInfo(){
+      this.edit_myinfo_view = !this.edit_myinfo_view
     },
 
     // tutor
@@ -259,32 +303,62 @@ export default {
       })
     },
     submitNewPw(){
-      this.newPwFrm.append('old_password', this.oldpassword)
+      this.newPwFrm.append('old_password', this.oldpassword);
       this.newPwFrm.append('new_password1', this.password);
-      this.newPwFrm.append('new_password1', this.password_2);
+      this.newPwFrm.append('new_password2', this.password_2);
       this.newPwSubmit();
     },
     newPwSubmit(){
-      this.$http.patch(this.$store.state.member.changepwd, this.newPwFrm)
+      this.$http.patch(this.$store.state.member.changepwd+this.$store.state.userInfo+'/', this.newPwFrm, {headers:{'authorization':this.$store.getters.token}} )
       .then(response => {
         if(response.status === 200){
-          this.$router.push('/');
+          window.alert('비밀번호 변경이 완료되었습니다.');
+          this.toggleEditNewpw();
         }
       })
       .catch(error => {
         console.log('비밀번호 변경 실패', error);
         switch(error.status){
           case 400:
-            window.alert('비밀번호 변경이 불가 합니다.')
+            window.alert('비밀번호 변경이 불가 합니다.');
             break;
         }
       })
-    }
+    },
+    submitnewMyinfo(){
+      this.newMyinfoFrm.append('nickname', this.new_nick_name);
+      this.newMyinfoFrm.append('email', this.new_email);
+      this.newMyinfoFrm.append('my_photo', this.new_photo[0], this.new_photo[0].name );
+      this.newMyinfoSubmit();
+    },
+    newMyinfoSubmit(){
+      this.$http.put(this.$store.state.member.profile+this.$store.state.userInfo+'/', this.newMyinfoFrm, {headers:{'authorization':this.$store.getters.token}} )
+      .then(response => {
+        if(response.status === 200){
+          window.alert('내정보가 변경되었습니다.');
+          this.toggleEditMyInfo();
+        }
+      })
+    },
   },
   computed:{
     pw_check(){
       return (this.password === this.password_2) ? false : true
     },
+    new_nickname_check(){
+      let pattern = /^[\w\Wㄱ-ㅎㅏ-ㅣ가-힣]{6,12}$/;
+      if(this.new_nick_name === ''){
+        return false
+      }
+      return !pattern.test(this.new_nick_name);
+    },
+    new_email_check(){
+      let regex=/([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+      if(this.new_email === ''){
+        return false
+      }
+      return !regex.test(this.new_email);
+    }
   }
 }
 </script>
