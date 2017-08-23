@@ -41,7 +41,7 @@
             .btn-group.mt-1
               a.btn-submit(role="button" href @click.prevent="registerClass") 수강 신청하기
               a.btn-white(v-if="is_like === false" role="button" href @click.prevent="likeClass") 강의 찜하기
-              a.btn-white(v-else role="button" href @click.prevent="likeClass").unlike-class 강의 찜취소
+              a.btn-white(v-else role="button" href @click.prevent="unlikeClass").unlike-class 강의 찜취소
         .grid
           .col 
             h3.mt-2.bb 상세 정보
@@ -154,6 +154,10 @@ export default {
     }
   },
   methods: {
+    unlikeClass(){
+      this.is_like = !this.is_like;
+      window.alert('해당 강의를 찜목록에서 삭제 했습니다.')
+    },
     likeClass(){
       if (!this.is_login){
         window.alert('로그인 후 이용할 수 있습니다.');
@@ -163,7 +167,7 @@ export default {
       this.likeForm.append('lecture_id', this.id);
       this.$http.post(this.$store.state.lecture.like, this.likeForm, {headers:{Authorization:this.$store.getters.token}})
       .then(response => {
-        // window.alert('해당 강의를 찜 했습니다.')
+        window.alert('해당 강의를 찜 했습니다.')
         return;
       });
     },
