@@ -11,7 +11,7 @@ const store = new Vuex.Store({
     isLogIn: !!localStorage.getItem("login_token"),
     userInfo: localStorage.getItem('user_info'),
     tutorInfo: localStorage.getItem('tutor_info'),
-    token: 'Token '+ localStorage.getItem("login_token"),
+    token: '',
     member:{
       signup   : APIHOST+'member/signup/',
       signin   : APIHOST+'member/login/',
@@ -33,6 +33,7 @@ const store = new Vuex.Store({
       state.isLogIn = true; 
       state.userInfo = payload.userid;
       state.tutorInfo = payload.tutorid;
+      state.token =  'Token '+ localStorage.getItem("login_token");
     },
     [LOGOUT](state) { state.isLogIn = false; },
     TUTOR(state, payload){
@@ -49,6 +50,8 @@ const store = new Vuex.Store({
    },
    logout({ commit }) {
      localStorage.removeItem("login_token");
+     localStorage.removeItem("user_info");
+     localStorage.removeItem("tutor_info");
      commit(LOGOUT);
    },
    tutorSet({commit}, payload){
