@@ -25,9 +25,6 @@ export default {
   name: 'lecture-item',
   props: ['lecture', 'index'],
   created () {
-    // if (this.$route.path === "/mypage/myfavoritelist"){
-    //   this.is_like = true;
-    // }
     this.likeForm = new FormData();
   },
   data(){

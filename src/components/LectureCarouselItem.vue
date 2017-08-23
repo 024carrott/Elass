@@ -11,7 +11,7 @@
       a(v-if="is_like === false" href role="button" :aria-label="`${class_item.title} 좋아요`" @click.prevent="likeClass").favorite-like
         img(src="../assets/favorite-list/favorite-like-btn-off.png")
       a(v-else href role="button" :aria-label="`${class_item.title} 좋아요 취소`" @click.prevent="unlikeClass").favorite-like
-        img(src="../assets/favorite-list/favorite-like-btn-on.png")
+        img(src="../assets/favorite-list/favorite-like-btn-on.png" alt="`${class_item.title} 좋아요`")
       .favorite-star(v-if="review_average")
         span.a11y-hidden {{parseInt(review_average)}}
         i(v-for="i in 5" :class="i <= parseInt(review_average) || 0 ? 'ion-ios-star': 'ion-ios-star-outline'")
