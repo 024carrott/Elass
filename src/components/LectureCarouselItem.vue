@@ -12,14 +12,12 @@
         img(src="../assets/favorite-list/favorite-like-btn-off.png")
       a(v-else href role="button" :aria-label="`${class_item.title} 좋아요 취소`" @click.prevent="unlikeClass").favorite-like
         img(src="../assets/favorite-list/favorite-like-btn-on.png")
-      .favorite-star
-        span.a11y-hidden 강의평가 5점 만점에 4점
-        i.ion-ios-star
-        i.ion-ios-star
-        i.ion-ios-star
-        i.ion-ios-star
-        i.ion-ios-star-outline
-        
+      .favorite-star(v-if="review_average")
+        span.a11y-hidden {{parseInt(review_average)}}
+        i(v-for="i in 5" :class="i <= parseInt(review_average) || 0 ? 'ion-ios-star': 'ion-ios-star-outline'")
+      .favorite-star(v-else)
+        span.a11y-hidden 평가 없음
+        i.ion-ios-star-outline(v-for="i in 5")
 </template>
 
 <script>
@@ -72,6 +70,9 @@ export default {
     }
   },
   computed: {
+    review_average(){
+      return this.class_item.review_average.curriculum_rate || 0;
+    },
     koreanCategory(){
       switch(this.class_item.category){
         case "hbn" : this.class_item.category = '헬스&뷰티';
@@ -221,10 +222,10 @@ export default {
   .star-rate{
     font-size: 2.2rem;
     .ion-ios-star{
-      color: #f8d64e;
+      color: #007aff;
     }
     .ion-ios-star-outline{
-      color: #bbc0d4;
+      color: #007aff;
     }
   }
   .favorite-star{

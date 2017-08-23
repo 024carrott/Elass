@@ -2,18 +2,18 @@
 main
   .container.mt-2
   .grid
-    .col.col-d-2.col-t-2.col-m-1.col-d-offset-2
-      .box
-        select.select-box(title="search-select")
-          option(value="all" selected) 전체
-          option(value="lecture-name") 강의명 
-          option(value="teacher-name") 강사명
-          option(value="lecture-location") 지역
-    .col.col-d-5.col-t-5.col-m-2
+    //- .col.col-d-2.col-t-2.col-m-1.col-d-offset-2
+    //-   .box
+    //-     select.select-box(title="search-select")
+    //-       option(value="all" selected) 전체
+    //-       option(value="lecture-name") 강의명 
+    //-       option(value="teacher-name") 강사명
+    //-       option(value="lecture-location") 지역
+    .col.col-d-5.col-d-offset-3.col-t-7.col-m-3
       .list-search-wrap
-        input.list-search(type="search" placeholder="검색어를 입력하세요")
+        input.list-search(type="search" placeholder="검색어를 입력하세요" v-model="search_query")
     .col.col-d-1.col-t-1.col-m-1
-      button.list-search-btn(role="button" aria-label="검색") 검색
+      button.list-search-btn(role="button" @click.prevent="search" aria-label="검색") 검색
   .container.category-container.mt-2
     .grid
       h2.a11y-hidden 강의 카테고리
@@ -55,7 +55,7 @@ main
         href="mna"
         role="button"
         aria-label="음악 미술 카테고리 보기"
-        :class="[category === 'mna' ? 'selected-category' : '']"
+        :class="[category === 'mna'? 'selected-category' : '']"
         ).ion-ios-musical-notes
         br
         small 음악&sol;미술
@@ -83,12 +83,6 @@ main
         p.text 총 {{lectures.length}} 개의 강의가 등록되어 있습니다.
 
   .container
-    .grid
-      .col.col-d-2.col-t-2.col-m-1.col-d-offset-10.col-t-offset-6.col-m-offset-3
-        .box
-          select.select-box(title="search-select")
-            option(value="new" selected) 신규등록순
-            option(value="average") 평점높은순
     ul.grid.lecture-list
       lecture-list-item(
         v-for="(lecture, index) in lectures"
@@ -112,9 +106,22 @@ import LectureListItem from './LectureListItem';
 import TopButton from '../TopButton';
 export default {
   created () {
-    this.$http.post(this.$store.state.lecture.list).then((response) => {
+    if(this.search_query.length){
+      this.listFrm = new FormData();
+      this.listFrm.append('search_text', this.search_query);
+    }
+    this.$http.post(this.$store.state.lecture.list, this.listFrm).then((response) => {
+      let filteredLectures = [];
       let res_data = response.data;
       this.lectures = res_data;
+      if (this.category !== 'all'){
+        for (let i = 0, l = this.lectures.length; i < l; i++){
+          if (this.lectures[i].category === this.category){
+            filteredLectures.push(this.lectures[i]);
+          }
+        }
+        this.lectures = filteredLectures;
+      }
     });
   },
   data () {
@@ -122,13 +129,19 @@ export default {
       lectures: [],
       category : this.$route.params.category,
       set_category: '',
+      search_query: this.$route.query.q || '',
       visible_item: 6,
       is_selected: false,
+      listFrm: null,
     }
   },
   methods: {
     loadLecture() {
       this.visible_item += 6;
+    },
+    search(){
+      window.location.replace('/lecturelist/'+ this.category+'?q='+ this.search_query);
+
     }
   },
   components: {
@@ -145,7 +158,7 @@ export default {
         break;
         case "com" : this.set_category = '컴퓨터';
         break;
-        case "mna" : this.set_category = '음악/미술';
+        case "mna": this.set_category = '음악/미술';
         break;
         case "sports" : this.set_category = '스포츠';
         break;

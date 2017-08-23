@@ -46,12 +46,9 @@
     .container.main-banner-bottom.mt-2
       .grid.main-banner-paragh
             p
-              span 나에게 딱 맞는 강의를 찾아드립니다.
-              br
-              | 그 정도로 집에서 놀꺼면 뭐라도 배워라.
-              br
-              | 주변에 재능기부로 호구짓하지말고 뭐라도 가르쳐라.
-   
+              span 당신이 배우고 싶은것, 무엇이든 
+                strong 엘라스
+                | 에 있습니다.
     //- 수강생 리뷰
     reviews
     //- 탑버튼
@@ -63,10 +60,10 @@ import LectureCarousel from '../LectureCarousel';
 import Reviews from './Reviews';
 import TopButton from '../TopButton'
 export default {
+  name: 'main',
   components: {
     LectureCarousel,  Reviews, TopButton
   },
-  name: 'main',
 }
 </script>
 
@@ -178,8 +175,9 @@ export default {
   .main-banner-bottom{
     position: relative;
     width: 100%;
-    height: 231px;
+    height: 450px;
     background: url('../../assets/main/banner.jpg') 0 0/cover;
+    background-position: 0 10%;
   }
   .main-banner-paragh{
     position: relative;
@@ -193,6 +191,9 @@ export default {
     }
     span{
       font-size: 3.3rem;
+      strong{
+        color: #007aff;
+      }
     }
   }
 </style>
