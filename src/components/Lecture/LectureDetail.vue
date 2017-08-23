@@ -54,7 +54,7 @@
         .grid.mt-2
           .col.col-d-2.col-d-offset-5.col-t-2.col-t-offset-3.col-m-2.col-m-offset-1
             a.btn-white.is-full.is-small(to="lecturelist" role="button" href="/lecturelist/all") 목록으로
-          a.btn-white.is-small.ion-edit(role="button" href) 강의수정
+          //- a.btn-white.is-small.ion-edit(role="button" href) 강의수정
         .grid(v-if="this.reviews.length > 0")
           h3.bb.mt-2 강의 평가 (총 {{this.reviews.length}}개의 평가가 있습니다.)
           .col
@@ -336,7 +336,7 @@ export default {
         let state = this.lecture.locations[0].location1;
         let city = this.lecture.locations[0].location2;
         let detail_location = this.lecture.locations[0].location_detail;
-        return `${state}시 ${city}구 ${detail_location}`;
+        return `${state} ${city} ${detail_location}`;
       }else{
         return '';
       }
@@ -361,8 +361,9 @@ export default {
   @import "~default"
   .lecture-carousel-item
     img
-      max-width: 100%
+      width: 100%
       height: auto
+      transform: translateY(-20%)
   .star-rating
     unicode-bidi: bidi-override
     direction: rtl
