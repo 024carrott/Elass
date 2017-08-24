@@ -1,5 +1,8 @@
 # Fast Campus Team Project- Team6 (elass)
 
+## 시연영상
+[elass 시연 영상](https://youtu.be/Qys2Z0UGidA)
+
 ## 프로젝트 계획서 (Front-end)
 
 ### 팀원
